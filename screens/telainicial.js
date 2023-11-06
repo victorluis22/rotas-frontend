@@ -1,6 +1,6 @@
-import { ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { ImageBackground, StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 import HamburguerMenu from '../components/hambuguermenu';
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+// import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
 
@@ -14,6 +14,10 @@ export default function TelaInicial() {
 
   function navegarColeta() {
     navigation.navigate('Coleta');
+  }
+
+  function navegarClientes() {
+    navigation.navigate('CadastroCliente');
   }
 
   return (
@@ -65,7 +69,7 @@ export default function TelaInicial() {
           </View>
 
           <View style={styles.containerdentro}>
-            <TouchableOpacity onPress={Clientes}>
+            <TouchableOpacity onPress={()=> navegarClientes()}>
               <ImageBackground
                 source={require('../assets/imagens/identidade.png')}
                 resizeMode='cover'

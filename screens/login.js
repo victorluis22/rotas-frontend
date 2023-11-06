@@ -1,16 +1,15 @@
-import { StyleSheet, Text, View, Image, TextInput, Button, Pressable, TouchableHighlight } from 'react-native';
-import React, { useState } from 'react'
+import { StyleSheet, Text, View, Image, TextInput, Button, Pressable, TouchableHighlight, Alert } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
-import 'react-native-gesture-handler';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import axios from 'axios';
+import { AuthContext } from '../context/auth';
+import Loading from './loading';
 
 export default function Login() {
 
   const [username, setUsername] = useState('')
   const [senha, setSenha] = useState('')
-
+  const { authenticated, login, loading } = useContext(AuthContext)
   const navigation = useNavigation()
 
   function navegarTelaInicial() {
@@ -23,9 +22,16 @@ export default function Login() {
       senha
     }
 
-    navegarTelaInicial();
-    console.log(data);
-
+    // navegarTelaInicial()
+    try{
+      await login(data)
+      console.log(data);
+      navegarTelaInicial();
+    }
+    catch(e){
+      console.log(e)
+      Alert.alert('Erro', 'Erro ao logar, tente novamamente.')
+    }
   }
 
   return (
@@ -56,7 +62,6 @@ export default function Login() {
         <TouchableHighlight
           style={styles.butao}
           onPress={handleSignIn}
-
         >
           <Text style={{ color: 'white', alignSelf: 'center', fontSize: 14, justifyContent: 'center' }}>
             Entrar

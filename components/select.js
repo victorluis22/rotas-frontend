@@ -1,7 +1,7 @@
-import { View, Text, TouchableOpacity, StyleSheet, Modal, FlatList, Button } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Modal, FlatList, Button, ScrollView } from "react-native";
 import Icon from 'react-native-vector-icons/AntDesign';
 import { useState } from "react";
-import { ScrollView } from "react-native-gesture-handler";
+// import { ScrollView } from "react-native-gesture-handler";
 
 export default function Select({ options, onChangeSelect, text }) {
 

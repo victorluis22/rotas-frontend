@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity, ModalFadeTransition, Modal, Image } from 'react-native';
+import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity, ModalFadeTransition, Modal, Image, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Iconn from 'react-native-vector-icons/Octicons';
 import { useNavigation } from '@react-navigation/native';
-import { ScrollView } from "react-native-gesture-handler";
+// import { ScrollView } from "react-native-gesture-handler";
 
 
 export default function HamburguerMenu(props) {
@@ -45,7 +45,7 @@ export default function HamburguerMenu(props) {
                                 </View>
                                 {props.options &&
                                     props.options.map((item, index) =>
-                                        <TouchableOpacity key={index.key}
+                                        <TouchableOpacity key={index}
                                             onPress={() => click(item.screen)}
                                         >
                                             <Text style={styles.estilotextomodal}>{item.title}</Text>

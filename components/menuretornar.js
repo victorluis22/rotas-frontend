@@ -13,10 +13,11 @@ export default function MenuRetornar(props) {
 
     return (
         <SafeAreaView style={styles.retornar}>
-            <View style={{ paddingLeft: 5, backgroundColor: '#606060', borderRadius: '100%', height: 40, width: 40, justifyContent: 'center', marginLeft: 5 }}>
+            <View style={{ paddingLeft: 5, backgroundColor: '#606060', borderRadius: 20, height: 40, width: 40, justifyContent: 'center', marginLeft: 5 }}>
                 {props.options &&
                     props.options.map((item, index) =>
                         <TouchableOpacity
+                            key={index}
                             onPress={() => voltar(item.voltar)}
                         >
                             <Icon name="return-up-back" size={30} color="black" />
@@ -26,7 +27,7 @@ export default function MenuRetornar(props) {
             <View style={styles.nome}>
                 {props.options &&
                     props.options.map((item, index) =>
-                        <Text style={styles.textonome}>{item.title}</Text>
+                        <Text key={index} style={styles.textonome}>{item.title}</Text>
                     )}
             </View>
             <View style={{
