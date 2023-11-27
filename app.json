@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "testproject",
-    "slug": "testproject",
+    "name": "rotas",
+    "slug": "rotas",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.vphix.rotas"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e0477123-6ec7-4d89-b6c1-c8bd3db85e24"
+      }
     }
   }
 }
