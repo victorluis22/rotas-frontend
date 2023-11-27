@@ -1,24 +1,26 @@
-import { View, Text, TouchableOpacity, StyleSheet, Tilte, TextInput, ScrollView, Alert, Button } from "react-native";
-import MenuRetornar from "../../components/menuretornar";
-import Icon from "react-native-vector-icons/AntDesign"
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, ScrollView, Alert } from "react-native";
+import MenuRetornar from "../../../components/menuretornar";
 import { useState } from "react";
-import { createClient } from "../../services/api";
+import { createClient, updateClient } from "../../../services/api";
 import { useNavigation } from "@react-navigation/native";
-import { validateCPFCNPJ } from "../../services/inputMask";
-import {Picker} from '@react-native-picker/picker';
+import { validateCPFCNPJ } from "../../../services/inputMask";
+import { Picker } from '@react-native-picker/picker';
 
-export default function CadastroCliente(){
-    const [nome, setNome] = useState("sadsa")
-    const [logradouro, setLogradouro] = useState("sadsa")
-    const [numero, setNumero] = useState("sadsa")
-    const [complemento, setComplemento] = useState("sadsa")
-    const [UTM, setUTM] = useState("sadsa")
-    const [bairro, setBairro] = useState("asdsa")
-    const [cidade, setCidade] = useState("asdsa")
-    const [uf, setUf] = useState("sads")
-    const [tempoColeta, setTempoColeta] = useState("sadsa")
-    const [cpfcnpj, setCpfcnpj] = useState("000.000.000-01")
-    const [pjpf, setPjpf] = useState("PF")
+export default function CadastroCliente({route}){
+    const previousData = route.params.previousData
+    const type = route.params.type
+
+    const [nome, setNome] = useState(type === "update" ? previousData.Nome : "")
+    const [logradouro, setLogradouro] = useState(type === "update" ? previousData.Logradouro : "")
+    const [numero, setNumero] = useState(type === "update" ? previousData.Numero.toString() : "")
+    const [complemento, setComplemento] = useState(type === "update" ? previousData.Complemento : "")
+    const [UTM, setUTM] = useState(type === "update" ? previousData.UTM : "")
+    const [bairro, setBairro] = useState(type === "update" ? previousData.Bairro : "")
+    const [cidade, setCidade] = useState(type === "update" ? previousData.Cidade : "")
+    const [uf, setUf] = useState(type === "update" ? previousData.UF : "")
+    const [tempoColeta, setTempoColeta] = useState(type === "update" ? previousData.TempoColeta : "")
+    const [cpfcnpj, setCpfcnpj] = useState(type === "update" ? previousData.CPF_CNPJ : "")
+    const [pjpf, setPjpf] = useState(type === "update" ? previousData.PJ_PF : "")
     const navigation = useNavigation()
 
     const submit = async () => {
@@ -38,9 +40,16 @@ export default function CadastroCliente(){
             }
 
             try {
-                await createClient(data)
-                Alert.alert("Sucesso", "Usuário cadastrado com sucesso!")
-                navigation.navigate("TelaInicial")
+                if (type === "update"){
+                    await updateClient(previousData.CodCliente, data)
+                    Alert.alert("Sucesso", "Usuário atualizado com sucesso!")
+                    navigation.navigate("ListaCliente")
+                }
+                else{
+                    await createClient(data)
+                    Alert.alert("Sucesso", "Usuário cadastrado com sucesso!")
+                    navigation.navigate("ListaCliente")
+                }
             } catch (error) {
                 console.log(error)
                 Alert.alert("Erro", "Ocorreu um erro ao enviar os dados, tente novamente.")
@@ -53,12 +62,8 @@ export default function CadastroCliente(){
     
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: 'Cadastro de Clientes', voltar: 'TelaInicial' }]} />
+            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.Nome}` : "Cadastro de Clientes", voltar: "ClienteHome" }]} />
             <ScrollView>
-                <Text style={styles.Title}>
-                    Cadastro de Cliente
-                    <Icon name="database" size={20} color={"#000"} />
-                </Text>
 
                 <Text style={styles.Titleinput}>Nome</Text>
                 <TextInput
@@ -171,6 +176,8 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         margin: 10,
         paddingLeft:15,
+        elevation: 5,
+        shadowColor: '#3C3C3C'
     },
 
     Title: {
@@ -183,18 +190,25 @@ const styles = StyleSheet.create({
     Titleinput: {
         display: "flex",
         marginLeft: 40,
+        color: "#3C3C3C",
+        fontSize: 16,
+        fontWeight: "bold"
     },
 
     ButtonText: {
         margin: 10,
+        fontSize: 20,
+        color: "#D9D9D9",
+        fontWeight: "bold"
     },
 
     ButtonContent: {
         display: "flex",
         alignItems: "center",
-        backgroundColor: "lightblue",
-        // borderRadius: 10,
-        marginVertical: 20
+        backgroundColor: "#3C3C3C",
+        borderRadius: 10,
+        marginHorizontal: "10%",
+        marginVertical: 40
     }
 
 });

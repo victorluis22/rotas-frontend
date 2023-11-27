@@ -9,7 +9,7 @@ import DisponibilidadeVeiculos from './screens/disponibilidadeveiculos';
 import ColetaCliente from './screens/coletacliente';
 import EntregaCompostagem from './screens/entregacompostagem';
 import ResponsavelVeiculo from './screens/responsavelveiculo';
-import CadastroVeiculo from './screens/cadastroveiculos';
+import CadastroVeiculo from './screens/veiculo/cadastroveiculo/cadastroveiculos';
 import DiasdaSemana from './screens/diasdasemana';
 import JaneladeTempo from './screens/janeladetempo';
 import Responsaveis from './screens/responsaveis';
@@ -19,7 +19,9 @@ import RotasColeta from './screens/rotascoleta';
 import Coleta from './screens/coleta/coleta';
 import ColetaMap from './screens/coletamap';
 import Loading from "./screens/loading"
-import CadastroCliente from './screens/cadastroCliente/cadastroCli';
+import CadastroCliente from './screens/cliente/cadastroCliente/cadastroCli';
+import ListaCliente from './screens/cliente/listaCliente/listaCliente';
+import ListaVeiculo from './screens/veiculo/listaVeiculo/listaVeiculo';
 
 import { AuthProvider } from './context/auth';
 
@@ -101,6 +103,14 @@ function App() {
                 headerTransparent: true,
                 headerShown: false
               }}
+              name="ListaVeiculo" component={ListaVeiculo}
+            />
+            <Stack.Screen
+              options={{
+                title: '',
+                headerTransparent: true,
+                headerShown: false
+              }}
               name="DiasdaSemana" component={DiasdaSemana}
             />
             <Stack.Screen
@@ -166,6 +176,14 @@ function App() {
                 headerShown: false
               }}
               name="CadastroCliente" component={CadastroCliente}
+            />
+            <Stack.Screen
+              options={{
+                title: '',
+                headerTransparent: true,
+                headerShown: false
+              }}
+              name="ListaCliente" component={ListaCliente}
             />
           </Stack.Navigator>
         </NavigationContainer>

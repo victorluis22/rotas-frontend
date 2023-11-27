@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, StyleSheet, TouchableHighlight, TextInput } from "react-native";
-import MenuRetornar from "../components/menuretornar";
-import Select from "../components/select";
+import MenuRetornar from "../../../components/menuretornar";
+import Select from "../../../components/select";
 import React, { useState } from 'react'
 
 
@@ -16,7 +16,7 @@ export default function CadastroVeiculo() {
 
     return (
         <View>
-            <MenuRetornar options={[{ title: 'Cadastro de Veículo', voltar: 'TelaInicial' }]} />
+            <MenuRetornar options={[{ title: 'Cadastro de Veículo', voltar: 'Veiculos' }]} />
             <View style={styles.container}>
 
                 <View style={styles.containerdentro}>

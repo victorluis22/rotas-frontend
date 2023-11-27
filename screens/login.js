@@ -22,16 +22,16 @@ export default function Login() {
       senha
     }
 
-    // navegarTelaInicial()
-    try{
-      await login(data)
-      console.log(data);
-      navegarTelaInicial();
-    }
-    catch(e){
-      console.log(e)
-      Alert.alert('Erro', 'Erro ao logar, tente novamamente.')
-    }
+    navegarTelaInicial()
+    // try{
+    //   await login(data)
+    //   console.log(data);
+    //   navegarTelaInicial();
+    // }
+    // catch(e){
+    //   console.log(e)
+    //   Alert.alert('Erro', 'Erro ao logar, tente novamamente.')
+    // }
   }
 
   return (

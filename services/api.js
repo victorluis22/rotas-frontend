@@ -7,11 +7,26 @@ export const api = axios.create({
 
 // Basic Services
 export const createSession = async (login, senha) => {
-    
     return await api.post('/login', {login, senha})
+}
+
+
+export const getClients = async () => {
+    return await api.get('/clientes')
 }
 
 export const createClient = async (data) => {
     console.log(data)
     return await api.post('/clientes', {...data})
 }
+
+export const updateClient = async (id, data) => {
+    console.log(id, data)
+    return await api.put(`/cliente/${id}`, {...data})
+}
+
+export const deleteClient = async (id) => {
+    return await api.delete(`/cliente/${id}`)
+}
+
+
