@@ -1,18 +1,17 @@
 import React, { useState } from "react";
-import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity, ModalFadeTransition, Modal, Image, ScrollView } from 'react-native';
+import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity, Modal, Image, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Iconn from 'react-native-vector-icons/Octicons';
 import { useNavigation } from '@react-navigation/native';
-// import { ScrollView } from "react-native-gesture-handler";
 
 
 export default function HamburguerMenu(props) {
     const [ModalVisible, setModalVisible] = useState(false);
     const navigation = useNavigation();
 
-    function click(value) {
+    function click(value, table) {
         setModalVisible(false);
-        navigation.navigate(value)
+        navigation.navigate(value, {table: table})
     }
 
     return (
@@ -46,7 +45,7 @@ export default function HamburguerMenu(props) {
                                 {props.options &&
                                     props.options.map((item, index) =>
                                         <TouchableOpacity key={index}
-                                            onPress={() => click(item.screen)}
+                                            onPress={() => click(item.screen, item.table)}
                                         >
                                             <Text style={styles.estilotextomodal}>{item.title}</Text>
 

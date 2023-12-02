@@ -5,14 +5,14 @@ import React, { useState } from 'react'
 
 
 
-export default function CadastroVeiculo() {
+export default function CadastroVeiculo({ route }) {
+    const previousData = route.params.previousData
+    const type = route.params.type
 
     const [descricao, setDescricao] = useState('')
     const [emissao, setEmissao] = useState('')
     const [custo, setCusto] = useState('')
     const [capacidade, setCapacidade] = useState('')
-
-
 
     return (
         <View>

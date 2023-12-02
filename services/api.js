@@ -10,23 +10,22 @@ export const createSession = async (login, senha) => {
     return await api.post('/login', {login, senha})
 }
 
-
-export const getClients = async () => {
-    return await api.get('/clientes')
+export const get = async (table) => {
+    return await api.get(`/${table}`)
 }
 
-export const createClient = async (data) => {
+export const create = async (table, data) => {
     console.log(data)
-    return await api.post('/clientes', {...data})
+    return await api.post(`/${table}`, {...data})
 }
 
-export const updateClient = async (id, data) => {
+export const update = async (table, id, data) => {
     console.log(id, data)
-    return await api.put(`/cliente/${id}`, {...data})
+    return await api.put(`/${table}/${id}`, {...data})
 }
 
-export const deleteClient = async (id) => {
-    return await api.delete(`/cliente/${id}`)
+export const remove = async (table, id) => {
+    return await api.delete(`/${table}/${id}`)
 }
 
 

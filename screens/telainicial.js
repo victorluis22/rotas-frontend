@@ -17,13 +17,13 @@ export default function TelaInicial() {
   }
 
   function navegarClientes() {
-    navigation.navigate('ListaCliente');
+    navigation.navigate('ListaDados', {table: "clientes"});
   }
 
   return (
     <View style={styles.container}>
       <HamburguerMenu
-        options={[{ title: 'Veículos', screen: 'ListaVeiculo' }, { title: 'Dias da Semana', screen: 'DiasdaSemana' }, { title: 'Janela de Tempo', screen: 'JaneladeTempo' }, { title: 'Responsáveis', screen: 'Responsaveis' }, { title: 'Tipo de Contrato', screen: 'TipodeContrato' }, { title: 'Pontos de Compostagem', screen: 'PontosCompostagem' }, { title: 'Alocação de horário', screen: 'AlocacaodeHorarios' }, { title: 'Responsável Veículo', screen: 'ResponsavelVeiculo' }]}
+        options={[{ title: 'Veículos', screen: 'ListaDados', table: "veiculos" }, { title: 'Dias da Semana', screen: 'DiasdaSemana' }, { title: 'Janela de Tempo', screen: 'JaneladeTempo' }, { title: 'Responsáveis', screen: 'Responsaveis' }, { title: 'Tipo de Contrato', screen: 'TipodeContrato' }, { title: 'Pontos de Compostagem', screen: 'PontosCompostagem' }, { title: 'Alocação de horário', screen: 'AlocacaodeHorarios' }, { title: 'Responsável Veículo', screen: 'ResponsavelVeiculo' }]}
       />
       <ScrollView>
 

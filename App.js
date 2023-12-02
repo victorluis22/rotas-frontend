@@ -20,8 +20,7 @@ import Coleta from './screens/coleta/coleta';
 import ColetaMap from './screens/coletamap';
 import Loading from "./screens/loading"
 import CadastroCliente from './screens/cliente/cadastroCliente/cadastroCli';
-import ListaCliente from './screens/cliente/listaCliente/listaCliente';
-import ListaVeiculo from './screens/veiculo/listaVeiculo/listaVeiculo';
+import ListaDados from './screens/listaDados';
 
 import { AuthProvider } from './context/auth';
 
@@ -103,14 +102,6 @@ function App() {
                 headerTransparent: true,
                 headerShown: false
               }}
-              name="ListaVeiculo" component={ListaVeiculo}
-            />
-            <Stack.Screen
-              options={{
-                title: '',
-                headerTransparent: true,
-                headerShown: false
-              }}
               name="DiasdaSemana" component={DiasdaSemana}
             />
             <Stack.Screen
@@ -183,7 +174,7 @@ function App() {
                 headerTransparent: true,
                 headerShown: false
               }}
-              name="ListaCliente" component={ListaCliente}
+              name="ListaDados" component={ListaDados}
             />
           </Stack.Navigator>
         </NavigationContainer>

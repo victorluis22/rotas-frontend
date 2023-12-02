@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, ScrollView, Alert } from "react-native";
 import MenuRetornar from "../../../components/menuretornar";
 import { useState } from "react";
-import { createClient, updateClient } from "../../../services/api";
+import { create, update } from "../../../services/api";
 import { useNavigation } from "@react-navigation/native";
 import { validateCPFCNPJ } from "../../../services/inputMask";
 import { Picker } from '@react-native-picker/picker';
@@ -41,14 +41,14 @@ export default function CadastroCliente({route}){
 
             try {
                 if (type === "update"){
-                    await updateClient(previousData.CodCliente, data)
+                    await update("clientes", previousData.CodCliente, data)
                     Alert.alert("Sucesso", "Usuário atualizado com sucesso!")
-                    navigation.navigate("ListaCliente")
+                    navigation.navigate("ListaDados", {table: "clientes"})
                 }
                 else{
-                    await createClient(data)
+                    await create("clientes", data)
                     Alert.alert("Sucesso", "Usuário cadastrado com sucesso!")
-                    navigation.navigate("ListaCliente")
+                    navigation.navigate("ListaDados", {table: "clientes"})
                 }
             } catch (error) {
                 console.log(error)
