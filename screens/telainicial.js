@@ -29,7 +29,7 @@ export default function TelaInicial() {
           { title: 'Dias da Semana', screen: 'DiasdaSemana' }, 
           { title: 'Janela de Tempo', screen: 'JaneladeTempo' }, 
           { title: 'Responsáveis', screen: 'ListaDados', table: "responsaveis" }, 
-          { title: 'Tipo de Contrato', screen: 'TipodeContrato' }, 
+          { title: 'Tipos de Contrato', screen: 'ListaDados', table: "tipoContrato" }, 
           { title: 'Pontos de Compostagem', screen: 'PontosCompostagem' }, 
           { title: 'Alocação de horário', screen: 'AlocacaodeHorarios' }, 
           { title: 'Responsável Veículo', screen: 'ResponsavelVeiculo' }]}

@@ -6,40 +6,42 @@ import { useNavigation } from "@react-navigation/native";
 import { create, update } from "../../services/api";
 
 
-export default function CadastroTipoVeiculo({ route }) {
+export default function CadastroTipoContrato({ route }) {
     const previousData = route.params.previousData
     const type = route.params.type
     
     const navigation = useNavigation()
 
-    const [descTipo, setDescTipo] = useState(type === "update" ? previousData.DescTipo : "")
+    const [periodicidade, setPeriodicidade] = useState(type === "update" ? previousData.Periodicidade : "")
+    const [valor, setValor] = useState(type === "update" ? previousData.ValorMensal.toString() : "")
 
     const submit = async () => {
-        if(descTipo){
+        if(periodicidade && valor){
             const data = {
-                descTipo: descTipo
+                periodicidade: periodicidade,
+                valorMensal: valor
             }
 
             try {
                 if (type === "update"){
-                    await update("tipoVeiculo", previousData.CodTipoVeic, data)
-                    Alert.alert("Sucesso", "Tipo de veículo atualizado com sucesso!")
-                    navigation.navigate("ListaDados", {table: "tipoVeiculo"})
+                    await update("tipoContrato", previousData.CodTipoContrato, data)
+                    Alert.alert("Sucesso", "Tipo de contrato atualizado com sucesso!")
+                    navigation.navigate("ListaDados", {table: "tipoContrato"})
                 }
                 else{
-                    await create("tipoVeiculo", data)
-                    Alert.alert("Sucesso", "Tipo de veículo cadastrado com sucesso!")
-                    navigation.navigate("ListaDados", {table: "tipoVeiculo"})
+                    await create("tipoContrato", data)
+                    Alert.alert("Sucesso", "Tipo de contrato cadastrado com sucesso!")
+                    navigation.navigate("ListaDados", {table: "tipoContrato"})
                 }
             } catch (error) {
                 console.log(error)
                 const status = error.response ? error.response.status : 500
 
                 if (status === 402){
-                    Alert.alert("Erro", "Tipo de veículo já cadastrado")
+                    Alert.alert("Erro", "Tipo de contrato já cadastrado")
                 }
                 else if(status == 404){
-                    Alert.alert("Erro", "Tipo de veículo não encontrado")
+                    Alert.alert("Erro", "Tipo de contrato não encontrado")
                 }
                 else{
                     Alert.alert("Erro", "Ocorreu um erro ao enviar os dados, tente novamente.")
@@ -53,10 +55,13 @@ export default function CadastroTipoVeiculo({ route }) {
 
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.DescTipo}`: 'Cadastro de Tipo de Veículo', voltar: "ListaDados", table: "tipoVeiculo" }]} />
+            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.Periodicidade - previousData.ValorMensal}`: 'Cadastro de Tipo de Contrato', voltar: "ListaDados", table: "tipoContrato" }]} />
                 <ScrollView style={styles.content}>
-                    <Text style={styles.titleinput}>Tipo de veículo</Text>
-                    <TextInput style={styles.input} value={descTipo} onChangeText={setDescTipo}/>
+                    <Text style={styles.titleinput}>Periodicidade</Text>
+                    <TextInput style={styles.input} value={periodicidade} onChangeText={setPeriodicidade}/>
+
+                    <Text style={styles.titleinput}>Valor Mensal (R$)</Text>
+                    <TextInput style={styles.input} value={valor} onChangeText={setValor} keyboardType="numeric"/>
 
 
                     <TouchableOpacity style={styles.buttonContent} onPress={() => submit()}>

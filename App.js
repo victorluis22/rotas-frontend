@@ -10,7 +10,6 @@ import EntregaCompostagem from './screens/entregacompostagem';
 import ResponsavelVeiculo from './screens/responsavelveiculo';
 import DiasdaSemana from './screens/diasdasemana';
 import JaneladeTempo from './screens/janeladetempo';
-import TipodeContrato from './screens/tipodecontrato';
 import PontosCompostagem from './screens/pontoscompostagem';
 import RotasColeta from './screens/rotascoleta';
 import Coleta from './screens/coleta/coleta';
@@ -21,6 +20,7 @@ import CadastroCliente from './screens/cliente/cadastroCli';
 import CadastroVeiculo from './screens/veiculo/cadastroVeic';
 import CadastroTipoVeiculo from './screens/veiculo/cadastroTipoVeic';
 import CadastroResponsavel from './screens/responsavel/cadastroResp';
+import CadastroTipoContrato from './screens/contrato/cadastroTipoContrato';
 import ListaDados from './screens/listaDados';
 
 import { AuthProvider } from './context/auth';
@@ -135,7 +135,7 @@ function App() {
                 headerTransparent: true,
                 headerShown: false
               }}
-              name="TipodeContrato" component={TipodeContrato}
+              name="CadastroTipoContrato" component={CadastroTipoContrato}
             />
             <Stack.Screen
               options={{

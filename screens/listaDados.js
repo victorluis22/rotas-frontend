@@ -122,6 +122,33 @@ export const RenderListaTipoVeiculo = ({data, search, openModal}) => {
     )
 }
 
+export const RenderListaTipoContrato = ({data, search, openModal}) => {
+    const searchLowerCase = search.toLowerCase()
+    const names = data.filter((eachData) => eachData.Periodicidade.toLowerCase().includes(searchLowerCase));
+    
+    return (
+        <>
+            {names ?
+                    names.map((eachName) => {
+                        return (
+                            <TouchableOpacity style={styles.button} key={eachName.CodTipoContrato} onPress={() => openModal(eachName)}>
+                                <ListaCard title={`${eachName.Periodicidade} - R$${eachName.ValorMensal}`} description={`# ${eachName.CodTipoContrato}`}/>
+                            </TouchableOpacity>
+                        )
+                    })
+                    :
+                    data.map((eachData) => {
+                        return (
+                            <TouchableOpacity style={styles.button} key={eachData.CodTipoContrato} onPress={() => openModal(eachData)}>
+                                <ListaCard title={`${eachName.Periodicidade} - R$${eachName.ValorMensal}`} description={`# ${eachData.CodTipoContrato}`}/>
+                            </TouchableOpacity>
+                        )
+                    })
+                }
+        </>
+    )
+}
+
 export const RenderLista = ({data, search, openModal, table }) => {
     switch(table){
         case "clientes":
@@ -131,7 +158,9 @@ export const RenderLista = ({data, search, openModal, table }) => {
         case "responsaveis":
             return <RenderListaResponsaveis data={data} search={search} openModal={openModal}/>   
         case "tipoVeiculo":
-            return <RenderListaTipoVeiculo data={data} search={search} openModal={openModal}/> 
+            return <RenderListaTipoVeiculo data={data} search={search} openModal={openModal}/>
+        case "tipoContrato":
+            return <RenderListaTipoContrato data={data} search={search} openModal={openModal}/>
     }
 }
 
@@ -191,6 +220,8 @@ export default function ListaDados({route}){
                 break
             case "tipoVeiculo":
                 navigation.navigate('CadastroTipoVeiculo', {type: "create", data:{}})
+            case "tipoContrato":
+                navigation.navigate('CadastroTipoContrato', {type: "create", data:{}})
         }
     }
 
