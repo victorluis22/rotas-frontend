@@ -68,12 +68,41 @@ export const RenderListaCliente = ({data, search, openModal}) => {
     )
 }
 
+export const RenderListaResponsaveis = ({data, search, openModal}) => {
+    const searchLowerCase = search.toLowerCase()
+    const names = data.filter((eachData) => eachData.Nome.toLowerCase().includes(searchLowerCase));
+    
+    return (
+        <>
+            {names ?
+                    names.map((eachName) => {
+                        return (
+                            <TouchableOpacity style={styles.button} key={eachName.CodResp} onPress={() => openModal(eachName)}>
+                                <ListaCard title={eachName.Nome} description={`# ${eachName.CodResp}`}/>
+                            </TouchableOpacity>
+                        )
+                    })
+                    :
+                    data.map((eachData) => {
+                        return (
+                            <TouchableOpacity style={styles.button} key={eachData.CodResp} onPress={() => openModal(eachData)}>
+                                <ListaCard title={eachData.Nome} description={`# ${eachData.CodResp}`}/>
+                            </TouchableOpacity>
+                        )
+                    })
+                }
+        </>
+    )
+}
+
 export const RenderLista = ({data, search, openModal, table }) => {
     switch(table){
         case "clientes":
             return <RenderListaCliente data={data} search={search} openModal={openModal}/>
         case "veiculos":
-            return <RenderListaVeiculo data={data} search={search} openModal={openModal}/>     
+            return <RenderListaVeiculo data={data} search={search} openModal={openModal}/>
+        case "responsaveis":
+            return <RenderListaResponsaveis data={data} search={search} openModal={openModal}/>    
     }
 }
 
@@ -127,6 +156,9 @@ export default function ListaDados({route}){
                 break
             case "veiculos":
                 navigation.navigate('CadastroVeiculo', {type: "create", data: {}});
+                break
+            case "responsaveis":
+                navigation.navigate('CadastroResponsaveis', {type: "create", data: {}});
                 break
         }
     }

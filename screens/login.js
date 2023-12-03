@@ -49,12 +49,12 @@ export default function Login() {
         />
       </View>
       <View style={styles.container2}>
-        <Text style={{ fontSize: 16, marginLeft: 42 }}>
+        <Text style={{ color: "#3C3C3C", fontWeight: "bold", fontSize: 20, marginLeft: 42 }}>
           Login
         </Text>
         <TextInput style={styles.caixadetexto} onChangeText={setUsername}>
         </TextInput>
-        <Text style={{ fontSize: 16, marginLeft: 42 }}>
+        <Text style={{ color: "#3C3C3C", fontWeight: "bold", fontSize: 20, marginLeft: 42 }}>
           Senha
         </Text>
         <TextInput style={styles.caixadetexto} onChangeText={setSenha}>
@@ -63,7 +63,7 @@ export default function Login() {
           style={styles.butao}
           onPress={handleSignIn}
         >
-          <Text style={{ color: 'white', alignSelf: 'center', fontSize: 14, justifyContent: 'center' }}>
+          <Text style={{ fontSize: 20, color: "#D9D9D9", fontWeight: "bold", textAlign: "center" }}>
             Entrar
           </Text>
         </TouchableHighlight>
@@ -110,7 +110,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: '80%',
     borderRadius: 20,
-    height: 35,
+    // height: 35,
+    paddingVertical: 10,
   },
   imagemLogin: {
     width: '80%',

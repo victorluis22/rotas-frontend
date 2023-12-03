@@ -1,9 +1,9 @@
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, ScrollView, Alert } from "react-native";
-import MenuRetornar from "../../../components/menuretornar";
+import MenuRetornar from "../../components/menuretornar";
 import { useState } from "react";
-import { create, update } from "../../../services/api";
+import { create, update } from "../../services/api";
 import { useNavigation } from "@react-navigation/native";
-import { validateCPFCNPJ } from "../../../services/inputMask";
+import { validateCPFCNPJ } from "../../services/inputMask";
 import { Picker } from '@react-native-picker/picker';
 
 export default function CadastroCliente({route}){
@@ -62,24 +62,24 @@ export default function CadastroCliente({route}){
     
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.Nome}` : "Cadastro de Clientes", voltar: "ClienteHome" }]} />
-            <ScrollView>
+            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.Nome}` : "Cadastro de Clientes", voltar: "ListaDados", table: "clientes" }]} />
+            <ScrollView style={styles.content}>
 
-                <Text style={styles.Titleinput}>Nome</Text>
+                <Text style={styles.titleinput}>Nome</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setNome}
                     value={nome}
                 />
 
-                <Text style={styles.Titleinput}>Logradouro</Text>
+                <Text style={styles.titleinput}>Logradouro</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setLogradouro}
                     value={logradouro}
                 />
 
-                <Text style={styles.Titleinput}>Numero</Text>
+                <Text style={styles.titleinput}>Numero</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setNumero}
@@ -87,49 +87,49 @@ export default function CadastroCliente({route}){
                     keyboardType='numeric'
                 />
 
-                <Text style={styles.Titleinput}>Complemento</Text>
+                <Text style={styles.titleinput}>Complemento</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setComplemento}
                     value={complemento}
                 />
 
-                <Text style={styles.Titleinput}>UTM</Text>
+                <Text style={styles.titleinput}>UTM</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setUTM}
                     value={UTM}
                 />
 
-                <Text style={styles.Titleinput}>Bairro</Text>
+                <Text style={styles.titleinput}>Bairro</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setBairro}
                     value={bairro}
                 />
 
-                <Text style={styles.Titleinput}>Cidade</Text>
+                <Text style={styles.titleinput}>Cidade</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setCidade}
                     value={cidade}
                 />
 
-                <Text style={styles.Titleinput}>UF</Text>
+                <Text style={styles.titleinput}>UF</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setUf}
                     value={uf}
                 />
 
-                <Text style={styles.Titleinput}>Tempo Coleta</Text>
+                <Text style={styles.titleinput}>Tempo Coleta</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setTempoColeta}
                     value={tempoColeta}
                 />
 
-                <Text style={styles.Titleinput}>CPF ou CNPJ</Text>
+                <Text style={styles.titleinput}>CPF ou CNPJ</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setCpfcnpj}
@@ -139,7 +139,7 @@ export default function CadastroCliente({route}){
                     maxLength={20}
                 />
 
-                <Text style={styles.Titleinput}>Pessoa Jurídica ou Física</Text>
+                <Text style={styles.titleinput}>Pessoa Jurídica ou Física</Text>
                 <Picker
                     style={styles.input}
                     selectedValue={pjpf}
@@ -150,8 +150,8 @@ export default function CadastroCliente({route}){
                     <Picker.Item label="PJ" value="PJ" />
                 </Picker>
 
-                <TouchableOpacity style={styles.ButtonContent} onPress={() => submit()}>
-                    <Text style={styles.ButtonText}>Cadastrar</Text>
+                <TouchableOpacity style={styles.buttonContent} onPress={() => submit()}>
+                    <Text style={styles.buttonText}>Cadastrar</Text>
                 </TouchableOpacity>
             </ScrollView>
         </View>
@@ -164,10 +164,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#D9D9D9',
         height: '100%',
         display: 'flex',
-        display: "FlipInEasyX",
         justifyContent: "center",
     },
-
+    content:{
+        marginTop: 20
+    },
     input: {
         backgroundColor: 'white',
         borderRadius: 20,
@@ -180,14 +181,7 @@ const styles = StyleSheet.create({
         shadowColor: '#3C3C3C'
     },
 
-    Title: {
-        textAlign: 'center',
-        fontSize: 20,
-        backgroundColor: "white",
-        paddingVertical: 5
-    },
-
-    Titleinput: {
+    titleinput: {
         display: "flex",
         marginLeft: 40,
         color: "#3C3C3C",
@@ -195,14 +189,14 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
 
-    ButtonText: {
+    buttonText: {
         margin: 10,
         fontSize: 20,
         color: "#D9D9D9",
         fontWeight: "bold"
     },
 
-    ButtonContent: {
+    buttonContent: {
         display: "flex",
         alignItems: "center",
         backgroundColor: "#3C3C3C",

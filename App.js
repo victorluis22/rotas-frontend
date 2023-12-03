@@ -9,20 +9,22 @@ import DisponibilidadeVeiculos from './screens/disponibilidadeveiculos';
 import ColetaCliente from './screens/coletacliente';
 import EntregaCompostagem from './screens/entregacompostagem';
 import ResponsavelVeiculo from './screens/responsavelveiculo';
-import CadastroVeiculo from './screens/veiculo/cadastroveiculo/cadastroveiculos';
 import DiasdaSemana from './screens/diasdasemana';
 import JaneladeTempo from './screens/janeladetempo';
-import Responsaveis from './screens/responsaveis';
 import TipodeContrato from './screens/tipodecontrato';
 import PontosCompostagem from './screens/pontoscompostagem';
 import RotasColeta from './screens/rotascoleta';
 import Coleta from './screens/coleta/coleta';
 import ColetaMap from './screens/coletamap';
 import Loading from "./screens/loading"
-import CadastroCliente from './screens/cliente/cadastroCliente/cadastroCli';
+
+import CadastroCliente from './screens/cliente/cadastroCli';
+import CadastroVeiculo from './screens/veiculo/cadastroVeic';
+import CadastroResponsavel from './screens/responsavel/cadastroResp';
 import ListaDados from './screens/listaDados';
 
 import { AuthProvider } from './context/auth';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -118,7 +120,7 @@ function App() {
                 headerTransparent: true,
                 headerShown: false
               }}
-              name="Responsaveis" component={Responsaveis}
+              name="CadastroResponsaveis" component={CadastroResponsavel}
             />
             <Stack.Screen
               options={{

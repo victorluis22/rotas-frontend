@@ -7,8 +7,8 @@ export default function MenuRetornar(props) {
 
     const navigation = useNavigation()
 
-    function voltar(value) {
-        navigation.navigate(value)
+    function voltar(value, table) {
+        navigation.navigate(value, {table: table})
     }
 
     return (
@@ -19,7 +19,7 @@ export default function MenuRetornar(props) {
                         props.options.map((item, index) =>
                             <TouchableOpacity
                                 key={index}
-                                onPress={() => voltar(item.voltar)}
+                                onPress={() => voltar(item.voltar, item.table)}
                             >
                                 <Icon name="return-up-back" size={30} color="black" />
                             </TouchableOpacity>

@@ -9,7 +9,12 @@ export const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
 
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState({
+        CodEmpresa: 2,
+		Nome: "Organo Kits",
+		CNPJ: "000.000.000-1"
+    })
+    
     const [loading, setLoading] = useState(false)
 
     useEffect(() =>{

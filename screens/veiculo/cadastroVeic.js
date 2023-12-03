@@ -1,28 +1,54 @@
 import { View, Text, TouchableOpacity, StyleSheet, TouchableHighlight, TextInput } from "react-native";
-import MenuRetornar from "../components/menuretornar";
-import Select from "../components/select";
+import MenuRetornar from "../../components/menuretornar";
 import React, { useState } from 'react'
 
 
 
-export default function Responsaveis() {
+export default function CadastroVeiculo({ route }) {
+    const previousData = route.params.previousData
+    const type = route.params.type
 
-    const [responsavel, setResponsavel] = useState('')
-
+    const [descricao, setDescricao] = useState('')
+    const [emissao, setEmissao] = useState('')
+    const [custo, setCusto] = useState('')
+    const [capacidade, setCapacidade] = useState('')
 
     return (
         <View>
-            <MenuRetornar options={[{ title: 'Cadastro de Responsavéis', voltar: 'TelaInicial' }]} />
+            <MenuRetornar options={[{ title: 'Cadastro de Veículo', voltar: 'Veiculos' }]} />
             <View style={styles.container}>
 
                 <View style={styles.containerdentro}>
                     <Text style={styles.texto}>
-                        Nome do responsavel
+                        Descrição do Veículo
                     </Text>
-                    <TextInput style={styles.caixadetexto} onChangeText={setResponsavel}>
+                    <TextInput style={styles.caixadetexto} onChangeText={setDescricao}>
                     </TextInput>
                 </View>
 
+                <View style={styles.containerdentro}>
+                    <Text style={styles.texto}>
+                        Emissão por Km
+                    </Text>
+                    <TextInput style={styles.caixadetexto} onChangeText={setEmissao}>
+                    </TextInput>
+                </View>
+
+                <View style={styles.containerdentro}>
+                    <Text style={styles.texto}>
+                        Custo por Km
+                    </Text>
+                    <TextInput style={styles.caixadetexto} onChangeText={setCusto}>
+                    </TextInput>
+                </View>
+
+                <View style={styles.containerdentro}>
+                    <Text style={styles.texto}>
+                        Capacidade Máxima
+                    </Text>
+                    <TextInput style={styles.caixadetexto} onChangeText={setCapacidade}>
+                    </TextInput>
+                </View>
                 <View style={{ paddingHorizontal: 30, justifyContent: 'flex-end', marginTop: 40 }}>
                     <TouchableHighlight
                         style={styles.butao}

@@ -15,6 +15,9 @@ export default function DeleteModal({ modalVisible, setModalVisible, data, delet
             case "veiculos":
                 setId(data.CodVeic)
                 break
+            case "responsaveis":
+                setId(data.CodResp)
+                break
             default:
                 setId(null)
         }
