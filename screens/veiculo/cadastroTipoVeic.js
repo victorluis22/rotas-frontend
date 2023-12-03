@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { create, update } from "../../services/api";
+import { AxiosError } from "axios";
 
 export default function CadastroTipoVeiculo({ route }) {
     const previousData = route.params.previousData
@@ -32,7 +33,17 @@ export default function CadastroTipoVeiculo({ route }) {
                 }
             } catch (error) {
                 console.log(error)
-                Alert.alert("Erro", "Ocorreu um erro ao enviar os dados, tente novamente.")
+                const status = error.response ? error.response.status : 500
+
+                if (status === 402){
+                    Alert.alert("Erro", "Tipo de veículo já cadastrado")
+                }
+                else if(status == 404){
+                    Alert.alert("Erro", "Tipo de veículo não encontrado")
+                }
+                else{
+                    Alert.alert("Erro", "Ocorreu um erro ao enviar os dados, tente novamente.")
+                }
             }
         }
         else{

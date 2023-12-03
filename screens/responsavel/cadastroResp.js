@@ -35,7 +35,17 @@ export default function CadastroResponsavel({ route }) {
                 }
             } catch (error) {
                 console.log(error)
-                Alert.alert("Erro", "Ocorreu um erro ao enviar os dados, tente novamente.")
+                const status = error.response ? error.response.status : 500
+
+                if (status === 402){
+                    Alert.alert("Erro", "Responsável já cadastrado")
+                }
+                else if(status == 404){
+                    Alert.alert("Erro", "Responsável não encontrado")
+                }
+                else{
+                    Alert.alert("Erro", "Ocorreu um erro ao enviar os dados, tente novamente.")
+                }
             }
         }
         else{

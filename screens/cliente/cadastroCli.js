@@ -52,7 +52,17 @@ export default function CadastroCliente({route}){
                 }
             } catch (error) {
                 console.log(error)
-                Alert.alert("Erro", "Ocorreu um erro ao enviar os dados, tente novamente.")
+                const status = error.response ? error.response.status : 500
+
+                if (status === 402){
+                    Alert.alert("Erro", "Cliente já cadastrado")
+                }
+                else if(status == 404){
+                    Alert.alert("Erro", "Cliente não encontrado")
+                }
+                else{
+                    Alert.alert("Erro", "Ocorreu um erro ao enviar os dados, tente novamente.")
+                }
             }
         }
         else{
@@ -146,6 +156,7 @@ export default function CadastroCliente({route}){
                     onValueChange={(itemValue) =>
                         setPjpf(itemValue)
                     }>
+                    <Picker.Item label="Selecione" value="" enabled={false}/>
                     <Picker.Item label="PF" value="PF" />
                     <Picker.Item label="PJ" value="PJ" />
                 </Picker>
