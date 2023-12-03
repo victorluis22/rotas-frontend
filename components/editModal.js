@@ -22,6 +22,9 @@ export default function EditModal({ modalVisible, setModalVisible, openDeleteMod
             case "responsaveis":
                 setTitle(data.Nome)
                 break
+            case "tipoVeiculo":
+                setTitle(data.DescTipo)
+                break
             default:
                 setTitle("")
         }
@@ -42,6 +45,9 @@ export default function EditModal({ modalVisible, setModalVisible, openDeleteMod
                 break
             case "responsaveis":
                 navigation.navigate('CadastroResponsaveis', {type: "update", previousData: data});
+                break
+            case "tipoVeiculo":
+                navigation.navigate('CadastroTipoVeiculo', {type: "update", previousData: data});
                 break
             default:
                 Alert.alert("Erro", "Ocorreu algum erro, tente novamente.")

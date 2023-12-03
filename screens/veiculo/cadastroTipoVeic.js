@@ -1,37 +1,34 @@
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, ScrollView } from "react-native";
 import MenuRetornar from "../../components/menuretornar";
-import React, { useContext, useState } from 'react'
-import { AuthContext } from "../../context/auth";
+import React, { useState } from 'react'
 import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { create, update } from "../../services/api";
 
-export default function CadastroResponsavel({ route }) {
+export default function CadastroTipoVeiculo({ route }) {
     const previousData = route.params.previousData
     const type = route.params.type
     
-    const { user } = useContext(AuthContext)
     const navigation = useNavigation()
 
-    const [nome, setNome] = useState(type === "update" ? previousData.Nome : "")
+    const [descTipo, setDescTipo] = useState(type === "update" ? previousData.DescTipo : "")
 
     const submit = async () => {
-        if(nome){
+        if(descTipo){
             const data = {
-                nome: nome,
-                codEmpresa: user.CodEmpresa
+                descTipo: descTipo
             }
 
             try {
                 if (type === "update"){
-                    await update("responsaveis", previousData.CodResp, data)
-                    Alert.alert("Sucesso", "Responsável atualizado com sucesso!")
-                    navigation.navigate("ListaDados", {table: "responsaveis"})
+                    await update("tipoVeiculo", previousData.CodTipoVeic, data)
+                    Alert.alert("Sucesso", "Tipo de veículo atualizado com sucesso!")
+                    navigation.navigate("ListaDados", {table: "tipoVeiculo"})
                 }
                 else{
-                    await create("responsaveis", data)
-                    Alert.alert("Sucesso", "Responsável cadastrado com sucesso!")
-                    navigation.navigate("ListaDados", {table: "responsaveis"})
+                    await create("tipoVeiculo", data)
+                    Alert.alert("Sucesso", "Tipo de veículo cadastrado com sucesso!")
+                    navigation.navigate("ListaDados", {table: "tipoVeiculo"})
                 }
             } catch (error) {
                 console.log(error)
@@ -45,10 +42,10 @@ export default function CadastroResponsavel({ route }) {
 
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.Nome}`: 'Cadastro de Responsavéis', voltar: "ListaDados", table: "responsaveis" }]} />
+            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.DescTipo}`: 'Cadastro de Tipo de Veículo', voltar: "ListaDados", table: "tipoVeiculo" }]} />
                 <ScrollView style={styles.content}>
-                    <Text style={styles.titleinput}>Nome do responsavel</Text>
-                    <TextInput style={styles.input} value={nome} onChangeText={setNome}/>
+                    <Text style={styles.titleinput}>Tipo de veículo</Text>
+                    <TextInput style={styles.input} value={descTipo} onChangeText={setDescTipo}/>
 
 
                     <TouchableOpacity style={styles.buttonContent} onPress={() => submit()}>

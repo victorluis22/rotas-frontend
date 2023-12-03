@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import 'react-native-gesture-handler';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './screens/login';
 import TelaInicial from './screens/telainicial';
@@ -20,11 +19,11 @@ import Loading from "./screens/loading"
 
 import CadastroCliente from './screens/cliente/cadastroCli';
 import CadastroVeiculo from './screens/veiculo/cadastroVeic';
+import CadastroTipoVeiculo from './screens/veiculo/cadastroTipoVeic';
 import CadastroResponsavel from './screens/responsavel/cadastroResp';
 import ListaDados from './screens/listaDados';
 
 import { AuthProvider } from './context/auth';
-
 
 const Stack = createNativeStackNavigator();
 
@@ -97,6 +96,14 @@ function App() {
                 headerShown: false
               }}
               name="CadastroVeiculo" component={CadastroVeiculo}
+            />
+            <Stack.Screen
+              options={{
+                title: '',
+                headerTransparent: true,
+                headerShown: false
+              }}
+              name="CadastroTipoVeiculo" component={CadastroTipoVeiculo}
             />
             <Stack.Screen
               options={{

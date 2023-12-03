@@ -151,7 +151,7 @@ export default function CadastroCliente({route}){
                 </Picker>
 
                 <TouchableOpacity style={styles.buttonContent} onPress={() => submit()}>
-                    <Text style={styles.buttonText}>Cadastrar</Text>
+                    <Text style={styles.buttonText}>{type === "update" ? "Atualizar": 'Cadastrar'}</Text>
                 </TouchableOpacity>
             </ScrollView>
         </View>

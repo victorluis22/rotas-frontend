@@ -23,7 +23,16 @@ export default function TelaInicial() {
   return (
     <View style={styles.container}>
       <HamburguerMenu
-        options={[{ title: 'Veículos', screen: 'ListaDados', table: "veiculos" }, { title: 'Dias da Semana', screen: 'DiasdaSemana' }, { title: 'Janela de Tempo', screen: 'JaneladeTempo' }, { title: 'Responsáveis', screen: 'ListaDados', table: "responsaveis" }, { title: 'Tipo de Contrato', screen: 'TipodeContrato' }, { title: 'Pontos de Compostagem', screen: 'PontosCompostagem' }, { title: 'Alocação de horário', screen: 'AlocacaodeHorarios' }, { title: 'Responsável Veículo', screen: 'ResponsavelVeiculo' }]}
+        options={[
+          { title: 'Veículos', screen: 'ListaDados', table: "veiculos" },
+          { title: 'Tipos de Veículos', screen: 'ListaDados', table: "tipoVeiculo" }, 
+          { title: 'Dias da Semana', screen: 'DiasdaSemana' }, 
+          { title: 'Janela de Tempo', screen: 'JaneladeTempo' }, 
+          { title: 'Responsáveis', screen: 'ListaDados', table: "responsaveis" }, 
+          { title: 'Tipo de Contrato', screen: 'TipodeContrato' }, 
+          { title: 'Pontos de Compostagem', screen: 'PontosCompostagem' }, 
+          { title: 'Alocação de horário', screen: 'AlocacaodeHorarios' }, 
+          { title: 'Responsável Veículo', screen: 'ResponsavelVeiculo' }]}
       />
       <ScrollView>
 
