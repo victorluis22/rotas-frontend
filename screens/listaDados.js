@@ -128,27 +128,37 @@ export const RenderListaTipoContrato = ({data, search, openModal}) => {
     
     return (
         <>
-            {names ?
-                    names.map((eachName) => {
-                        return (
-                            <TouchableOpacity style={styles.button} key={eachName.CodTipoContrato} onPress={() => openModal(eachName)}>
-                                <ListaCard title={`${eachName.Periodicidade} - R$${eachName.ValorMensal}`} description={`# ${eachName.CodTipoContrato}`}/>
-                            </TouchableOpacity>
-                        )
-                    })
-                    :
-                    data.map((eachData) => {
-                        return (
-                            <TouchableOpacity style={styles.button} key={eachData.CodTipoContrato} onPress={() => openModal(eachData)}>
-                                <ListaCard title={`${eachName.Periodicidade} - R$${eachName.ValorMensal}`} description={`# ${eachData.CodTipoContrato}`}/>
-                            </TouchableOpacity>
-                        )
-                    })
-                }
+            {
+                names.map((eachName) => {
+                    return (
+                        <TouchableOpacity style={styles.button} key={eachName.CodTipoContrato} onPress={() => openModal(eachName)}>
+                            <ListaCard title={`${eachName.Periodicidade} - R$${eachName.ValorMensal}`} description={`# ${eachName.CodTipoContrato}`}/>
+                        </TouchableOpacity>
+                    )
+                })
+            }
         </>
     )
 }
 
+export const RenderListaJanelaTempo = ({data, search, openModal}) => {
+    const searchLowerCase = search.toLowerCase()
+    const names = data.filter((eachData) => `${eachData.HoraIni} - ${eachData.HoraFim}`.toLowerCase().includes(searchLowerCase));
+    
+    return (
+        <>
+            {
+                names.map((eachName) => {
+                    return (
+                        <TouchableOpacity style={styles.button} key={eachName.CodTurno} onPress={() => openModal(eachName)}>
+                            <ListaCard title={`${eachName.HoraIni} - ${eachName.HoraFim}`} description={`# ${eachName.CodTurno}`}/>
+                        </TouchableOpacity>
+                    )
+                })
+            }
+        </>
+    )
+}
 export const RenderLista = ({data, search, openModal, table }) => {
     switch(table){
         case "clientes":
@@ -161,6 +171,8 @@ export const RenderLista = ({data, search, openModal, table }) => {
             return <RenderListaTipoVeiculo data={data} search={search} openModal={openModal}/>
         case "tipoContrato":
             return <RenderListaTipoContrato data={data} search={search} openModal={openModal}/>
+        case "janelaTempo":
+            return <RenderListaJanelaTempo data={data} search={search} openModal={openModal}/>
     }
 }
 
@@ -222,6 +234,8 @@ export default function ListaDados({route}){
                 navigation.navigate('CadastroTipoVeiculo', {type: "create", data:{}})
             case "tipoContrato":
                 navigation.navigate('CadastroTipoContrato', {type: "create", data:{}})
+            case "janelaTempo":
+                navigation.navigate('CadastroJanelaTempo', {type: "create", data:{}})
         }
     }
 

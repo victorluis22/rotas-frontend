@@ -28,6 +28,9 @@ export default function EditModal({ modalVisible, setModalVisible, openDeleteMod
             case "tipoContrato":
                 setTitle(`${data.Periodicidade} - R$${data.ValorMensal}`)
                 break
+            case "janelaTempo":
+                setTitle(`${data.HoraIni} - ${data.HoraFim}`)
+                break
             default:
                 setTitle("")
         }
@@ -54,6 +57,9 @@ export default function EditModal({ modalVisible, setModalVisible, openDeleteMod
                 break
             case "tipoContrato":
                 navigation.navigate('CadastroTipoContrato', {type: "update", previousData: data});
+                break
+            case "janelaTempo":
+                navigation.navigate('CadastroJanelaTempo', {type: "update", previousData: data});
                 break
             default:
                 Alert.alert("Erro", "Ocorreu algum erro, tente novamente.")

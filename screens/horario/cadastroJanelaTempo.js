@@ -1,47 +1,48 @@
-import { View, Text, TouchableOpacity, StyleSheet, TextInput, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, TextInput } from "react-native";
 import MenuRetornar from "../../components/menuretornar";
 import React, { useState } from 'react'
-import { Alert } from "react-native";
+import HorarioInput from '../../components/moment';
 import { useNavigation } from "@react-navigation/native";
+import { Alert } from "react-native";
 import { create, update } from "../../services/api";
 
 
-export default function CadastroTipoContrato({ route }) {
+export default function CadastroJanelaTempo({ route }) {
     const previousData = route.params.previousData
     const type = route.params.type
-    
+
     const navigation = useNavigation()
 
-    const [periodicidade, setPeriodicidade] = useState(type === "update" ? previousData.Periodicidade : "")
-    const [valor, setValor] = useState(type === "update" ? previousData.ValorMensal.toString() : "")
+    const [horaInicial, setHoraInicial] = useState(type === "update" ? previousData.HoraIni : "")
+    const [horaFinal, setHoraFinal] = useState(type === "update" ? previousData.HoraFim : "")
 
     const submit = async () => {
-        if(periodicidade && valor){
+        if(horaInicial && horaFinal){
             const data = {
-                periodicidade: periodicidade,
-                valorMensal: parseFloat(valor).toFixed(2)
+                horaIni: horaInicial,
+                horaFim: horaFinal
             }
 
             try {
                 if (type === "update"){
-                    await update("tipoContrato", previousData.CodTipoContrato, data)
-                    Alert.alert("Sucesso", "Tipo de contrato atualizado com sucesso!")
-                    navigation.navigate("ListaDados", {table: "tipoContrato"})
+                    await update("janelaTempo", previousData.CodTurno, data)
+                    Alert.alert("Sucesso", "Janela de Tempo atualizada com sucesso!")
+                    navigation.navigate("ListaDados", {table: "janelaTempo"})
                 }
                 else{
-                    await create("tipoContrato", data)
-                    Alert.alert("Sucesso", "Tipo de contrato cadastrado com sucesso!")
-                    navigation.navigate("ListaDados", {table: "tipoContrato"})
+                    await create("janelaTempo", data)
+                    Alert.alert("Sucesso", "Janela de Tempo cadastrada com sucesso!")
+                    navigation.navigate("ListaDados", {table: "janelaTempo"})
                 }
             } catch (error) {
                 console.log(error)
                 const status = error.response ? error.response.status : 500
 
                 if (status === 402){
-                    Alert.alert("Erro", "Tipo de contrato já cadastrado")
+                    Alert.alert("Erro", "Janela de Tempo já cadastrada")
                 }
                 else if(status == 404){
-                    Alert.alert("Erro", "Tipo de contrato não encontrado")
+                    Alert.alert("Erro", "Janela de Tempo não encontrada")
                 }
                 else{
                     Alert.alert("Erro", "Ocorreu um erro ao enviar os dados, tente novamente.")
@@ -55,13 +56,13 @@ export default function CadastroTipoContrato({ route }) {
 
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.Periodicidade - previousData.ValorMensal}`: 'Cadastro de Tipo de Contrato', voltar: "ListaDados", table: "tipoContrato" }]} />
+            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.HoraIni} - ${previousData.HoraFim}`: 'Cadastro de Janela de Tempo', voltar: "ListaDados", table: "janelaTempo" }]} />
                 <ScrollView style={styles.content}>
-                    <Text style={styles.titleinput}>Periodicidade</Text>
-                    <TextInput style={styles.input} value={periodicidade} onChangeText={setPeriodicidade}/>
+                    <Text style={styles.titleinput}>Hora Inicial</Text>
+                    <TextInput style={styles.input} value={horaInicial} onChangeText={setHoraInicial} placeholder="00:00"/>
 
-                    <Text style={styles.titleinput}>Valor Mensal (R$)</Text>
-                    <TextInput style={styles.input} value={valor} onChangeText={setValor} keyboardType="numeric"/>
+                    <Text style={styles.titleinput}>Hora Final</Text>
+                    <TextInput style={styles.input} value={horaFinal} onChangeText={setHoraFinal} placeholder="00:00"/>
 
 
                     <TouchableOpacity style={styles.buttonContent} onPress={() => submit()}>
@@ -73,7 +74,6 @@ export default function CadastroTipoContrato({ route }) {
 }
 
 const styles = StyleSheet.create({
-
     container: {
         backgroundColor: '#D9D9D9',
         height: '100%',
