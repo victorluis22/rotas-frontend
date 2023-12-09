@@ -27,6 +27,9 @@ export default function DeleteModal({ modalVisible, setModalVisible, data, delet
             case "janelaTempo":
                 setId(data.CodTurno)
                 break
+            case "horarios":
+                setId(data.CodHorario)
+                break
             default:
                 setId(null)
         }

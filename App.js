@@ -3,12 +3,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './screens/login';
 import TelaInicial from './screens/telainicial';
-import AlocacaodeHorarios from './screens/alocacaodehorarios';
 import DisponibilidadeVeiculos from './screens/disponibilidadeveiculos';
 import ColetaCliente from './screens/coletacliente';
 import EntregaCompostagem from './screens/entregacompostagem';
-import ResponsavelVeiculo from './screens/responsavelveiculo';
-import DiasdaSemana from './screens/diasdasemana';
 import PontosCompostagem from './screens/pontoscompostagem';
 import RotasColeta from './screens/rotascoleta';
 import Coleta from './screens/coleta/coleta';
@@ -21,6 +18,7 @@ import CadastroTipoVeiculo from './screens/veiculo/cadastroTipoVeic';
 import CadastroResponsavel from './screens/responsavel/cadastroResp';
 import CadastroTipoContrato from './screens/contrato/cadastroTipoContrato';
 import CadastroJanelaTempo from './screens/horario/cadastroJanelaTempo';
+import CadastroHorario from './screens/horario/cadastroHorario';
 import ListaDados from './screens/listaDados';
 
 import { AuthProvider } from './context/auth';
@@ -47,15 +45,6 @@ function App() {
                 headerShown: false
               }}
               name="TelaInicial" component={TelaInicial}
-            />
-
-            <Stack.Screen
-              options={{
-                title: '',
-                headerTransparent: true,
-                headerShown: false
-              }}
-              name="AlocacaodeHorarios" component={AlocacaodeHorarios}
             />
             <Stack.Screen
               options={{
@@ -87,14 +76,6 @@ function App() {
                 headerTransparent: true,
                 headerShown: false
               }}
-              name="ResponsavelVeiculo" component={ResponsavelVeiculo}
-            />
-            <Stack.Screen
-              options={{
-                title: '',
-                headerTransparent: true,
-                headerShown: false
-              }}
               name="CadastroVeiculo" component={CadastroVeiculo}
             />
             <Stack.Screen
@@ -111,7 +92,7 @@ function App() {
                 headerTransparent: true,
                 headerShown: false
               }}
-              name="DiasdaSemana" component={DiasdaSemana}
+              name="CadastroJanelaTempo" component={CadastroJanelaTempo}
             />
             <Stack.Screen
               options={{
@@ -119,7 +100,7 @@ function App() {
                 headerTransparent: true,
                 headerShown: false
               }}
-              name="CadastroJanelaTempo" component={CadastroJanelaTempo}
+              name="CadastroHorario" component={CadastroHorario}
             />
             <Stack.Screen
               options={{

@@ -55,7 +55,7 @@ export default function CadastroTipoContrato({ route }) {
 
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.Periodicidade - previousData.ValorMensal}`: 'Cadastro de Tipo de Contrato', voltar: "ListaDados", table: "tipoContrato" }]} />
+            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.Periodicidade} R$${previousData.ValorMensal.toString()}`: 'Cadastro de Tipo de Contrato', voltar: "ListaDados", table: "tipoContrato" }]} />
                 <ScrollView style={styles.content}>
                     <Text style={styles.titleinput}>Periodicidade</Text>
                     <TextInput style={styles.input} value={periodicidade} onChangeText={setPeriodicidade}/>

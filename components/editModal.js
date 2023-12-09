@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Modal } from "react-native-paper";
@@ -7,60 +7,33 @@ import { Modal } from "react-native-paper";
 import AntDesign from "react-native-vector-icons/AntDesign"
 import Feather from "react-native-vector-icons/Feather"
 
-export default function EditModal({ modalVisible, setModalVisible, openDeleteModal, data, table}) {
+export default function EditModal({ modalVisible, setModalVisible, openDeleteModal, data, table, title}) {
     const navigation = useNavigation()
-    const [title, setTitle] = useState("")
-
-    const getTitle = () => {
-        switch (table){
-            case "clientes":
-                setTitle(data.Nome)
-                break
-            case "veiculos":
-                setTitle(data.Descricao)
-                break
-            case "responsaveis":
-                setTitle(data.Nome)
-                break
-            case "tipoVeiculo":
-                setTitle(data.DescTipo)
-                break
-            case "tipoContrato":
-                setTitle(`${data.Periodicidade} - R$${data.ValorMensal}`)
-                break
-            case "janelaTempo":
-                setTitle(`${data.HoraIni} - ${data.HoraFim}`)
-                break
-            default:
-                setTitle("")
-        }
-    }
-
-    useEffect(() => {
-        getTitle()
-    }, [data])
 
     const navegarCadastro = () => {
         setModalVisible(!modalVisible)
         switch (table){
             case "clientes":
                 navigation.navigate('CadastroCliente', {type: "update", previousData: data});
-                break
+                break;
             case "veiculos":
                 navigation.navigate('CadastroVeiculo', {type: "update", previousData: data});
-                break
+                break;
             case "responsaveis":
                 navigation.navigate('CadastroResponsaveis', {type: "update", previousData: data});
-                break
+                break;
             case "tipoVeiculo":
                 navigation.navigate('CadastroTipoVeiculo', {type: "update", previousData: data});
-                break
+                break;
             case "tipoContrato":
                 navigation.navigate('CadastroTipoContrato', {type: "update", previousData: data});
-                break
+                break;
             case "janelaTempo":
                 navigation.navigate('CadastroJanelaTempo', {type: "update", previousData: data});
-                break
+                break;
+            case "horarios":
+                navigation.navigate('CadastroHorario', {type: "update", previousData: data});
+                break;
             default:
                 Alert.alert("Erro", "Ocorreu algum erro, tente novamente.")
                 navigation.navigate('TelaInicial');
