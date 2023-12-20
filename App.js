@@ -19,7 +19,11 @@ import CadastroResponsavel from './screens/responsavel/cadastroResp';
 import CadastroTipoContrato from './screens/contrato/cadastroTipoContrato';
 import CadastroJanelaTempo from './screens/horario/cadastroJanelaTempo';
 import CadastroHorario from './screens/horario/cadastroHorario';
+import CadastroContrato from './screens/contrato/cadastroContrato';
+
 import ListaDados from './screens/listaDados';
+import ListaContrato from './screens/contrato/listaContrato';
+import ListaHorarioContrato from './screens/contrato/listaHorarioContrato';
 
 import { AuthProvider } from './context/auth';
 
@@ -164,7 +168,31 @@ function App() {
                 headerTransparent: true,
                 headerShown: false
               }}
+              name="CadastroContrato" component={CadastroContrato}
+            />
+            <Stack.Screen
+              options={{
+                title: '',
+                headerTransparent: true,
+                headerShown: false
+              }}
               name="ListaDados" component={ListaDados}
+            />
+            <Stack.Screen
+              options={{
+                title: '',
+                headerTransparent: true,
+                headerShown: false
+              }}
+              name="ListaContrato" component={ListaContrato}
+            />
+            <Stack.Screen
+              options={{
+                title: '',
+                headerTransparent: true,
+                headerShown: false
+              }}
+              name="ListaHorarioContrato" component={ListaHorarioContrato}
             />
           </Stack.Navigator>
         </NavigationContainer>

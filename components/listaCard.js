@@ -1,13 +1,50 @@
-import { View, StyleSheet, Text } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign"
 
-export default function ListaCard({title, description}) {
+export default function ListaCard({title, description, type, codCliente}) {
+    const navigation = useNavigation()
+
     return (
         <View style={styles.contentCard}>
-            <View style={styles.containertexto}>
-                <Text style={styles.contentTitulo}>{title}</Text>
-                <Text>{description}</Text>
-            </View>
+                {
+                    type === "cliente" ?
+                        <View style={styles.containertexto}>
+                            <Text style={styles.contentTitulo}>{title} {description}</Text>
+                            <View style={styles.Contentbutton}>
+                                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("ListaContrato", {table: "contrato", codCliente: codCliente})}>
+                                    <Text style={styles.buttonText}>Acessar Contratos</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                        :
+                        null
+                }
+
+                { 
+                    type === "contrato" ?
+                        <View style={styles.containertexto}>
+                            <Text style={styles.contentTitulo}>{title}</Text>
+                            <Text>{description}</Text>
+                            <View style={styles.Contentbutton2}>
+                                <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate("ListaHorarioContrato", {table: "contrato", codCliente: codCliente})}>
+                                    <Text style={styles.buttonText2}>Acessar Horários</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    : 
+                    null    
+                }
+
+                {
+                    type !== "contrato" && type !== "cliente" ?
+                    <View style={styles.containertexto}>
+                        <Text style={styles.contentTitulo}>{title}</Text>
+                        <Text>{description}</Text>
+                    </View>
+                    :
+                    null
+                }
             <View>
                 <Icon name="rightcircleo" size={30} color={"#000"} />
             </View> 
@@ -49,5 +86,47 @@ const styles = StyleSheet.create({
     contentTitulo: {
         fontSize: 20,
         fontWeight: "bold",
+    },
+
+    button:{
+        
+        paddingVertical: 5,
+        paddingHorizontal: 10,
+        backgroundColor: "#24a0ed",
+        borderRadius: 7,
+        marginVertical: 6,
+        elevation: 10,
+        shadowColor: '#3C3C3C'
+    },
+
+    buttonText:{
+        color: "#fff",
+        fontWeight: "bold"
+    },
+
+    Contentbutton: {
+        // flexDirection: "row",
+        display: "flex",
+        justifyContent: "spacebetween",
+    },
+
+    button2:{
+        
+        paddingVertical: 5,
+        paddingHorizontal: 10,
+        backgroundColor: "#24a0ed",
+        borderRadius: 7,
+        marginVertical: 6,
+        elevation: 10,
+        shadowColor: '#3C3C3C'
+    },
+
+    buttonText2:{
+        color: "#fff",
+        fontWeight: "bold"
+    },
+
+    Contentbutton2: {
+        flexDirection: "row",
     }
 });

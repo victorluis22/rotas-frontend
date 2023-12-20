@@ -28,4 +28,8 @@ export const remove = async (table, id) => {
     return await api.delete(`/${table}/${id}`)
 }
 
+export const getClientContracts = async (table, id) => {
+    return await api.get(`/${table}/${id}`)
+}
+
 

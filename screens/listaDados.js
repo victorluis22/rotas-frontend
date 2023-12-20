@@ -27,7 +27,7 @@ export const RenderListaCliente = ({data, search, openModal}) => {
                     const description = `# ${key}`
                     return (
                         <TouchableOpacity style={styles.button} key={key} onPress={() => openModal(eachName, title)}>
-                            <ListaCard title={title} description={description}/>
+                            <ListaCard title={title} description={description} type="cliente" codCliente={key}/>
                         </TouchableOpacity>
                     )
                 })
@@ -133,7 +133,7 @@ export const RenderListaJanelaTempo = ({data, search, openModal}) => {
             {
                 names.map((eachName) => {
                     const key = eachName.CodTurno
-                    const title = `${eachName.HoraIni.slice(0,-3)} - ${eachName.HoraIni.slice(0,-3)}`
+                    const title = `${eachName.HoraIni.slice(0,-3)} - ${eachName.HoraFim.slice(0,-3)}`
                     const description = `# ${key}`
                     return (
                         <TouchableOpacity style={styles.button} key={key} onPress={() => openModal(eachName, title)}>
