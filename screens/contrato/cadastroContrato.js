@@ -10,12 +10,11 @@ import { AuthContext } from "../../context/auth";
 export default function CadastroContrato({route}){
     const previousData = route.params.previousData
     const codCliente = route.params.codCliente
-    console.log(codCliente)
     const { user } = useContext(AuthContext)
     const type = route.params.type
 
     const [dataini, setDataIni] = useState(type === "update" ? previousData.DataIni.slice(0, 10) : "")
-    const [datafim, setDataFim] = useState(type === "update" ? previousData.DataFim.slice(0, 10) : "")
+    const [datafim, setDataFim] = useState(type === "update" ? previousData.DataFim === null ? "" : previousData.DataFim.slice(0, 10) : "")
     const [volumebalde, setVolumeBalde] = useState(type === "update" ? previousData.VolumeBalde.toString() : "")
     const [tipoContrato, setTipoContrato] = useState(type === "update" ? previousData.CodTipoContrato : "")
     const [tipoVeiculo, setTipoVeiculo] = useState(type === "update" ? previousData.CodTipoVeic : "")
@@ -41,10 +40,10 @@ export default function CadastroContrato({route}){
     const navigation = useNavigation()
 
     const submit = async () => {
-        if(dataini && datafim && volumebalde && tipoContrato && tipoVeiculo){
+        if(dataini && volumebalde && tipoContrato && tipoVeiculo){
             const data = {
                 dataIni: dataini,
-                dataFim: datafim,
+                dataFim: datafim === "" ? null :  datafim,
                 volumeBalde: volumebalde,
                 codTipoContrato: tipoContrato,
                 codEmpresa: user.CodEmpresa,

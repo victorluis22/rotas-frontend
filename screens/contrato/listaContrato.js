@@ -24,10 +24,10 @@ export const RenderLista = ({data, search, openModal}) => {
                 names.map((eachName) => {
                     const key = eachName.NumContrato
                     const title = `Data Início: ${eachName.DataIni.slice(0, 10)}`;
-                    const description = `Data Fim: ${eachName.DataFim.slice(0, 10)} - #${key}`;
+                    const description = `Data Fim: ${eachName.DataFim === null ? "Indefinido": eachName.DataFim.slice(0, 10)} - #${key}`;
                     return (
                         <TouchableOpacity style={styles.button} key={key} onPress={() => openModal(eachName, title)}>
-                            <ListaCard title={title} description={description} type="contrato"/>
+                            <ListaCard title={title} description={description} type="contrato" codContrato={key}/>
                         </TouchableOpacity>
                     )
                 })
@@ -92,7 +92,7 @@ export default function ListaContrato({route}){
 
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: `Contratos`, voltar: 'TelaInicial' }]} />
+            <MenuRetornar options={[{ title: `Contratos`, voltar: 'ListaDados', table: "clientes"}]} />
 
             <TextInput style={styles.caixadetexto}
                 value={search}

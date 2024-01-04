@@ -1,58 +1,47 @@
-import { View, Text, TouchableOpacity, StyleSheet, TextInput, ScrollView, Alert } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Alert } from "react-native";
 import MenuRetornar from "../../components/menuretornar";
-import { useState, useEffect, useContext } from "react";
-import { get } from "../../services/api";
+import { useState, useEffect } from "react";
+import { getHorariosComplete } from "../../services/api";
 import { create, update } from "../../services/api";
 import { useNavigation } from "@react-navigation/native";
 import { Picker } from '@react-native-picker/picker';
-import { AuthContext } from "../../context/auth";
 
-export default function CadastroContrato({route}){
+export default function CadastroHorarioContrato({route}){
     const previousData = route.params.previousData
-    const codCliente = route.params.codCliente
-    const { user } = useContext(AuthContext)
+    const codContrato = route.params.codContrato
     const type = route.params.type
 
-    const [hora, setHora] = useState(type === "update" ? previousData.hora : "")
+    const [hora, setHora] = useState(type === "update" ? previousData.CodHorario : "")
+    const [horaData, setHoraData] = useState([])
 
+    const navigation = useNavigation()
 
-    const getTipoContrato = async () => {
-        const response = await get("tipoContrato")
-        setTipoContratoData(response.data)
-    }
-
-    const getTipoVeiculo = async () => {
-        const response = await get("tipoVeiculo")
-        setTipoVeiculoData(response.data)
+    const fetchHorariosComplete = async () => {
+        const response = await getHorariosComplete()
+        setHoraData(response.data)
     }
 
     useEffect(() => {
-        getTipoContrato()
-        getTipoVeiculo()
+        fetchHorariosComplete()
     }, [])
-
-    const navigation = useNavigation()
 
     const submit = async () => {
         if(hora){
             const data = {
-                hora: hora,
-                codTipoCont: tipoContrato,
-                codEmpresa: user.CodEmpresa,
-                codCliente: codCliente,
-                codTipoVeic: tipoVeiculo,
+                codHorario: hora,
+                codContrato: codContrato
             }
 
             try {
                 if (type === "update"){
-                    await update("horariocoletacliente", previousData.CodCliente, data)
-                    Alert.alert("Sucesso", "horário atualizado com sucesso!")
-                    navigation.navigate("ListaHorarioContrato", {table: "horariocoletacliente", codCliente: codCliente})
+                    await update("horarioContratoCliente", previousData.CodHC, data)
+                    Alert.alert("Sucesso", "Horário atualizado com sucesso!")
+                    navigation.navigate("ListaHorarioContrato", {table: "horarioContratoCliente", codContrato: codContrato})
                 }
                 else{
-                    await create("contrato", data)
-                    Alert.alert("Sucesso", "horário cadastrado com sucesso!")
-                    navigation.navigate("ListaHorarioContrato", {table: "horariocoletacliente", codCliente: codCliente})
+                    await create("horarioContratoCliente", data)
+                    Alert.alert("Sucesso", "Horário cadastrado com sucesso!")
+                    navigation.navigate("ListaHorarioContrato", {table: "horarioContratoCliente", codContrato: codContrato})
                 }
             } catch (error) {
                 console.log(error)
@@ -76,15 +65,29 @@ export default function CadastroContrato({route}){
     
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.Nome}` : "Cadastro de Horário", voltar: "ListaHorarioContrato", table: "horariocoletacliente" }]} />
+            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.DiaSemana}` : "Cadastro de Horário", voltar: "ListaHorarioContrato", table: "horarioContratoCliente", codContrato:codContrato}]} />
             <ScrollView style={styles.content}>
 
                 <Text style={styles.titleinput}>Horário</Text>
-                <TextInput
+                <Picker
                     style={styles.input}
-                    onChangeText={setHora}
-                    value={hora}
-                />
+                    selectedValue={hora}
+                    onValueChange={(itemValue) =>
+                        setHora(itemValue)
+                    }>
+                    <Picker.Item label="Selecione" value="" enabled={false}/>
+                    {
+                        horaData.map((item, index) => {
+                            return (
+                                <Picker.Item
+                                key={index}
+                                label={`${item.DiaSemana} | ${item.HoraIni} - ${item.HoraFim}`}
+                                value={item.CodHorario}
+                                />
+                            );
+                        })
+                    }
+                </Picker>
 
                 <TouchableOpacity style={styles.buttonContent} onPress={() => submit()}>
                     <Text style={styles.buttonText}>{type === "update" ? "Atualizar": 'Cadastrar'}</Text>
@@ -95,7 +98,6 @@ export default function CadastroContrato({route}){
 }
 
 const styles = StyleSheet.create({
-
     container: {
         backgroundColor: '#D9D9D9',
         height: '100%',

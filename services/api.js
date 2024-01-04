@@ -32,4 +32,12 @@ export const getClientContracts = async (table, id) => {
     return await api.get(`/${table}/${id}`)
 }
 
+export const getHorarioContrato = async (table, id) => {
+    return await api.get(`/${table}/${id}`)
+}
+
+export const getHorariosComplete = async () => {
+    return await api.get(`/horarios/all`)
+}
+
 

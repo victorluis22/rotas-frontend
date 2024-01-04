@@ -20,6 +20,7 @@ import CadastroTipoContrato from './screens/contrato/cadastroTipoContrato';
 import CadastroJanelaTempo from './screens/horario/cadastroJanelaTempo';
 import CadastroHorario from './screens/horario/cadastroHorario';
 import CadastroContrato from './screens/contrato/cadastroContrato';
+import CadastroHorarioContrato from './screens/contrato/cadastroHorarioContrato';
 
 import ListaDados from './screens/listaDados';
 import ListaContrato from './screens/contrato/listaContrato';
@@ -169,6 +170,14 @@ function App() {
                 headerShown: false
               }}
               name="CadastroContrato" component={CadastroContrato}
+            />
+            <Stack.Screen
+              options={{
+                title: '',
+                headerTransparent: true,
+                headerShown: false
+              }}
+              name="CadastroHorarioContrato" component={CadastroHorarioContrato}
             />
             <Stack.Screen
               options={{

@@ -7,7 +7,7 @@ import { Modal } from "react-native-paper";
 import AntDesign from "react-native-vector-icons/AntDesign"
 import Feather from "react-native-vector-icons/Feather"
 
-export default function EditModal({ modalVisible, setModalVisible, openDeleteModal, data, table, title, codCliente}) {
+export default function EditModal({ modalVisible, setModalVisible, openDeleteModal, data, table, title, codCliente, codContrato}) {
     const navigation = useNavigation()
 
     const navegarCadastro = () => {
@@ -36,6 +36,9 @@ export default function EditModal({ modalVisible, setModalVisible, openDeleteMod
                 break;
             case "contrato":
                 navigation.navigate('CadastroContrato', {type: "update", previousData: data, codCliente: codCliente});
+                break;
+            case "horarioContratoCliente":
+                navigation.navigate('CadastroHorarioContrato', {type: "update", previousData: data, codContrato: codContrato});
                 break;
             default:
                 Alert.alert("Erro", "Ocorreu algum erro, tente novamente.")

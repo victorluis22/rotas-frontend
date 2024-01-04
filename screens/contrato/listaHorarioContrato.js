@@ -6,7 +6,7 @@ import { View,
     Alert } from "react-native";
     
 import MenuRetornar from "../../components/menuretornar";
-import { remove, get } from "../../services/api";
+import { remove, get, getHorarioContrato } from "../../services/api";
 import { useEffect, useState } from "react";
 import ListaCard from "../../components/listaCard";
 import Icon from "react-native-vector-icons/AntDesign"
@@ -15,15 +15,15 @@ import EditModal from "../../components/editModal";
 import DeleteModal from "../../components/deleteModal";
 
 export const RenderLista = ({data, search, openModal}) => {
-    // const searchLowerCase = search.toLowerCase()
-    // const names = data.filter((eachData) => eachData.DataIni.toLowerCase().includes(searchLowerCase));
+    const searchLowerCase = search.toLowerCase()
+    const names = data.filter((eachData) => `${eachData.DiaSemana}: ${eachData.HoraIni} - ${eachData.HoraFim}`.toLowerCase().includes(searchLowerCase));
     
     return (
         <>
             {
-                data.map((eachName) => {
+                names.map((eachName) => {
                     const key = eachName.CodHC
-                    const title = `Horário: ${eachName.CodHorario}`;
+                    const title = `${eachName.DiaSemana}: ${eachName.HoraIni} - ${eachName.HoraFim}`;
                     const description = `Contrato: ${eachName.NumContrato}`;
                     return (
                         <TouchableOpacity style={styles.button} key={key} onPress={() => openModal(eachName, title)}>
@@ -38,26 +38,10 @@ export const RenderLista = ({data, search, openModal}) => {
 
 export default function ListaHorarioContrato({route}){
     const table = route.params.table
-    const codCliente = route.params.codCliente
+    const codContrato = route.params.codContrato
 
     const [search, setSearch] = useState("")
-    const [data, setData] = useState([
-        {
-            CodHC: 1,
-            CodHorario: 2,
-            NumContrato: 3
-        },
-        {
-            CodHC: 2,
-            CodHorario: 2,
-            NumContrato: 3
-        },
-        {
-            CodHC: 3,
-            CodHorario: 2,
-            NumContrato: 3
-        },
-    ])
+    const [data, setData] = useState([])
     
     const navigation = useNavigation()
     const [editModalVisible, setEditModalVisible] = useState(false);
@@ -67,7 +51,7 @@ export default function ListaHorarioContrato({route}){
 
     const fetchData = async () => {
         try {
-            const response = await get(table)
+            const response = await getHorarioContrato(table, codContrato)
             setData(response.data)
         } catch (error) {
             console.log(error)
@@ -99,16 +83,16 @@ export default function ListaHorarioContrato({route}){
         }
     }
 
-    // useEffect(() => {
-    //     // Evita renderizar dados antigos quando voltando para trás na navigation stack
-    //     navigation.addListener('focus', () => {
-    //         fetchData()
-    //     });
-    // }, [navigation]);
+    useEffect(() => {
+        // Evita renderizar dados antigos quando voltando para trás na navigation stack
+        navigation.addListener('focus', () => {
+            fetchData()
+        });
+    }, [navigation]);
 
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: `Horário Contratos`, voltar: 'TelaInicial' }]} />
+            <MenuRetornar options={[{ title: `Horário Contratos`, voltar: 'ListaContrato', table: "contrato" }]} />
 
             <TextInput style={styles.caixadetexto}
                 value={search}
@@ -120,9 +104,9 @@ export default function ListaHorarioContrato({route}){
                 <RenderLista data={data} search={search} openModal={openEditModal} table={table} />
             </ScrollView>
             
-            <Icon style={styles.iconeAdd} name="pluscircle" size={60} color={"#3C3C3C"} onPress={() => navigation.navigate("CadastroContrato", {previousData: {}, codCliente: codCliente})}></Icon>
+            <Icon style={styles.iconeAdd} name="pluscircle" size={60} color={"#3C3C3C"} onPress={() => navigation.navigate("CadastroHorarioContrato", {previousData: {}, codContrato: codContrato})}></Icon>
             
-            <EditModal modalVisible={editModalVisible} setModalVisible={setEditModalVisible} openDeleteModal={openDeleteModal} data={modalData} table={table} title={modalTitle}/>
+            <EditModal modalVisible={editModalVisible} setModalVisible={setEditModalVisible} openDeleteModal={openDeleteModal} data={modalData} table={table} title={modalTitle} codContrato={codContrato}/>
             <DeleteModal modalVisible={deleteModalVisible} setModalVisible={setDeleteModalVisible} data={modalData} deleteFunction={deleteData} table={table}/>
         </View>
     );
