@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign"
 
-export default function ListaCard({title, description, type, codCliente, codContrato}) {
+export default function ListaCard({title, description, type, codCliente, codContrato, codPonto}) {
     const navigation = useNavigation()
 
     return (
@@ -36,8 +36,23 @@ export default function ListaCard({title, description, type, codCliente, codCont
                     null    
                 }
 
+                { 
+                    type === "pontosCompostagem" ?
+                        <View style={styles.containertexto}>
+                            <Text style={styles.contentTitulo}>{title}</Text>
+                            <Text>{description}</Text>
+                            <View style={styles.Contentbutton2}>
+                                <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate("ListaHorarioPonto", {table: "horarioPonto", codPonto: codPonto})}>
+                                    <Text style={styles.buttonText2}>Acessar Horários</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    : 
+                    null    
+                }
+
                 {
-                    type !== "contrato" && type !== "cliente" ?
+                    type !== "contrato" && type !== "cliente" && type !== "pontosCompostagem" ?
                     <View style={styles.containertexto}>
                         <Text style={styles.contentTitulo}>{title}</Text>
                         <Text>{description}</Text>

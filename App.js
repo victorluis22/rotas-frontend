@@ -6,7 +6,6 @@ import TelaInicial from './screens/telainicial';
 import DisponibilidadeVeiculos from './screens/disponibilidadeveiculos';
 import ColetaCliente from './screens/coletacliente';
 import EntregaCompostagem from './screens/entregacompostagem';
-import PontosCompostagem from './screens/pontoscompostagem';
 import RotasColeta from './screens/rotascoleta';
 import Coleta from './screens/coleta/coleta';
 import ColetaMap from './screens/coletamap';
@@ -21,10 +20,14 @@ import CadastroJanelaTempo from './screens/horario/cadastroJanelaTempo';
 import CadastroHorario from './screens/horario/cadastroHorario';
 import CadastroContrato from './screens/contrato/cadastroContrato';
 import CadastroHorarioContrato from './screens/contrato/cadastroHorarioContrato';
+import CadastroPontosCompostagem from './screens/pontosComp/cadastroPontosComp';
+import CadastroHorarioPonto from './screens/pontosComp/cadastroHorarioPonto';
 
 import ListaDados from './screens/listaDados';
 import ListaContrato from './screens/contrato/listaContrato';
 import ListaHorarioContrato from './screens/contrato/listaHorarioContrato';
+import ListaPontosComp from './screens/pontosComp/listaPontosComp';
+import ListaHorarioPonto from './screens/pontosComp/listaHorarioPonto';
 
 import { AuthProvider } from './context/auth';
 
@@ -129,7 +132,7 @@ function App() {
                 headerTransparent: true,
                 headerShown: false
               }}
-              name="PontosCompostagem" component={PontosCompostagem}
+              name="CadastroPontosCompostagem" component={CadastroPontosCompostagem}
             />
             <Stack.Screen
               options={{
@@ -185,6 +188,14 @@ function App() {
                 headerTransparent: true,
                 headerShown: false
               }}
+              name="CadastroHorarioPonto" component={CadastroHorarioPonto}
+            />
+            <Stack.Screen
+              options={{
+                title: '',
+                headerTransparent: true,
+                headerShown: false
+              }}
               name="ListaDados" component={ListaDados}
             />
             <Stack.Screen
@@ -202,6 +213,22 @@ function App() {
                 headerShown: false
               }}
               name="ListaHorarioContrato" component={ListaHorarioContrato}
+            />
+            <Stack.Screen
+              options={{
+                title: '',
+                headerTransparent: true,
+                headerShown: false
+              }}
+              name="ListaPontosComp" component={ListaPontosComp}
+            />
+            <Stack.Screen
+              options={{
+                title: '',
+                headerTransparent: true,
+                headerShown: false
+              }}
+              name="ListaHorarioPonto" component={ListaHorarioPonto}
             />
           </Stack.Navigator>
         </NavigationContainer>
