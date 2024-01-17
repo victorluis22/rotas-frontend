@@ -3,7 +3,6 @@ import MenuRetornar from "../../components/menuretornar";
 import React, { useState } from 'react'
 
 
-
 export default function CadastroVeiculo({ route }) {
     const previousData = route.params.previousData
     const type = route.params.type
@@ -57,6 +56,20 @@ export default function CadastroVeiculo({ route }) {
                             Cadastrar
                         </Text>
                     </TouchableHighlight>
+                    <TouchableHighlight
+                        style={styles.butao}
+                    >
+                        <Text style={{ color: 'white', alignSelf: 'center', fontSize: 14, justifyContent: 'center' }}>
+                            Cadastrar Responsável
+                        </Text>
+                    </TouchableHighlight>
+                    <TouchableHighlight
+                        style={styles.butao}
+                    >
+                        <Text style={{ color: 'white', alignSelf: 'center', fontSize: 14, justifyContent: 'center' }}>
+                            Cadastrar Horário
+                        </Text>
+                    </TouchableHighlight>
                 </View>
             </View>
 
@@ -96,7 +109,8 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         height: 30,
         width: '100%',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginBottom: 10,
     },
     caixadetexto: {
         backgroundColor: 'white',

@@ -5,6 +5,8 @@ import { AuthContext } from "../../context/auth";
 import { Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { create, update } from "../../services/api";
+import { Picker } from '@react-native-picker/picker';
+
 
 export default function CadastroResponsavel({ route }) {
     const previousData = route.params.previousData
@@ -57,9 +59,11 @@ export default function CadastroResponsavel({ route }) {
         <View style={styles.container}>
             <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.Nome}`: 'Cadastro de Responsavéis', voltar: "ListaDados", table: "responsaveis" }]} />
                 <ScrollView style={styles.content}>
-                    <Text style={styles.titleinput}>Nome do responsavel</Text>
-                    <TextInput style={styles.input} value={nome} onChangeText={setNome}/>
-
+                    <Text style={styles.titleinput}>Responsável do veículo</Text>
+                    <Picker
+                    style={styles.input}>
+                    <Picker.Item label="Selecione" value="" enabled={false}/>
+                </Picker>
 
                     <TouchableOpacity style={styles.buttonContent} onPress={() => submit()}>
                         <Text style={styles.buttonText}>{type === "update" ? "Atualizar": 'Cadastrar'}</Text>
