@@ -7,7 +7,7 @@ import { Modal } from "react-native-paper";
 import AntDesign from "react-native-vector-icons/AntDesign"
 import Feather from "react-native-vector-icons/Feather"
 
-export default function EditModal({ modalVisible, setModalVisible, openDeleteModal, data, table, title, codCliente, codContrato, codPonto}) {
+export default function EditModal({ modalVisible, setModalVisible, openDeleteModal, data, table, title, codCliente, codVeic, codContrato, codPonto}) {
     const navigation = useNavigation()
 
     const navegarCadastro = () => {
@@ -18,6 +18,9 @@ export default function EditModal({ modalVisible, setModalVisible, openDeleteMod
                 break;
             case "veiculos":
                 navigation.navigate('CadastroVeiculo', {type: "update", previousData: data});
+                break;
+            case "pontosCompostagem":
+                navigation.navigate('CadastroPontosCompostagem', {type: "update", previousData: data});
                 break;
             case "responsaveis":
                 navigation.navigate('CadastroResponsaveis', {type: "update", previousData: data});
@@ -40,8 +43,8 @@ export default function EditModal({ modalVisible, setModalVisible, openDeleteMod
             case "horarioContratoCliente":
                 navigation.navigate('CadastroHorarioContrato', {type: "update", previousData: data, codContrato: codContrato});
                 break;
-            case "pontosCompostagem":
-                navigation.navigate('CadastroPontosCompostagem', {type: "update", previousData: data});
+            case "horarioVeiculo":
+                navigation.navigate('CadastroHorarioVeiculo', {type: "update", previousData: data, codVeic: codVeic});
                 break;
             case "horarioPonto":
                 navigation.navigate('CadastroHorarioPonto', {type: "update", previousData: data, codPonto: codPonto});

@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign"
 
-export default function ListaCard({title, description, type, codCliente, codContrato, codPonto}) {
+export default function ListaCard({title, description, type, codCliente, codContrato, codVeic, codPonto}) {
     const navigation = useNavigation()
 
     return (
@@ -37,6 +37,24 @@ export default function ListaCard({title, description, type, codCliente, codCont
                 }
 
                 { 
+                    type === "veiculo" ?
+                        <View style={styles.containertexto}>
+                            <Text style={styles.contentTitulo}>{title}</Text>
+                            <Text>{description}</Text>
+                            <View style={styles.Contentbutton2}>
+                                <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate("ListaRespVeiculo", {table: "horarioVeiculo", codVeic: codVeic})}>
+                                    <Text style={styles.buttonText2}>Acessar Responsáveis</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate("ListaHorarioVeiculo", {table: "horarioVeiculo", codVeic: codVeic})}>
+                                    <Text style={styles.buttonText2}>Acessar Horários</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    : 
+                    null    
+                }
+
+                { 
                     type === "pontosCompostagem" ?
                         <View style={styles.containertexto}>
                             <Text style={styles.contentTitulo}>{title}</Text>
@@ -52,7 +70,7 @@ export default function ListaCard({title, description, type, codCliente, codCont
                 }
 
                 {
-                    type !== "contrato" && type !== "cliente" && type !== "pontosCompostagem" ?
+                    type !== "contrato" && type !== "cliente" && type !== "pontosCompostagem" && type !== "veiculo" ?
                     <View style={styles.containertexto}>
                         <Text style={styles.contentTitulo}>{title}</Text>
                         <Text>{description}</Text>
@@ -142,6 +160,6 @@ const styles = StyleSheet.create({
     },
 
     Contentbutton2: {
-        flexDirection: "row",
+        flexDirection: "column",
     }
 });

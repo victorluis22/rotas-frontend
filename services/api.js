@@ -36,6 +36,10 @@ export const getHorarioContrato = async (table, id) => {
     return await api.get(`/${table}/${id}`)
 }
 
+export const getHorarioVeiculo = async (table, id) => {
+    return await api.get(`/${table}/${id}`)
+}
+
 export const getHorarioPonto = async (table, id) => {
     return await api.get(`/${table}/${id}`)
 }

@@ -15,6 +15,9 @@ export default function DeleteModal({ modalVisible, setModalVisible, data, delet
             case "veiculos":
                 setId(data.CodVeic)
                 break
+            case "pontosCompostagem":
+                setId(data.CodPonto)
+                break
             case "responsaveis":
                 setId(data.CodResp)
                 break
@@ -36,8 +39,8 @@ export default function DeleteModal({ modalVisible, setModalVisible, data, delet
             case "horarioContratoCliente":
                 setId(data.CodHC)
                 break
-            case "pontosCompostagem":
-                setId(data.CodPonto)
+            case "horarioVeiculo":
+                setId(data.CodDV)
                 break
             case "horarioPonto":
                 setId(data.CodHD)
