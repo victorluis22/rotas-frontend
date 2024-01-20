@@ -14,7 +14,7 @@ export default function CadastroCliente({route}){
     const [logradouro, setLogradouro] = useState(type === "update" ? previousData.Logradouro : "")
     const [numero, setNumero] = useState(type === "update" ? previousData.Numero.toString() : "")
     const [complemento, setComplemento] = useState(type === "update" ? previousData.Complemento : "")
-    const [UTM, setUTM] = useState(type === "update" ? previousData.UTM : "")
+    const [CEP, setCEP] = useState(type === "update" ? previousData.CEP : "")
     const [bairro, setBairro] = useState(type === "update" ? previousData.Bairro : "")
     const [cidade, setCidade] = useState(type === "update" ? previousData.Cidade : "")
     const [uf, setUf] = useState(type === "update" ? previousData.UF : "")
@@ -24,13 +24,13 @@ export default function CadastroCliente({route}){
     const navigation = useNavigation()
 
     const submit = async () => {
-        if(nome && logradouro && numero && complemento && UTM && bairro && cidade && uf && tempoColeta && cpfcnpj && pjpf){
+        if(nome && logradouro && numero && complemento && CEP && bairro && cidade && uf && tempoColeta && cpfcnpj && pjpf){
             const data = {
                 nome: nome,
                 logradouro: logradouro,
                 numero: numero,
                 complemento: complemento,
-                utm: UTM,
+                cep: CEP,
                 bairro: bairro,
                 cidade: cidade,
                 uf: uf,
@@ -69,6 +69,24 @@ export default function CadastroCliente({route}){
             Alert.alert("Erro", "Preencha todos os campos de texto.")
         }
     }
+
+    const checkCEP = () => {
+        const cep = CEP.replace(/\D/g, '');
+
+        fetch(`https://viacep.com.br/ws/${cep}/json/`).then(res => res.json()).then(data => {
+          setLogradouro(data.logradouro)
+          setBairro(data.bairro)
+          setCidade(data.localidade)
+          setUf(data.uf)
+        })
+        .catch(error => {
+            Alert.alert("Erro", "Erro ao validar CEP")
+        });
+      }
+
+    const ValidateAdress = () => {
+        axios.post()
+    }
     
     return (
         <View style={styles.container}>
@@ -82,33 +100,20 @@ export default function CadastroCliente({route}){
                     value={nome}
                 />
 
+                <Text style={styles.titleinput}>CEP</Text>
+                <TextInput
+                    style={styles.input}
+                    onChangeText={setCEP}
+                    value={CEP}
+                    onBlur={checkCEP}
+                    keyboardType='numeric'
+                />
+
                 <Text style={styles.titleinput}>Logradouro</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setLogradouro}
                     value={logradouro}
-                />
-
-                <Text style={styles.titleinput}>Numero</Text>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={setNumero}
-                    value={numero}
-                    keyboardType='numeric'
-                />
-
-                <Text style={styles.titleinput}>Complemento</Text>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={setComplemento}
-                    value={complemento}
-                />
-
-                <Text style={styles.titleinput}>UTM</Text>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={setUTM}
-                    value={UTM}
                 />
 
                 <Text style={styles.titleinput}>Bairro</Text>
@@ -130,6 +135,21 @@ export default function CadastroCliente({route}){
                     style={styles.input}
                     onChangeText={setUf}
                     value={uf}
+                />
+
+                <Text style={styles.titleinput}>Numero</Text>
+                <TextInput
+                    style={styles.input}
+                    onChangeText={setNumero}
+                    value={numero}
+                    keyboardType='numeric'
+                />
+
+                <Text style={styles.titleinput}>Complemento</Text>
+                <TextInput
+                    style={styles.input}
+                    onChangeText={setComplemento}
+                    value={complemento}
                 />
 
                 <Text style={styles.titleinput}>Tempo Coleta</Text>

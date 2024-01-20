@@ -28,6 +28,8 @@ export const remove = async (table, id) => {
     return await api.delete(`/${table}/${id}`)
 }
 
+// Specialized Services
+
 export const getClientContracts = async (table, id) => {
     return await api.get(`/${table}/${id}`)
 }
@@ -37,6 +39,10 @@ export const getHorarioContrato = async (table, id) => {
 }
 
 export const getHorarioVeiculo = async (table, id) => {
+    return await api.get(`/${table}/${id}`)
+}
+
+export const getRespVeiculo = async (table, id) => {
     return await api.get(`/${table}/${id}`)
 }
 

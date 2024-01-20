@@ -46,6 +46,9 @@ export default function EditModal({ modalVisible, setModalVisible, openDeleteMod
             case "horarioVeiculo":
                 navigation.navigate('CadastroHorarioVeiculo', {type: "update", previousData: data, codVeic: codVeic});
                 break;
+            case "responsavelVeiculo":
+                navigation.navigate('CadastroRespVeiculo', {type: "update", previousData: data, codVeic: codVeic});
+                break;
             case "horarioPonto":
                 navigation.navigate('CadastroHorarioPonto', {type: "update", previousData: data, codPonto: codPonto});
                 break;

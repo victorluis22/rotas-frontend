@@ -23,6 +23,7 @@ import CadastroHorarioContrato from './screens/contrato/cadastroHorarioContrato'
 import CadastroPontosCompostagem from './screens/pontosComp/cadastroPontosComp';
 import CadastroHorarioPonto from './screens/pontosComp/cadastroHorarioPonto';
 import CadastroHorarioVeiculo from './screens/veiculo/cadastroHorarioVeiculo';
+import CadastroRespVeiculo from './screens/veiculo/cadastroRespVeiculo';
 
 import ListaDados from './screens/listaDados';
 import ListaContrato from './screens/contrato/listaContrato';
@@ -30,6 +31,7 @@ import ListaHorarioContrato from './screens/contrato/listaHorarioContrato';
 import ListaPontosComp from './screens/pontosComp/listaPontosComp';
 import ListaHorarioPonto from './screens/pontosComp/listaHorarioPonto';
 import ListaHorarioVeiculo from './screens/veiculo/listaHorarioVeiculo';
+import ListaRespVeiculo from './screens/veiculo/listaRespVeiculo';
 
 import { AuthProvider } from './context/auth';
 
@@ -198,6 +200,14 @@ function App() {
                 headerTransparent: true,
                 headerShown: false
               }}
+              name="CadastroRespVeiculo" component={CadastroRespVeiculo}
+            />
+            <Stack.Screen
+              options={{
+                title: '',
+                headerTransparent: true,
+                headerShown: false
+              }}
               name="CadastroHorarioPonto" component={CadastroHorarioPonto}
             />
             <Stack.Screen
@@ -239,6 +249,14 @@ function App() {
                 headerShown: false
               }}
               name="ListaHorarioVeiculo" component={ListaHorarioVeiculo}
+            />
+            <Stack.Screen
+              options={{
+                title: '',
+                headerTransparent: true,
+                headerShown: false
+              }}
+              name="ListaRespVeiculo" component={ListaRespVeiculo}
             />
             <Stack.Screen
               options={{

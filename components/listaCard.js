@@ -42,7 +42,7 @@ export default function ListaCard({title, description, type, codCliente, codCont
                             <Text style={styles.contentTitulo}>{title}</Text>
                             <Text>{description}</Text>
                             <View style={styles.Contentbutton2}>
-                                <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate("ListaRespVeiculo", {table: "horarioVeiculo", codVeic: codVeic})}>
+                                <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate("ListaRespVeiculo", {table: "responsavelVeiculo", codVeic: codVeic})}>
                                     <Text style={styles.buttonText2}>Acessar Responsáveis</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate("ListaHorarioVeiculo", {table: "horarioVeiculo", codVeic: codVeic})}>
