@@ -30,7 +30,7 @@ export default function TelaInicial() {
           { title: 'Horários', screen: 'ListaDados', table: "horarios" },
           { title: 'Responsáveis', screen: 'ListaDados', table: "responsaveis" }, 
           { title: 'Tipos de Contrato', screen: 'ListaDados', table: "tipoContrato" }, 
-          { title: 'Pontos de Compostagem', screen: 'ListaPontosComp', table: "pontosCompostagem" }, 
+          { title: 'Pontos de Compostagem', screen: 'ListaDados', table: "pontosCompostagem" }, 
           ]}
       />
       <ScrollView>

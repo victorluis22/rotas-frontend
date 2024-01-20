@@ -1,47 +1,56 @@
 import { View,
-    TouchableOpacity,
     StyleSheet,
     TextInput,
     ScrollView,
-    Alert } from "react-native";
+    Alert 
+} from "react-native";
     
 import MenuRetornar from "../../components/menuretornar";
 import { remove, get } from "../../services/api";
 import { useEffect, useState } from "react";
-import ListaCard from "../../components/listaCard";
 import Icon from "react-native-vector-icons/AntDesign"
 import { useNavigation } from "@react-navigation/native";
+
 import EditModal from "../../components/editModal";
 import DeleteModal from "../../components/deleteModal";
 
-export const RenderLista = ({data, search, openModal}) => {
-    const searchLowerCase = search.toLowerCase()
-    const names = data.filter((eachData) => eachData.Descricao.toLowerCase().includes(searchLowerCase));
-    
-    return (
-        <>
-            {
-                names.map((eachName) => {
-                    const key = eachName.CodPonto
-                    const title = `${eachName.Descricao}`;
-                    const description = `${eachName.Cidade} - #${key}`;
-                    return (
-                        <TouchableOpacity style={styles.button} key={key} onPress={() => openModal(eachName, title)}>
-                            <ListaCard title={title} description={description} type="pontosCompostagem" codPonto={key}/>
-                        </TouchableOpacity>
-                    )
-                })
-            }
-        </>
-    )
+import { 
+    RenderListaCliente, 
+    RenderListaVeiculo,
+    RenderListaResponsaveis,
+    RenderListaTipoVeiculo,
+    RenderListaTipoContrato,
+    RenderListaJanelaTempo,
+    RenderListaHorario,
+    RenderListaPontosComp
+} from "./renderListaDados";
+
+export const RenderLista = ({data, search, openModal, table }) => {
+    switch(table){
+        case "clientes":
+            return <RenderListaCliente data={data} search={search} openModal={openModal}/>
+        case "veiculos":
+            return <RenderListaVeiculo data={data} search={search} openModal={openModal}/>
+        case "responsaveis":
+            return <RenderListaResponsaveis data={data} search={search} openModal={openModal}/>   
+        case "tipoVeiculo":
+            return <RenderListaTipoVeiculo data={data} search={search} openModal={openModal}/>
+        case "tipoContrato":
+            return <RenderListaTipoContrato data={data} search={search} openModal={openModal}/>
+        case "janelaTempo":
+            return <RenderListaJanelaTempo data={data} search={search} openModal={openModal}/>
+        case "horarios":
+            return <RenderListaHorario data={data} search={search} openModal={openModal}/>
+        case "pontosCompostagem":
+            return <RenderListaPontosComp data={data} search={search} openModal={openModal}/>
+    }
 }
 
-export default function ListaPontosComp({route}){
+export default function ListaDados({route}){
     const table = route.params.table
 
     const [search, setSearch] = useState("")
     const [data, setData] = useState([])
-    
     const navigation = useNavigation()
     const [editModalVisible, setEditModalVisible] = useState(false);
     const [deleteModalVisible, setDeleteModalVisible] = useState(false);
@@ -57,7 +66,6 @@ export default function ListaPontosComp({route}){
             Alert.alert("Erro", "Ocorreu um erro ao pegar os dados, tente novamente.")
         }
     }
-
     const openEditModal = (data, title) => {
         setModalData(data)
         setModalTitle(title)
@@ -82,6 +90,35 @@ export default function ListaPontosComp({route}){
         }
     }
 
+    const navegarCadastro = () => {
+        switch (table){
+            case "clientes":
+                navigation.navigate('CadastroCliente', {type: "create", data: {}});
+                break;
+            case "veiculos":
+                navigation.navigate('CadastroVeiculo', {type: "create", data: {}});
+                break;
+            case "responsaveis":
+                navigation.navigate('CadastroResponsaveis', {type: "create", data: {}});
+                break;
+            case "tipoVeiculo":
+                navigation.navigate('CadastroTipoVeiculo', {type: "create", data:{}})
+                break;
+            case "tipoContrato":
+                navigation.navigate('CadastroTipoContrato', {type: "create", data:{}})
+                break;
+            case "janelaTempo":
+                navigation.navigate('CadastroJanelaTempo', {type: "create", data:{}})
+                break;
+            case "horarios":
+                navigation.navigate('CadastroHorario', {type: "create", data:{}})
+                break;
+            case "pontosCompostagem":
+                navigation.navigate('CadastroPontosCompostagem', {type: "create", data:{}})
+                break;
+        }
+    }
+
     useEffect(() => {
         // Evita renderizar dados antigos quando voltando para trás na navigation stack
         navigation.addListener('focus', () => {
@@ -91,7 +128,7 @@ export default function ListaPontosComp({route}){
 
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: `Pontos Compostagem`, voltar: 'TelaInicial'}]} />
+            <MenuRetornar options={[{ title: `${table.charAt(0).toUpperCase() + table.replace(/([a-z])([A-Z])/g, '$1 $2').slice(1)}`, voltar: 'TelaInicial' }]} />
 
             <TextInput style={styles.caixadetexto}
                 value={search}
@@ -103,7 +140,7 @@ export default function ListaPontosComp({route}){
                 <RenderLista data={data} search={search} openModal={openEditModal} table={table} />
             </ScrollView>
             
-            <Icon style={styles.iconeAdd} name="pluscircle" size={60} color={"#3C3C3C"} onPress={() => navigation.navigate("CadastroPontosCompostagem", {previousData: {}})} />
+            <Icon style={styles.iconeAdd} name="pluscircle" size={60} color={"#3C3C3C"} onPress={() => navegarCadastro()}></Icon>
             
             <EditModal modalVisible={editModalVisible} setModalVisible={setEditModalVisible} openDeleteModal={openDeleteModal} data={modalData} table={table} title={modalTitle}/>
             <DeleteModal modalVisible={deleteModalVisible} setModalVisible={setDeleteModalVisible} data={modalData} deleteFunction={deleteData} table={table}/>

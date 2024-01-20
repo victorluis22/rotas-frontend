@@ -92,7 +92,7 @@ export default function ListaHorarioPonto({route}){
 
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: `Horário Ponto`, voltar: 'ListaPontosComp', table: "pontosCompostagem" }]} />
+            <MenuRetornar options={[{ title: `Horário Ponto`, voltar: 'ListaDados', table: "pontosCompostagem" }]} />
 
             <TextInput style={styles.caixadetexto}
                 value={search}

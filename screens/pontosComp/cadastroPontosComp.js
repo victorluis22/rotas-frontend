@@ -43,12 +43,12 @@ export default function CadastroPontosCompostagem({ route }) {
                 if (type === "update"){
                     await update("pontosCompostagem", previousData.CodPonto, data)
                     Alert.alert("Sucesso", "Ponto de Compostagem atualizado com sucesso!")
-                    navigation.navigate("ListaPontosComp", {table: "pontosCompostagem"})
+                    navigation.navigate("ListaDados", {table: "pontosCompostagem"})
                 }
                 else{
                     await create("pontosCompostagem", data)
                     Alert.alert("Sucesso", "Ponto de Compostagem cadastrado com sucesso!")
-                    navigation.navigate("ListaPontosComp", {table: "pontosCompostagem"})
+                    navigation.navigate("ListaDados", {table: "pontosCompostagem"})
                 }
             } catch (error) {
                 console.log(error)
@@ -75,7 +75,7 @@ export default function CadastroPontosCompostagem({ route }) {
 
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.Descricao}` : "Cadastro de Ponto", voltar: "ListaPontosComp", table: "pontosCompostagem" }]} />
+            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.Descricao}` : "Cadastro de Ponto", voltar: "ListaDados", table: "pontosCompostagem" }]} />
             <ScrollView style={styles.content}>
 
                 <Text style={styles.titleinput}>Descrição Ponto</Text>
@@ -141,8 +141,6 @@ export default function CadastroPontosCompostagem({ route }) {
                     onChangeText={setCapMax}
                     value={capmax}
                 />
-
-
 
                 <TouchableOpacity style={styles.buttonContent} onPress={() => submit()}>
                     <Text style={styles.buttonText}>{type === "update" ? "Atualizar": 'Cadastrar'}</Text>
