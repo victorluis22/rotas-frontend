@@ -6,6 +6,10 @@ import { useNavigation } from "@react-navigation/native";
 import { validateCPFCNPJ } from "../../services/inputMask";
 import { Picker } from '@react-native-picker/picker';
 
+import axios from "axios";
+
+import { ADDRESS_VALIDATION_API_KEY } from "@env"
+
 export default function CadastroCliente({route}){
     const previousData = route.params.previousData
     const type = route.params.type
@@ -25,6 +29,13 @@ export default function CadastroCliente({route}){
 
     const submit = async () => {
         if(nome && logradouro && numero && complemento && CEP && bairro && cidade && uf && tempoColeta && cpfcnpj && pjpf){
+            const validate = await validateAddress()
+
+            if(validate === true){
+                Alert.alert("Existe algum campo de endereço preenchido que está inválido!", "Reefetue novamente o endereço, pois as rotas so podem ser geradas para endereços reconhecidos pelo Google Maps.")
+                return 
+            }
+
             const data = {
                 nome: nome,
                 logradouro: logradouro,
@@ -82,10 +93,23 @@ export default function CadastroCliente({route}){
         .catch(error => {
             Alert.alert("Erro", "Erro ao validar CEP")
         });
-      }
+    }
 
-    const ValidateAdress = () => {
-        axios.post()
+    const validateAddress = async () => {
+        const cep = CEP.replace(/\D/g, '');
+        const address = {
+            regionCode: "BR",
+            locality: cidade,
+            administrativeArea: uf,
+            postalCode: cep,
+            addressLines: [`${numero} ${logradouro} ${bairro}`]
+        }
+
+        const res = await axios.post(`https://addressvalidation.googleapis.com/v1:validateAddress?key=${ADDRESS_VALIDATION_API_KEY}`, {address});
+
+        const finalResponse = res.data.result.verdict;
+
+        return finalResponse.hasUnconfirmedComponents
     }
     
     return (
@@ -152,11 +176,12 @@ export default function CadastroCliente({route}){
                     value={complemento}
                 />
 
-                <Text style={styles.titleinput}>Tempo Coleta</Text>
+                <Text style={styles.titleinput}>Tempo Coleta (em minutos)</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setTempoColeta}
                     value={tempoColeta}
+                    keyboardType='numeric'
                 />
 
                 <Text style={styles.titleinput}>CPF ou CNPJ</Text>
