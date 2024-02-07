@@ -54,4 +54,8 @@ export const getHorariosComplete = async () => {
     return await api.get(`/horarios/all`)
 }
 
+export const getClientQRCode = async (id) => {
+    return await api.get(`/clientes/qrcode/${id}`)
+}
+
 

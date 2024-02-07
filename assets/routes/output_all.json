@@ -1,0 +1,41 @@
+{
+    "Moto": {
+        "Terça-feira": {
+            "Departure": {
+                "Base": 0,
+                "Location": "HORTO MUNICIPAL",
+                "Address": "ALAMEDA PRINCESA IZABEL, S/N, PARQUE SÃO CLEMENTE, NOVA FRIBURGO - RJ"
+            },
+            "Route": [
+                {   
+                    "From": 0,
+                    "To": 11,
+                    "Destination address": "RUA EUGÊNIO GRIPP, 460, BRAUNES, NOVA FRIBURGO - RJ",
+                    "End of Service": "08:29",
+                    "Accumulated demand": "16 kg"
+                },
+                {   
+                    "From": 71,
+                    "To": 11,
+                    "Destination address": "RUA EUGÊNIO GRIPP, 460, BRAUNES, NOVA FRIBURGO - RJ",
+                    "End of Service": "08:29",
+                    "Accumulated demand": "16 kg"
+                },
+                {   
+                    "From": 100,
+                    "To": 0,
+                    "Destination address": "RUA PIERRE BICART, 72, BRAUNES, NOVA FRIBURGO - RJ",
+                    "End of Service": "09:15",
+                    "Accumulated demand": "32 kg"
+                }
+            ],
+            "Arrival": {
+                "Base": 0,
+                "Location": "HORTO MUNICIPAL",
+                "Address": "ALAMEDA PRINCESA IZABEL, S/N, PARQUE SÃO CLEMENTE, NOVA FRIBURGO - RJ"
+            }
+        }
+        
+    }
+}
+            

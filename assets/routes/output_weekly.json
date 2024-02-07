@@ -1,0 +1,237 @@
+{
+    "carro": {
+        "Quarta-feira": {
+            "Departure": {
+                "Base": 0,
+                "Location": "HORTO MUNICIPAL",
+                "Address": "ALAMEDA PRINCESA IZABEL, S/N, PARQUE SÃO CLEMENTE, NOVA FRIBURGO - RJ"
+            },
+            "(0, 20PF)": {
+                "Destination address": "RUA MARECHAL FLORIANO PEIXOTO, 96, PERISSÊ, NOVA FRIBURGO - RJ",
+                "End of Service": "08:17",
+                "Accumulated demand": "6 kg"
+            },
+            "(20PF, 31PF)": {
+                "Destination address": "RUA CASTRO ALVES , 1, BRAUNES, NOVA FRIBURGO - RJ",
+                "End of Service": "08:24",
+                "Accumulated demand": "12 kg"
+            },
+            "(31PF, 75PF)": {
+                "Destination address": "RUA VICENTE DE MORAES, 120, BRAUNES, NOVA FRIBURGO - RJ",
+                "End of Service": "08:43",
+                "Accumulated demand": "18 kg"
+            },
+            "(75PF, 90PF)": {
+                "Destination address": "RUA HELENA COUTINHO, 635, BRAUNES, NOVA FRIBURGO - RJ",
+                "End of Service": "09:06",
+                "Accumulated demand": "24 kg"
+            },
+            "(90PF, 11PF)": {
+                "Destination address": "RUA EUGÊNIO GRIPP, 460, BRAUNES, NOVA FRIBURGO - RJ",
+                "End of Service": "09:35",
+                "Accumulated demand": "30 kg"
+            },
+            "(11PF, 100PF)": {
+                "Destination address": "RUA EUGÊNIO GRIPP, 460, BRAUNES, NOVA FRIBURGO - RJ",
+                "End of Service": "09:50",
+                "Accumulated demand": "36 kg"
+            },
+            "(100PF, 3PF)": {
+                "Destination address": "RUA ANTÔNIO PEREIRA JESUS, 123, CÔNEGO, NOVA FRIBURGO - RJ",
+                "End of Service": "10:09",
+                "Accumulated demand": "42 kg"
+            },
+            "(3PF, 18PF)": {
+                "Destination address": "RUA WENCESLAU BRÁS , 106, CÔNEGO, NOVA FRIBURGO - RJ",
+                "End of Service": "10:32",
+                "Accumulated demand": "48 kg"
+            },
+            "(18PF, 43PF)": {
+                "Destination address": "RUA JOAQUIM JOSÉ DA SILVA, 151, CÔNEGO, NOVA FRIBURGO - RJ",
+                "End of Service": "10:59",
+                "Accumulated demand": "54 kg"
+            },
+            "(43PF, 19PF)": {
+                "Destination address": "RUA TOHORU KASUGA, 96, CASCATINHA, NOVA FRIBURGO - RJ",
+                "End of Service": "11:23",
+                "Accumulated demand": "60 kg"
+            },
+            "(19PF, 74PF)": {
+                "Destination address": "RUA TOHORU KASUGA, 96, CÔNEGO, NOVA FRIBURGO - RJ",
+                "End of Service": "11:39",
+                "Accumulated demand": "66 kg"
+            },
+            "(74PF, 4PF)": {
+                "Destination address": "RUA PRESIDENTE JUSCELINO KUBITSCHEK, 316, CASCATINHA, NOVA FRIBURGO - RJ",
+                "End of Service": "11:52",
+                "Accumulated demand": "72 kg"
+            },
+            "(4PF, 88PF)": {
+                "Destination address": "RUA CHURCHILL, 210, CÔNEGO, NOVA FRIBURGO - RJ",
+                "End of Service": "13:00",
+                "Accumulated demand": "78 kg"
+            },
+            "(88PF, 40PF)": {
+                "Destination address": "RUA CHURCHILL, 210, CÔNEGO, NOVA FRIBURGO - RJ",
+                "End of Service": "13:10",
+                "Accumulated demand": "84 kg"
+            },
+            "(40PF, 23PF)": {
+                "Destination address": "RUA FLEMING, 235, CÔNEGO, NOVA FRIBURGO - RJ",
+                "End of Service": "13:23",
+                "Accumulated demand": "90 kg"
+            },
+            "(23PF, 108PF)": {
+                "Destination address": "RUA BERNARDO SALIM RIBEIRO, 380, CÔNEGO, NOVA FRIBURGO - RJ",
+                "End of Service": "13:47",
+                "Accumulated demand": "96 kg"
+            },
+            "(108PF, 30PF)": {
+                "Destination address": "RUA WENCESLAU BRÁS , 422, CÔNEGO, NOVA FRIBURGO - RJ",
+                "End of Service": "14:02",
+                "Accumulated demand": "102 kg"
+            },
+            "(30PF, 15PF)": {
+                "Destination address": "RUA WENCESLAU BRÁS , 422, CÔNEGO, NOVA FRIBURGO - RJ",
+                "End of Service": "14:16",
+                "Accumulated demand": "108 kg"
+            },
+            "(15PF, 12PF)": {
+                "Destination address": "RUA WENCESLAU BRÁS , 422, CÔNEGO, NOVA FRIBURGO - RJ",
+                "End of Service": "14:41",
+                "Accumulated demand": "114 kg"
+            },
+            "(12PF, 10PF)": {
+                "Destination address": "RUA MANOEL JOSÉ DA CUNHA, 734, CÔNEGO, NOVA FRIBURGO - RJ",
+                "End of Service": "14:52",
+                "Accumulated demand": "120 kg"
+            },
+            "(10PF, 47PF)": {
+                "Destination address": "RUA MANOEL JOSÉ DA CUNHA, 64, CÔNEGO, NOVA FRIBURGO - RJ",
+                "End of Service": "15:04",
+                "Accumulated demand": "126 kg"
+            },
+            "(47PF, 53PF)": {
+                "Destination address": "RUA MARIA FRANCELINA BARROSO, 1310, CÔNEGO, NOVA FRIBURGO - RJ",
+                "End of Service": "15:15",
+                "Accumulated demand": "132 kg"
+            },
+            "(53PF, 0)": {
+                "Destination address": "HORTO MUNICIPAL, ALAMEDA PRINCESA IZABEL, S/N, PARQUE SÃO CLEMENTE, NOVA FRIBURGO - RJ",
+                "End of Service": "15:24",
+                "Accumulated demand": "132 kg"
+            }
+        },
+        "Quinta-feira": {
+            "Departure": {
+                "Base": 0,
+                "Location": "HORTO MUNICIPAL",
+                "Address": "ALAMEDA PRINCESA IZABEL, S/N, PARQUE SÃO CLEMENTE, NOVA FRIBURGO - RJ"
+            },
+            "(0, 63PF)": {
+                "Destination address": "ALAMEDA REGENTE FEIJÓ, 396, PQ  S CLEMENTE, NOVA FRIBURGO - RJ",
+                "End of Service": "08:17",
+                "Accumulated demand": "6 kg"
+            },
+            "(63PF, 0)": {
+                "Destination address": "HORTO MUNICIPAL, ALAMEDA PRINCESA IZABEL, S/N, PARQUE SÃO CLEMENTE, NOVA FRIBURGO - RJ",
+                "End of Service": "08:25",
+                "Accumulated demand": "6 kg"
+            }
+        }
+    },
+    "triciclo": {
+        "Quarta-feira": {
+            "Departure": {
+                "Base": 2,
+                "Location": "ESPAÇO ARP",
+                "Address": "AVENIDA CONSELHEIRO JÚLIUS ARP, 80, CENTRO, NOVA FRIBURGO - RJ"
+            },
+            "(2, 14PF)": {
+                "Destination address": "RUA MATO GROSSO, 6, BELA VISTA, NOVA FRIBURGO - RJ",
+                "End of Service": "08:12",
+                "Accumulated demand": "6 kg"
+            },
+            "(14PF, 25PF)": {
+                "Destination address": "RUA PRESIDENTE KENEDY, 107, CÔNEGO, NOVA FRIBURGO - RJ",
+                "End of Service": "08:35",
+                "Accumulated demand": "12 kg"
+            },
+            "(25PF, 9PF)": {
+                "Destination address": "RUA PRESIDENTE KENEDY, 57, CÔNEGO, NOVA FRIBURGO - RJ",
+                "End of Service": "08:49",
+                "Accumulated demand": "18 kg"
+            },
+            "(9PF, 51PF)": {
+                "Destination address": "RUA BARÃO DE LUCENA , 5, CÔNEGO, NOVA FRIBURGO - RJ",
+                "End of Service": "09:18",
+                "Accumulated demand": "24 kg"
+            },
+            "(51PF, 84PF)": {
+                "Destination address": "RUA BARÃO DE LUCENA , 104, CÔNEGO, NOVA FRIBURGO - RJ",
+                "End of Service": "09:47",
+                "Accumulated demand": "30 kg"
+            },
+            "(84PF, 1PF)": {
+                "Destination address": "RUA PRESIDENTE KENNEDY, 61, CÔNEGO, NOVA FRIBURGO - RJ",
+                "End of Service": "10:13",
+                "Accumulated demand": "36 kg"
+            },
+            "(1PF, 16PF)": {
+                "Destination address": "RUA MARIA FRANCELINA BARROSO, 104, CÔNEGO, NOVA FRIBURGO - RJ",
+                "End of Service": "10:41",
+                "Accumulated demand": "42 kg"
+            },
+            "(16PF, 86PF)": {
+                "Destination address": "RUA ANTÔNIO PEREIRA JESUS, 87, CÔNEGO, NOVA FRIBURGO - RJ",
+                "End of Service": "11:06",
+                "Accumulated demand": "48 kg"
+            },
+            "(86PF, 67PF)": {
+                "Destination address": "RUA ROMÃO AGUILERA CAMPOS, 1030, CÔNEGO, NOVA FRIBURGO - RJ",
+                "End of Service": "11:16",
+                "Accumulated demand": "54 kg"
+            },
+            "(67PF, 34PF)": {
+                "Destination address": "RUA ROMÃO AGUILERA CAMPOS, 1030, CÔNEGO, NOVA FRIBURGO - RJ",
+                "End of Service": "11:33",
+                "Accumulated demand": "60 kg"
+            },
+            "(34PF, 21PF)": {
+                "Destination address": "RUA MARIA D'ANGELO MAGLIANO, 159, OLARIA, NOVA FRIBURGO - RJ",
+                "End of Service": "11:51",
+                "Accumulated demand": "66 kg"
+            },
+            "(21PF, 70PF)": {
+                "Destination address": "AV. CMTE. BITENCOURT, 2, CENTRO, NOVA FRIBURGO - RJ",
+                "End of Service": "13:00",
+                "Accumulated demand": "72 kg"
+            },
+            "(70PF, 39PF)": {
+                "Destination address": "RUA AUGUSTO SPINELLI, 193, CENTRO, NOVA FRIBURGO - RJ",
+                "End of Service": "13:11",
+                "Accumulated demand": "78 kg"
+            },
+            "(39PF, 109PF)": {
+                "Destination address": "RUA DANTE LAGINESTRA, 62, CENTRO, NOVA FRIBURGO - RJ",
+                "End of Service": "13:23",
+                "Accumulated demand": "84 kg"
+            },
+            "(109PF, 6PF)": {
+                "Destination address": "AV. CMTE. BITENCOURT, 158, CENTRO, NOVA FRIBURGO - RJ",
+                "End of Service": "13:43",
+                "Accumulated demand": "90 kg"
+            },
+            "(6PF, 38PF)": {
+                "Destination address": "RUA PRUDENTE DE MORAIS, 8, VILA NOVA, NOVA FRIBURGO - RJ",
+                "End of Service": "14:02",
+                "Accumulated demand": "96 kg"
+            },
+            "(38PF, 1)": {
+                "Destination address": "IPRJ, RUA BONFIM, 25, VILA AMÉLIA, NOVA FRIBURGO - RJ",
+                "End of Service": "14:24",
+                "Accumulated demand": "96 kg"
+            }
+        }
+    }
+}

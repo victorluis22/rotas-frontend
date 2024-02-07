@@ -32,6 +32,8 @@ import ListaHorarioPonto from './screens/pontosComp/listaHorarioPonto';
 import ListaHorarioVeiculo from './screens/veiculo/listaHorarioVeiculo';
 import ListaRespVeiculo from './screens/veiculo/listaRespVeiculo';
 
+import RoutesNoMap from './screens/routeNoMap/routeNoMap';
+
 import { AuthProvider } from './context/auth';
 
 const Stack = createNativeStackNavigator();
@@ -256,6 +258,14 @@ function App() {
                 headerShown: false
               }}
               name="ListaHorarioPonto" component={ListaHorarioPonto}
+            />
+            <Stack.Screen
+              options={{
+                title: '',
+                headerTransparent: true,
+                headerShown: false
+              }}
+              name="RoutesNoMap" component={RoutesNoMap}
             />
           </Stack.Navigator>
         </NavigationContainer>

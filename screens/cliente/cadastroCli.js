@@ -32,7 +32,7 @@ export default function CadastroCliente({route}){
             const validate = await validateAddress()
 
             if(validate === true){
-                Alert.alert("Existe algum campo de endereço preenchido que está inválido!", "Reefetue novamente o endereço, pois as rotas so podem ser geradas para endereços reconhecidos pelo Google Maps.")
+                Alert.alert("Existe algum campo de endereço preenchido que está inválido!", "Reefetue novamente o endereço, pois as rotas só podem ser geradas para endereços reconhecidos pelo Google Maps.")
                 return 
             }
 

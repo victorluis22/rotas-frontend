@@ -12,6 +12,7 @@ export default function CadastroVeiculo({ route }) {
     const type = route.params.type
 
     const [descricao, setDescricao] = useState(type === "update" ? previousData.Descricao : "")
+    const [custoMensal, setCustoMensal] = useState(type === "update" ? previousData.CustoMensal.toString() : "")
     const [emissao, setEmissao] = useState(type === "update" ? previousData.EmissaoPorKm.toString() : "")
     const [custo, setCusto] = useState(type === "update" ? previousData.CustoPorKm.toString() : "")
     const [capacidade, setCapacidade] = useState(type === "update" ? previousData.CapacMax.toString() : "")
@@ -32,9 +33,10 @@ export default function CadastroVeiculo({ route }) {
     }, [])
 
     const submit = async () => {
-        if(descricao && emissao && custo && capacidade && tipoVeiculo){
+        if(descricao && custoMensal && emissao && custo && capacidade && tipoVeiculo){
             const data = {
                 descricao: descricao, 
+                custoMensal: custoMensal,
                 emissao: emissao, 
                 custo: custo,
                 capacidadeMax: capacidade,
@@ -85,6 +87,14 @@ export default function CadastroVeiculo({ route }) {
                     value={descricao}
                 />
 
+                <Text style={styles.titleinput}>Custo Mensal</Text>
+                <TextInput
+                    style={styles.input}
+                    onChangeText={setCustoMensal}
+                    value={custoMensal}
+                    keyboardType='numeric'
+                />
+
                 <Text style={styles.titleinput}>Emissão por Km</Text>
                 <TextInput
                     style={styles.input}
@@ -101,7 +111,7 @@ export default function CadastroVeiculo({ route }) {
                     keyboardType='numeric'
                 />
 
-                <Text style={styles.titleinput}>Capacidade Máxima</Text>
+                <Text style={styles.titleinput}>Capacidade Máxima (em Kg)</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setCapacidade}

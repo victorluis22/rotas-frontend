@@ -1,9 +1,33 @@
 import { useNavigation } from "@react-navigation/native";
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity, Alert } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign"
+
+import { Buffer } from "buffer";
+import * as Sharing from 'expo-sharing';
+import * as FileSystem from 'expo-file-system';
+import { getClientQRCode } from "../services/api";
 
 export default function ListaCard({title, description, type, codCliente, codContrato, codVeic, codPonto}) {
     const navigation = useNavigation()
+
+    const exportFile = async () => {
+        try{
+            const qrCode = await getClientQRCode(codCliente)
+            const buff = Buffer.from(qrCode.data.pdfData.data, "base64");
+            const base64 = buff.toString("base64");
+
+            const path = `${FileSystem.documentDirectory}/${encodeURI("qrcode")}.pdf`;
+            await FileSystem.writeAsStringAsync(`${path}`, base64, {
+                encoding: FileSystem.EncodingType.Base64,
+            });
+
+            await Sharing.shareAsync(path, { mimeType: 'application/pdf' });
+            
+        }
+        catch (err) {
+            Alert.alert("Erro", "Erro ao gerar PDF")
+        }
+	}
 
     return (
         <View style={styles.contentCard}>
@@ -11,9 +35,12 @@ export default function ListaCard({title, description, type, codCliente, codCont
                     type === "cliente" ?
                         <View style={styles.containertexto}>
                             <Text style={styles.contentTitulo}>{title} {description}</Text>
-                            <View style={styles.Contentbutton}>
+                            <View style={styles.contentbutton}>
                                 <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("ListaContrato", {table: "contrato", codCliente: codCliente})}>
                                     <Text style={styles.buttonText}>Acessar Contratos</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={{ ...styles.button, backgroundColor: "#7bc043"}} onPress={() => exportFile()}>
+                                    <Text style={styles.buttonText}>QRCode</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -26,9 +53,9 @@ export default function ListaCard({title, description, type, codCliente, codCont
                         <View style={styles.containertexto}>
                             <Text style={styles.contentTitulo}>{title}</Text>
                             <Text>{description}</Text>
-                            <View style={styles.Contentbutton2}>
-                                <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate("ListaHorarioContrato", {table: "horarioContratoCliente", codContrato: codContrato})}>
-                                    <Text style={styles.buttonText2}>Acessar Horários</Text>
+                            <View style={styles.contentbutton}>
+                                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("ListaHorarioContrato", {table: "horarioContratoCliente", codContrato: codContrato})}>
+                                    <Text style={styles.buttonText}>Acessar Horários</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -41,12 +68,12 @@ export default function ListaCard({title, description, type, codCliente, codCont
                         <View style={styles.containertexto}>
                             <Text style={styles.contentTitulo}>{title}</Text>
                             <Text>{description}</Text>
-                            <View style={styles.Contentbutton2}>
-                                <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate("ListaRespVeiculo", {table: "responsavelVeiculo", codVeic: codVeic})}>
-                                    <Text style={styles.buttonText2}>Acessar Responsáveis</Text>
+                            <View style={styles.contentbutton}>
+                                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("ListaRespVeiculo", {table: "responsavelVeiculo", codVeic: codVeic})}>
+                                    <Text style={styles.buttonText}>Acessar Responsáveis</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate("ListaHorarioVeiculo", {table: "horarioVeiculo", codVeic: codVeic})}>
-                                    <Text style={styles.buttonText2}>Acessar Horários</Text>
+                                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("ListaHorarioVeiculo", {table: "horarioVeiculo", codVeic: codVeic})}>
+                                    <Text style={styles.buttonText}>Acessar Horários</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -59,9 +86,9 @@ export default function ListaCard({title, description, type, codCliente, codCont
                         <View style={styles.containertexto}>
                             <Text style={styles.contentTitulo}>{title}</Text>
                             <Text>{description}</Text>
-                            <View style={styles.Contentbutton2}>
-                                <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate("ListaHorarioPonto", {table: "horarioPonto", codPonto: codPonto})}>
-                                    <Text style={styles.buttonText2}>Acessar Horários</Text>
+                            <View style={styles.contentbutton}>
+                                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("ListaHorarioPonto", {table: "horarioPonto", codPonto: codPonto})}>
+                                    <Text style={styles.buttonText}>Acessar Horários</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -102,6 +129,7 @@ const styles = StyleSheet.create({
     
     containertexto: {
         flexDirection: "column",
+        width: "90%"
     },
 
     contentCard: {
@@ -122,13 +150,15 @@ const styles = StyleSheet.create({
     },
 
     button:{
-        
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
         paddingVertical: 5,
-        paddingHorizontal: 10,
         backgroundColor: "#24a0ed",
         borderRadius: 7,
         marginVertical: 6,
         elevation: 10,
+        width: "60%",
         shadowColor: '#3C3C3C'
     },
 
@@ -137,29 +167,9 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
 
-    Contentbutton: {
+    contentbutton: {
         // flexDirection: "row",
         display: "flex",
         justifyContent: "spacebetween",
-    },
-
-    button2:{
-        
-        paddingVertical: 5,
-        paddingHorizontal: 10,
-        backgroundColor: "#24a0ed",
-        borderRadius: 7,
-        marginVertical: 6,
-        elevation: 10,
-        shadowColor: '#3C3C3C'
-    },
-
-    buttonText2:{
-        color: "#fff",
-        fontWeight: "bold"
-    },
-
-    Contentbutton2: {
-        flexDirection: "column",
     }
 });
