@@ -41,6 +41,7 @@ export default function TelaInicial() {
 
             <TouchableOpacity
               onPress={navegarRotasColeta}
+              style={styles.botao}
             >
               <ImageBackground
                 source={require('../assets/imagens/mapa.png')}
@@ -57,6 +58,7 @@ export default function TelaInicial() {
           <View style={styles.containerdentro}>
             <TouchableOpacity
               onPress={navegarColeta}
+              style={styles.botao}
             >
               <View style={{ flexDirection: 'row', backgroundColor: '#9D9D9D', borderRadius: 30, flexDirection: 'row-reverse', }}>
                 <View>
@@ -77,7 +79,7 @@ export default function TelaInicial() {
           </View>
 
           <View style={styles.containerdentro}>
-            <TouchableOpacity onPress={()=> navegarClientes()}>
+            <TouchableOpacity style={styles.botao} onPress={()=> navegarClientes()}>
               <ImageBackground
                 source={require('../assets/imagens/identidade.png')}
                 resizeMode='cover'
@@ -142,4 +144,9 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     backgroundColor: '#9D9D9D',
   },
+  botao: {
+    elevation: 10,
+    shadowColor: '#3C3C3C',
+    borderRadius: 30
+  }
 });

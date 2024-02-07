@@ -17,8 +17,16 @@ export default function HamburguerMenu(props) {
     return (
         <SafeAreaView style={styles.hambuguer}>
             <View style={{ marginLeft: 20 }}>
-                <Modal transparent visible={ModalVisible}
+                <Modal 
+                    transparent 
+                    visible={ModalVisible}
                     animationType='fade'
+                    onRequestClose={() => {
+                        setModalVisible(!ModalVisible)
+                    }}
+                    onDismiss={() => {
+                        setModalVisible(!ModalVisible)
+                    }}
                 >
                     <SafeAreaView style={styles.modal}>
                         <View >
@@ -71,9 +79,7 @@ export default function HamburguerMenu(props) {
                 <TouchableOpacity
                     onPress={() => setModalVisible(true)}
                 >
-
-
-                    <Iconn name="three-bars" size={30} color="black" />
+                    <Iconn name="three-bars" size={30} color="white" />
                 </TouchableOpacity>
             </View>
         </SafeAreaView>
@@ -84,9 +90,11 @@ export default function HamburguerMenu(props) {
 const styles = StyleSheet.create({
     hambuguer: {
         width: '100%',
-        backgroundColor: '#A7A7A7',
+        backgroundColor: '#3C3C3C',
         height: 100,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        elevation: 10,
+        shadowColor: '#3C3C3C'
     },
     modal: {
         flex: 1,
