@@ -15,6 +15,7 @@ export default function ListaCard({title, description, type, codCliente, codCont
             const qrCode = await getClientQRCode(codCliente)
             const buff = Buffer.from(qrCode.data.pdfData.data, "base64");
             const base64 = buff.toString("base64");
+            
 
             const path = `${FileSystem.documentDirectory}/${encodeURI("qrcode")}.pdf`;
             await FileSystem.writeAsStringAsync(`${path}`, base64, {
@@ -25,6 +26,8 @@ export default function ListaCard({title, description, type, codCliente, codCont
             
         }
         catch (err) {
+            
+            console.log(err)
             Alert.alert("Erro", "Erro ao gerar PDF")
         }
 	}
