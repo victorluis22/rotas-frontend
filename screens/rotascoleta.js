@@ -23,13 +23,20 @@ export default function RotasColeta() {
         setAllVehicles(response.data)
     }
 
-    function routeGenerate() {
+    function routeGenerate(type) {
         const routeData = {
             vehicle,
             day,
             routeType
         }
-        navigation.navigate('RoutesNoMap', {routeData: routeData })
+
+        if (type === "simples"){
+            navigation.navigate('RoutesNoMap', {routeData: routeData })
+        }
+        else{
+            navigation.navigate('RoutesMap', {routeData: routeData })
+        }
+        
     }
 
     useEffect(() => {
@@ -49,9 +56,9 @@ export default function RotasColeta() {
                         setRouteType(itemValue)
                     }>
                     <Picker.Item label="Selecione" value="" enabled={false}/>
-                    <Picker.Item label="Semanal" value="Semanal" />
-                    <Picker.Item label="Total" value="Total" />
-                
+                    <Picker.Item label="PF - Semanal" value="PF - Semanal" />
+                    <Picker.Item label="PF - Semanal / Quinzenal" value="PF - Semanal / Quinzenal" />
+                    <Picker.Item label="PJ" value="PJ" />
                 </Picker>
 
                 <Text style={styles.titleinput}>Selecione o veículo</Text>
@@ -88,8 +95,12 @@ export default function RotasColeta() {
                     
                 </Picker>
 
-                <TouchableOpacity onPress={() => routeGenerate()} style={styles.buttonContent}>
-                    <Text style={styles.buttonText}>Gerar Rota</Text>
+                <TouchableOpacity onPress={() => routeGenerate("simples")} style={styles.buttonContent}>
+                    <Text style={styles.buttonText}>Gerar Rota Simples</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => routeGenerate("mapa")} style={styles.buttonContent}>
+                    <Text style={styles.buttonText}>Gerar Rota Com Mapa</Text>
                 </TouchableOpacity>
             </View>
 

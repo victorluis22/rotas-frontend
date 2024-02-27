@@ -33,6 +33,7 @@ import ListaHorarioVeiculo from './screens/veiculo/listaHorarioVeiculo';
 import ListaRespVeiculo from './screens/veiculo/listaRespVeiculo';
 
 import RoutesNoMap from './screens/routeNoMap/routeNoMap';
+import RoutesMap from './screens/routeMap/routeMap';
 
 import { AuthProvider } from './context/auth';
 
@@ -266,6 +267,14 @@ function App() {
                 headerShown: false
               }}
               name="RoutesNoMap" component={RoutesNoMap}
+            />
+            <Stack.Screen
+              options={{
+                title: '',
+                headerTransparent: true,
+                headerShown: false
+              }}
+              name="RoutesMap" component={RoutesMap}
             />
           </Stack.Navigator>
         </NavigationContainer>

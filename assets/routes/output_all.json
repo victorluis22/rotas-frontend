@@ -1,39 +1,50 @@
 {
     "Moto": {
         "Terça-feira": {
-            "Departure": {
-                "Base": 0,
-                "Location": "HORTO MUNICIPAL",
-                "Address": "ALAMEDA PRINCESA IZABEL, S/N, PARQUE SÃO CLEMENTE, NOVA FRIBURGO - RJ"
-            },
             "Route": [
                 {   
-                    "From": 0,
-                    "To": 11,
+                    "From": {
+                        "id": 0,
+                        "type": "Ponto"
+                    },
+                    "To": {
+                        "id": 71,
+                        "type": "Cliente"
+                    },
+                    "Departure address": "ALAMEDA PRINCESA IZABEL, S/N, PARQUE SÃO CLEMENTE, NOVA FRIBURGO - RJ",
                     "Destination address": "RUA EUGÊNIO GRIPP, 460, BRAUNES, NOVA FRIBURGO - RJ",
                     "End of Service": "08:29",
                     "Accumulated demand": "16 kg"
                 },
                 {   
-                    "From": 71,
-                    "To": 11,
-                    "Destination address": "RUA EUGÊNIO GRIPP, 460, BRAUNES, NOVA FRIBURGO - RJ",
+                    "From": {
+                        "id": 71,
+                        "type": "Cliente"
+                    },
+                    "To": {
+                        "id": 11,
+                        "type": "Cliente"
+                    },
+                    "Departure address": "RUA EUGÊNIO GRIPP, 460, BRAUNES, NOVA FRIBURGO - RJ",
+                    "Destination address": "RUA MARECHAL FLORIANO PEIXOTO, 96, PERISSÊ, NOVA FRIBURGO - RJ",
                     "End of Service": "08:29",
                     "Accumulated demand": "16 kg"
                 },
                 {   
-                    "From": 100,
-                    "To": 0,
+                    "From": {
+                        "id": 11,
+                        "type": "Cliente"
+                    },
+                    "To": {
+                        "id": 0,
+                        "type": "Ponto"
+                    },
+                    "Departure address": "RUA MARECHAL FLORIANO PEIXOTO, 96, PERISSÊ, NOVA FRIBURGO - RJ",
                     "Destination address": "RUA PIERRE BICART, 72, BRAUNES, NOVA FRIBURGO - RJ",
                     "End of Service": "09:15",
                     "Accumulated demand": "32 kg"
                 }
-            ],
-            "Arrival": {
-                "Base": 0,
-                "Location": "HORTO MUNICIPAL",
-                "Address": "ALAMEDA PRINCESA IZABEL, S/N, PARQUE SÃO CLEMENTE, NOVA FRIBURGO - RJ"
-            }
+            ]
         }
         
     }

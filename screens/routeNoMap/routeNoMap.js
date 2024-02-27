@@ -1,4 +1,4 @@
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView, Text } from "react-native";
 import MenuRetornar from "../../components/menuretornar";
 import CardRoute from "./cardRoute/cardRoute";
 
@@ -7,12 +7,12 @@ import routeAll from "../../assets/routes/output_all.json"
 
 import { useEffect, useState } from "react";
 
-export default function RoutesNoMap({ route}) {
+export default function RoutesNoMap({ route }) {
     const routeData = route.params.routeData
-    const [routeList, setRouteList] = useState({})
+    const [routeList, setRouteList] = useState([])
 
     const chooseRouteType = (routeType) => {
-        if (routeType === "Total"){
+        if (routeType === "PF - Semanal / Quinzenal"){
             return routeAll
         }
         else{
@@ -21,20 +21,27 @@ export default function RoutesNoMap({ route}) {
     }
 
     useEffect(() => {
-        // console.log(routeData)
-        // const chosenJSON = chooseRouteType(routeData.routeType)
-        // const chosenVehicle = chosenJSON[routeData.vehicle]
-        // const chosenDay = chosenVehicle[routeData.day]
-        // setRouteList(chosenDay)
+        const chosenJSON = chooseRouteType(routeData.routeType)
+        const chosenVehicle = chosenJSON[routeData.vehicle]
+        const chosenDay = chosenVehicle[routeData.day]
+        setRouteList(chosenDay["Route"])
     }, [])
 
 
     return (
         <View style={styles.container}>
             <MenuRetornar options={[{ title: 'Rotas de Coleta', voltar: 'RotasColeta' }]} />
+            
+            <Text style={styles.Title}>Tipo de Rota: {routeData.routeType}</Text>
+            <Text style={styles.Title}>Tipo de Veículo: {routeData.vehicle} </Text>
+            <Text style={styles.Title}>Dia da Semana: {routeData.day}</Text>
+
             <ScrollView>
-                <CardRoute client={"sadsads"} next={"sadsad"} start={"sadsa"} />
-                
+                {
+                    routeList.map((eachRoute) => {
+                        return <CardRoute eachRoute={eachRoute}/>
+                    })
+                }
             </ScrollView>
         </View>
     );
@@ -47,5 +54,11 @@ const styles = StyleSheet.create({
         height: '100%',
         display: 'flex',
         justifyContent: "center" 
+    },
+    Title: {
+        fontSize: 17,
+        fontWeight: "bold",
+        textAlign: "center",
+        marginTop: 5
     }
 });

@@ -1,28 +1,72 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, Alert } from "react-native";
+import { useState } from "react";
+import { AntDesign } from '@expo/vector-icons';
 
-export default function CardRoute({start, next, client}) {
+export default function CardRoute({ eachRoute }) {
+
+    const [peso, setPeso] = useState("")
+    const [checked, setChecked] = useState(false)
+
+    const getStartData = async () => {
+        if (eachRoute["To"]["type"] === "Cliente"){
+            
+        }
+    }
+
+    const getDestinationData = async () => {
+        if (eachRoute["From"]["type"] === "Cliente"){
+            
+        }
+    }
+
+    const handleConfirmation = () => {
+        if( peso === ""){
+            Alert.alert("Erro", "Preencha o Peso antes!")
+        }
+        else{
+            setChecked(!checked)
+        }
+    }
+
 
     return (
         <View style={styles.container}>
             <View style={styles.containertexto}>
-                <Text style={styles.contentTitulo}>{client}</Text>
-                <Text style={styles.contentText}>Próxima parada: {next}</Text>
+                <View style={{opacity: checked ? 0.3 : 1}}>
+                    <Text style={styles.contentTitulo}>Início</Text>
+                    <Text style={styles.contentTextClient}>Cliente: {eachRoute["From"]["id"]}</Text>
+                    <Text style={styles.contentText}>Começo: {eachRoute["Departure address"]}</Text>
+
+                    <Text style={styles.contentTitulo}>Fim</Text>
+                    <Text style={styles.contentTextClient}>Cliente: {eachRoute["To"]["id"]}</Text>
+                    <Text style={styles.contentText}>Próxima parada: {eachRoute["Destination address"]}</Text>
+                    <TextInput 
+                        style={styles.caixadetexto} 
+                        placeholder="Digite o peso aqui em KG" 
+                        onChangeText={setPeso} 
+                        keyboardType="numeric"
+                        editable={checked ? false: true}
+                    ></TextInput>
+                </View>
 
                 <View style={styles.contentbutton}>
-                    <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText}>Registrar Peso</Text>
+                    <TouchableOpacity style={{...styles.button, backgroundColor: checked ? "#fe4a49" : "#24a0ed"}} onPress={() => handleConfirmation()}>
+                        <Text style={styles.buttonText}>{checked ? "Alterar Peso" : "Confirmar Atendimento"}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText}>Confirmar Atendimento</Text>
-                    </TouchableOpacity>
+                    {
+                        checked ?
+                            <AntDesign name="checkcircleo" size={24} color="green" />
+                        : 
+                            null
+                    }
                 </View>
+                
             </View> 
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-
     container: {
         backgroundColor: "#fff",
         borderRadius: 10,
@@ -33,42 +77,69 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         elevation: 10,
         shadowColor: '#3C3C3C',
-        marginTop: 15,
+        margin: 15,
     },
 
     contentTitulo: {
         fontSize: 20,
         fontWeight: "bold",
+        borderBottomWidth: 1,
+        marginVertical: 20,
+        paddingBottom: 10,
+        borderStyle: "dashed"
     },
     contentText: {
         fontSize: 17,
+        backgroundColor: "lightgray",
+        padding: 10,
+        borderRadius: 10,
+        borderTopLeftRadius: 0,
+        borderTopRightRadius: 0,
+        
+    },
+    contentTextClient: {
+        fontSize: 17,
         fontWeight: "bold",
+        backgroundColor: "#24a0ed",
+        padding: 10,
+        borderRadius: 10,
+        borderBottomLeftRadius: 0,
+        borderBottomRightRadius: 0,
     },
     containertexto: {
         flexDirection: "column",
         width: "90%"
     },
     contentbutton: {
-        // flexDirection: "row",
+        gap: 100,
+        flexDirection: "row",
         display: "flex",
         justifyContent: "spacebetween",
+        alignItems: "center",
     },
     button:{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        paddingVertical: 5,
+        paddingVertical: 10,
+        paddingHorizontal: 10,
         backgroundColor: "#24a0ed",
         borderRadius: 7,
-        marginVertical: 6,
-        elevation: 10,
-        width: "60%",
-        shadowColor: '#3C3C3C'
+        marginVertical: 6
     },
 
     buttonText:{
         color: "#fff",
         fontWeight: "bold"
     },
-    
+    caixadetexto: {
+        backgroundColor: 'white',
+        borderWidth: 1,
+        borderRadius: 8,
+        width: '100%',
+        height: 35,
+        alignSelf: 'center',
+        margin: 20,
+        paddingLeft: 15,
+      }
 });
