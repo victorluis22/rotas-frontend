@@ -1,30 +1,45 @@
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, Alert } from "react-native";
 import { useState } from "react";
 import { AntDesign } from '@expo/vector-icons';
+import { create, update } from "../../../services/api";
 
-export default function CardRoute({ eachRoute }) {
+export default function CardRoute({ eachRoute, isLast }) {
 
     const [peso, setPeso] = useState("")
     const [checked, setChecked] = useState(false)
-
-    const getStartData = async () => {
-        if (eachRoute["To"]["type"] === "Cliente"){
-            
-        }
-    }
-
-    const getDestinationData = async () => {
-        if (eachRoute["From"]["type"] === "Cliente"){
-            
-        }
-    }
+    const [savedId, setSavedId] = useState(null)
 
     const handleConfirmation = () => {
         if( peso === ""){
             Alert.alert("Erro", "Preencha o Peso antes!")
         }
         else{
-            setChecked(!checked)
+            saveWeight()
+        }
+    }
+
+    const saveWeight = async () => {
+        const data = {
+            pesoColetado: parseFloat(peso),
+            codCliente: eachRoute["To"]["id"]
+        }
+
+        try{
+            if(!savedId){
+                const response = await create("coleta", data)
+                console.log(response.data)
+                setSavedId(response.data.insertId)
+                setChecked(true)
+                Alert.alert("Sucesso", "Peso registrado com sucesso!")
+            }
+            else{
+                await update("coleta", savedId, data)
+                setChecked(true)
+                Alert.alert("Sucesso", "Peso atualizado com sucesso!")
+            }
+        }
+        catch (e){
+            Alert.alert("Erro", "Erro interno do servidor.")
         }
     }
 
@@ -34,32 +49,42 @@ export default function CardRoute({ eachRoute }) {
             <View style={styles.containertexto}>
                 <View style={{opacity: checked ? 0.3 : 1}}>
                     <Text style={styles.contentTitulo}>Início</Text>
-                    <Text style={styles.contentTextClient}>Cliente: {eachRoute["From"]["id"]}</Text>
+                    <Text style={styles.contentTextClient}>{eachRoute["From"]["type"]}: {eachRoute["From"]["id"]}</Text>
                     <Text style={styles.contentText}>Começo: {eachRoute["Departure address"]}</Text>
 
                     <Text style={styles.contentTitulo}>Fim</Text>
-                    <Text style={styles.contentTextClient}>Cliente: {eachRoute["To"]["id"]}</Text>
+                    <Text style={styles.contentTextClient}>{eachRoute["To"]["type"]}: {eachRoute["To"]["id"]}</Text>
                     <Text style={styles.contentText}>Próxima parada: {eachRoute["Destination address"]}</Text>
-                    <TextInput 
-                        style={styles.caixadetexto} 
-                        placeholder="Digite o peso aqui em KG" 
-                        onChangeText={setPeso} 
-                        keyboardType="numeric"
-                        editable={checked ? false: true}
-                    ></TextInput>
-                </View>
-
-                <View style={styles.contentbutton}>
-                    <TouchableOpacity style={{...styles.button, backgroundColor: checked ? "#fe4a49" : "#24a0ed"}} onPress={() => handleConfirmation()}>
-                        <Text style={styles.buttonText}>{checked ? "Alterar Peso" : "Confirmar Atendimento"}</Text>
-                    </TouchableOpacity>
-                    {
-                        checked ?
-                            <AntDesign name="checkcircleo" size={24} color="green" />
-                        : 
-                            null
+                    { !isLast &&
+                      <TextInput 
+                          style={styles.caixadetexto} 
+                          placeholder="Digite o peso aqui em KG" 
+                          onChangeText={setPeso} 
+                          keyboardType="numeric"
+                          editable={checked ? false: true}
+                      />
                     }
                 </View>
+
+                { !isLast &&
+                
+                <View style={styles.contentbutton}>
+                    
+                    
+                    {
+                        checked ?
+                            <>
+                                <TouchableOpacity style={{...styles.button, backgroundColor: "#fe4a49"}} onPress={() => setChecked(!checked)}>
+                                    <Text style={styles.buttonText}>Alterar Peso</Text>
+                                </TouchableOpacity>
+                                <AntDesign name="checkcircleo" size={24} color="green" />
+                            </>
+                        : 
+                            <TouchableOpacity style={{...styles.button, backgroundColor: "#24a0ed"}} onPress={() => handleConfirmation()}>
+                                <Text style={styles.buttonText}>Confirmar Atendimento</Text>
+                            </TouchableOpacity>
+                    }
+                </View>}
                 
             </View> 
         </View>

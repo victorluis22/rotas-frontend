@@ -38,8 +38,8 @@ export default function RoutesNoMap({ route }) {
 
             <ScrollView>
                 {
-                    routeList.map((eachRoute) => {
-                        return <CardRoute eachRoute={eachRoute}/>
+                    routeList.map((eachRoute, index) => {
+                        return <CardRoute key={index} eachRoute={eachRoute} isLast={index === routeList.length - 1}/>
                     })
                 }
             </ScrollView>
