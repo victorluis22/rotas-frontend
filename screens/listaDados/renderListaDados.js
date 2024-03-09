@@ -1,5 +1,7 @@
 import ListaCard from "../../components/listaCard";
 import { TouchableOpacity, StyleSheet} from "react-native";
+import { useState, useEffect } from "react";
+import { get } from "../../services/api";
 
 export const RenderListaCliente = ({data, search, openModal}) => {
     const searchLowerCase = search.toLowerCase()

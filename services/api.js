@@ -1,8 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-    baseURL: 'http://192.168.1.39:5000' //Development URL
-    // baseURL: 'https://8543-186-194-197-54.ngrok-free.app' //Production URL
+    baseURL: `http://${process.env.ROTAS_API_ADDRESS}:5000`
 })
 
 // Basic Services
