@@ -76,11 +76,11 @@ export default function CadastroHorario({ route }) {
                             setDiaSemana(itemValue)
                         }>
                         <Picker.Item label="Selecione" value="" enabled={false}/>
-                        <Picker.Item label="Segunda" value="Segunda" />
-                        <Picker.Item label="Terça" value="Terça" />
-                        <Picker.Item label="Quarta" value="Quarta" />
-                        <Picker.Item label="Quinta" value="Quinta" />
-                        <Picker.Item label="Sexta" value="Sexta" />
+                        <Picker.Item label="Segunda-feira" value="Segunda-feira" />
+                        <Picker.Item label="Terça-feira" value="Terça-feira" />
+                        <Picker.Item label="Quarta-feira" value="Quarta-feira" />
+                        <Picker.Item label="Quinta-feira" value="Quinta-feira" />
+                        <Picker.Item label="Sexta-feira" value="Sexta-feira" />
                     </Picker>
 
                     <Text style={styles.titleinput}>Janela de Tempo</Text>

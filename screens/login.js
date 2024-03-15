@@ -22,16 +22,16 @@ export default function Login() {
       senha
     }
 
-    navegarTelaInicial()
-    // try{
-    //   await login(data)
-    //   console.log(data);
-    //   navegarTelaInicial();
-    // }
-    // catch(e){
-    //   console.log(e)
-    //   Alert.alert('Erro', 'Erro ao logar, tente novamamente.')
-    // }
+    // navegarTelaInicial()
+    try{
+      await login(data)
+      console.log(data);
+      navegarTelaInicial();
+    }
+    catch(e){
+      console.log(e)
+      Alert.alert('Erro', 'Erro ao logar, tente novamamente.')
+    }
   }
 
   return (
@@ -57,7 +57,7 @@ export default function Login() {
         <Text style={{ color: "#3C3C3C", fontWeight: "bold", fontSize: 20, marginLeft: 42 }}>
           Senha
         </Text>
-        <TextInput style={styles.caixadetexto} onChangeText={setSenha}>
+        <TextInput style={styles.caixadetexto} onChangeText={setSenha} secureTextEntry={true}>
         </TextInput>
         <TouchableHighlight
           style={styles.butao}

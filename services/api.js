@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-    baseURL: `http://${process.env.ROTAS_API_ADDRESS}:5000`
+    baseURL: process.env.EXPO_PUBLIC_ROTAS_API_URL
 })
 
 // Basic Services

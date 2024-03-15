@@ -63,7 +63,7 @@ export default function ListaDados({route}){
             setData(response.data)
         } catch (error) {
             console.log(error)
-            Alert.alert("Erro", "Ocorreu um erro ao pegar os dados, tente novamente.")
+            alert(process.env.EXPO_PUBLIC_ROTAS_API_URL)
         }
     }
     const openEditModal = (data, title) => {

@@ -44,6 +44,8 @@ export default function CadastroVeiculo({ route }) {
                 codEmpresa: user.CodEmpresa
             }
 
+            
+
             try {
                 if (type === "update"){
                     await update("veiculos", previousData.CodVeic, data)

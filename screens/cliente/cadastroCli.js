@@ -8,8 +8,6 @@ import { Picker } from '@react-native-picker/picker';
 
 import axios from "axios";
 
-import { ADDRESS_VALIDATION_API_KEY } from "@env"
-
 export default function CadastroCliente({route}){
     const previousData = route.params.previousData
     const type = route.params.type
@@ -28,7 +26,7 @@ export default function CadastroCliente({route}){
     const navigation = useNavigation()
 
     const submit = async () => {
-        if(nome && logradouro && numero && complemento && CEP && bairro && cidade && uf && tempoColeta && cpfcnpj && pjpf){
+        if(nome && logradouro && numero && CEP && bairro && cidade && uf && tempoColeta && pjpf){
             const validate = await validateAddress()
 
             if(validate === true){
@@ -105,7 +103,7 @@ export default function CadastroCliente({route}){
             addressLines: [`${numero} ${logradouro} ${bairro}`]
         }
 
-        const res = await axios.post(`https://addressvalidation.googleapis.com/v1:validateAddress?key=${ADDRESS_VALIDATION_API_KEY}`, {address});
+        const res = await axios.post(`https://addressvalidation.googleapis.com/v1:validateAddress?key=${process.env.EXPO_PUBLIC_ADDRESS_VALIDATION_API_KEY}`, {address});
 
         const finalResponse = res.data.result.verdict;
 
@@ -169,7 +167,7 @@ export default function CadastroCliente({route}){
                     keyboardType='numeric'
                 />
 
-                <Text style={styles.titleinput}>Complemento</Text>
+                <Text style={styles.titleinput}>Complemento (opcional)</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setComplemento}
@@ -184,7 +182,7 @@ export default function CadastroCliente({route}){
                     keyboardType='numeric'
                 />
 
-                <Text style={styles.titleinput}>CPF ou CNPJ</Text>
+                <Text style={styles.titleinput}>CPF ou CNPJ (opcional)</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setCpfcnpj}

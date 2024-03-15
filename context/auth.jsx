@@ -9,11 +9,7 @@ export const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
 
-    const [user, setUser] = useState({
-        CodEmpresa: 2,
-		Nome: "Organo Kits",
-		CNPJ: "000.000.000-1"
-    })
+    const [user, setUser] = useState({})
     
     const [loading, setLoading] = useState(false)
 
@@ -35,7 +31,7 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (data) => {
         const response = await createSession(data.username, data.senha)
-        await AsyncStorage.setItem('user', JSON.stringify(response.data.company))
+        await AsyncStorage.setItem('user', JSON.stringify(response.data.user))
         await AsyncStorage.setItem('token', response.data.token)
 
         api.defaults.headers.Authorization = `Bearer ${response.data.token}`

@@ -55,7 +55,7 @@ export default function TelaInicial() {
             </TouchableOpacity>
           </View>
 
-          <View style={styles.containerdentro}>
+          {/* <View style={styles.containerdentro}>
             <TouchableOpacity
               onPress={navegarColeta}
               style={styles.botao}
@@ -76,7 +76,7 @@ export default function TelaInicial() {
                 </Text>
               </View>
             </TouchableOpacity>
-          </View>
+          </View> */}
 
           <View style={styles.containerdentro}>
             <TouchableOpacity style={styles.botao} onPress={()=> navegarClientes()}>

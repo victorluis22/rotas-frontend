@@ -34,7 +34,7 @@ export default function RoutesMap({ route }) {
             const response = await fetch(
                 `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
                     address
-                )}&key=${process.env.GEOCODE_API_KEY}`
+                )}&key=${process.env.EXPO_PUBLIC_GEOCODE_API_KEY}`
             );
 
             const data = await response.json();
@@ -118,7 +118,7 @@ export default function RoutesMap({ route }) {
                     origin={`${origin.latitude},${origin.longitude}`}
                     waypoints={waypoints}
                     destination={`${destination.latitude},${destination.longitude}`}
-                    apikey={process.env.DIRECTIONS_API_KEY}
+                    apikey={process.env.EXPO_PUBLIC_DIRECTIONS_API_KEY}
                     strokeWidth={3}
                     strokeColor="hotpink"
                 />

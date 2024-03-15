@@ -99,9 +99,9 @@ export default function RotasColeta() {
                     <Text style={styles.buttonText}>Gerar Rota Simples</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => routeGenerate("mapa")} style={styles.buttonContent}>
+                {/* <TouchableOpacity onPress={() => routeGenerate("mapa")} style={styles.buttonContent}>
                     <Text style={styles.buttonText}>Gerar Rota Com Mapa</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
 
 
