@@ -20,7 +20,7 @@ export default function HamburguerMenu(props) {
                 <Modal 
                     transparent 
                     visible={ModalVisible}
-                    animationType='fade'
+                    animationType="fade"
                     onRequestClose={() => {
                         setModalVisible(!ModalVisible)
                     }}
@@ -34,18 +34,15 @@ export default function HamburguerMenu(props) {
                                 <TouchableOpacity
                                     onPress={() => setModalVisible(false)}
                                 >
-                                    <Icon name="close-outline" size={30} color="black" />
+                                    <Icon name="close-outline" size={40} color="black" />
                                 </TouchableOpacity>
 
                             </View>
 
                             <ScrollView>
                                 <View style={styles.containerImagemModal}>
-                                    <Text style={{ fontSize: 30 }}>
-                                        App de Rotas
-                                    </Text>
                                     <Image
-                                        source={require('../assets/imagens/roadmap.png')}
+                                        source={require('../assets/imagens/logo.png')}
                                         style={styles.imagemModal}
                                         resizeMode="contain"
                                     />
@@ -78,6 +75,7 @@ export default function HamburguerMenu(props) {
                 </Modal>
                 <TouchableOpacity
                     onPress={() => setModalVisible(true)}
+                    style={{marginTop: 20}}
                 >
                     <Iconn name="three-bars" size={30} color="white" />
                 </TouchableOpacity>
@@ -101,6 +99,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#F1F1F1',
         width: '60%',
         height: '100%',
+        borderRadius: 5
     },
     imagemModal: {
         height: 150,
@@ -114,5 +113,6 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginTop: 30,
         fontSize: 15,
+        fontWeight: 'bold'
     }
 });

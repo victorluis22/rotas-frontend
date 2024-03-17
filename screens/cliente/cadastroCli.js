@@ -26,7 +26,7 @@ export default function CadastroCliente({route}){
     const navigation = useNavigation()
 
     const submit = async () => {
-        if(nome && logradouro && numero && CEP && bairro && cidade && uf && tempoColeta && pjpf){
+        if(nome && logradouro && numero && bairro && cidade && uf && tempoColeta && pjpf){
             const validate = await validateAddress()
 
             if(validate === true){
@@ -122,14 +122,14 @@ export default function CadastroCliente({route}){
                     value={nome}
                 />
 
-                <Text style={styles.titleinput}>CEP</Text>
+                {/* <Text style={styles.titleinput}>CEP</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setCEP}
                     value={CEP}
                     onBlur={checkCEP}
                     keyboardType='numeric'
-                />
+                /> */}
 
                 <Text style={styles.titleinput}>Logradouro</Text>
                 <TextInput

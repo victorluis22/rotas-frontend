@@ -63,7 +63,7 @@ export default function ListaDados({route}){
             setData(response.data)
         } catch (error) {
             console.log(error)
-            alert(process.env.EXPO_PUBLIC_ROTAS_API_URL)
+            Alert.alert("Erro", "Erro ao se conectar ao servidor!")
         }
     }
     const openEditModal = (data, title) => {

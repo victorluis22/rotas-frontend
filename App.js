@@ -36,6 +36,7 @@ import RoutesNoMap from './screens/routeNoMap/routeNoMap';
 import RoutesMap from './screens/routeMap/routeMap';
 
 import { AuthProvider } from './context/auth';
+import { StatusBar } from 'expo-status-bar';
 
 const Stack = createNativeStackNavigator();
 
@@ -277,6 +278,7 @@ function App() {
               name="RoutesMap" component={RoutesMap}
             />
           </Stack.Navigator>
+          <StatusBar style='light'/>
         </NavigationContainer>
     </AuthProvider>
   );

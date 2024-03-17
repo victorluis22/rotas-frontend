@@ -1,15 +1,15 @@
-import { StyleSheet, Text, View, Image, TextInput, Button, Pressable, TouchableHighlight, Alert } from 'react-native';
-import React, { useContext, useEffect, useState } from 'react'
+import { StyleSheet, Text, View, Image, TextInput, TouchableHighlight, Alert } from 'react-native';
+import React, { useContext, useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 
 import { AuthContext } from '../context/auth';
-import Loading from './loading';
+import { StatusBar } from 'expo-status-bar';
 
 export default function Login() {
 
   const [username, setUsername] = useState('')
   const [senha, setSenha] = useState('')
-  const { authenticated, login, loading } = useContext(AuthContext)
+  const { login } = useContext(AuthContext)
   const navigation = useNavigation()
 
   function navegarTelaInicial() {
@@ -25,36 +25,28 @@ export default function Login() {
     // navegarTelaInicial()
     try{
       await login(data)
-      console.log(data);
       navegarTelaInicial();
     }
     catch(e){
       console.log(e)
-      Alert.alert('Erro', 'Erro ao logar, tente novamamente.')
+      Alert.alert('Erro', 'Erro ao logar, tente novamente.')
     }
   }
 
   return (
     <View style={styles.container}>
-      <View style={styles.container1}>
-        <Text style={styles.textoLogin}>
-          App de Rotas
-        </Text>
-      </View>
-      <View>
-        <Image
-          source={require('../assets/imagens/roadmap.png')}
+      <Image
+          source={require('../assets/imagens/logo.png')}
           style={styles.imagemLogin}
           resizeMode="contain"
-        />
-      </View>
+      />
       <View style={styles.container2}>
-        <Text style={{ color: "#3C3C3C", fontWeight: "bold", fontSize: 20, marginLeft: 42 }}>
+        <Text style={{ color: "#3C3C3C", fontWeight: "bold", fontSize: 20 }}>
           Login
         </Text>
         <TextInput style={styles.caixadetexto} onChangeText={setUsername}>
         </TextInput>
-        <Text style={{ color: "#3C3C3C", fontWeight: "bold", fontSize: 20, marginLeft: 42 }}>
+        <Text style={{ color: "#3C3C3C", fontWeight: "bold", fontSize: 20 }}>
           Senha
         </Text>
         <TextInput style={styles.caixadetexto} onChangeText={setSenha} secureTextEntry={true}>
@@ -68,11 +60,7 @@ export default function Login() {
           </Text>
         </TouchableHighlight>
       </View>
-      <View style={{ justifyContent: 'space-between' }}>
-        <Text style={{ alignItems: 'flex-end', alignSelf: 'center' }}>
-          Powered by IPRJ
-        </Text>
-      </View>
+      <StatusBar style='dark'/>
     </View>
   );
 }
@@ -81,16 +69,19 @@ const styles = StyleSheet.create({
 
   container: {
     backgroundColor: '#D9D9D9',
-    height: '100%',
     flex: 1,
-    justifyContent: 'space-between'
-  },
-  container1: {
-    marginTop: 53,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 50
   },
   container2: {
     flexDirection: 'column',
-    marginTop: -100,
+    width: '90%',
+    padding: 20,
+    backgroundColor: "#fff",
+    borderRadius: 5,
+    elevation: 10,
+    shadowColor: '#3C3C3C',
   },
   textoLogin: {
     textAlign: 'center',
@@ -98,26 +89,27 @@ const styles = StyleSheet.create({
   },
   caixadetexto: {
     backgroundColor: 'white',
-    borderRadius: 20,
-    width: '80%',
+    borderRadius: 5,
+    width: '100%',
     height: 35,
     alignSelf: 'center',
     margin: 20,
     paddingLeft:15,
+    borderWidth: 1,
+    borderColor: '#D9D9D9'
   },
   butao: {
     backgroundColor: '#3C3C3C',
     alignSelf: 'center',
-    width: '80%',
+    width: '100%',
     borderRadius: 20,
     // height: 35,
     paddingVertical: 10,
   },
   imagemLogin: {
-    width: '80%',
-    height: 150,
+    width: 200,
+    height: 200,
     alignSelf: 'center',
     justifyContent: 'center',
-
   }
 });
