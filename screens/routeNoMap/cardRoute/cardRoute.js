@@ -27,7 +27,6 @@ export default function CardRoute({ eachRoute, isLast }) {
         try{
             if(!savedId){
                 const response = await create("coleta", data)
-                console.log(response.data)
                 setSavedId(response.data.insertId)
                 setChecked(true)
                 Alert.alert("Sucesso", "Peso registrado com sucesso!")

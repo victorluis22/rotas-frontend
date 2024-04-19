@@ -269,14 +269,14 @@ function App() {
               }}
               name="RoutesNoMap" component={RoutesNoMap}
             />
-            <Stack.Screen
+            {/* <Stack.Screen
               options={{
                 title: '',
                 headerTransparent: true,
                 headerShown: false
               }}
               name="RoutesMap" component={RoutesMap}
-            />
+            /> */}
           </Stack.Navigator>
           <StatusBar style='light'/>
         </NavigationContainer>

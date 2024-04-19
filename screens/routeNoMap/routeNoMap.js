@@ -1,30 +1,46 @@
-import { View, StyleSheet, ScrollView, Text } from "react-native";
 import MenuRetornar from "../../components/menuretornar";
 import CardRoute from "./cardRoute/cardRoute";
 
-import routeWeekly from "../../assets/routes/output_weekly.json"
-import routeAll from "../../assets/routes/output_all.json"
-
 import { useEffect, useState } from "react";
+import { api } from "../../services/api";
+import { View, StyleSheet, ScrollView, Text, Alert } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 export default function RoutesNoMap({ route }) {
     const routeData = route.params.routeData
     const [routeList, setRouteList] = useState([])
+    const navigation = useNavigation()
 
-    const chooseRouteType = (routeType) => {
+    const fetchRoute = async (routeType) => {
         if (routeType === "PF - Semanal / Quinzenal"){
-            return routeAll
+            try{
+                const response = await api.get("/json/buscar?type=all")
+                const chosenVehicleRoute = response.data.route[routeData.vehicle]
+                const chosenDayRoute = chosenVehicleRoute[routeData.day]
+                setRouteList(chosenDayRoute["Route"])
+            }
+            catch(err){
+                Alert.alert("Erro", "Erro ao pegar dados da rota.")
+                console.log(err)
+                navigation.goBack()
+            }
         }
         else{
-            return routeWeekly
+            try{
+                const response = await api.get("/json/buscar?type=weekly")
+                const chosenVehicleRoute = response.data.route[routeData.vehicle]
+                const chosenDayRoute = chosenVehicleRoute[routeData.day]
+                setRouteList(chosenDayRoute["Route"])
+            }
+            catch(err){
+                Alert.alert("Erro", "Erro ao pegar dados da rota.")
+                navigation.goBack()
+            }
         }
     }
 
     useEffect(() => {
-        const chosenJSON = chooseRouteType(routeData.routeType)
-        const chosenVehicle = chosenJSON[routeData.vehicle]
-        const chosenDay = chosenVehicle[routeData.day]
-        setRouteList(chosenDay["Route"])
+       fetchRoute(routeData.routeType)
     }, [])
 
 

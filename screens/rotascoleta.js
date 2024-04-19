@@ -1,12 +1,9 @@
 import { View, Text, TouchableOpacity, StyleSheet, TouchableHighlight, ScrollView } from "react-native";
 import MenuRetornar from "../components/menuretornar";
-import Select from "../components/select";
 import { useNavigation } from '@react-navigation/native';
 import { Picker } from "@react-native-picker/picker";
 import { useEffect, useState } from "react";
 import { get } from "../services/api";
-
-
 
 export default function RotasColeta() {
 

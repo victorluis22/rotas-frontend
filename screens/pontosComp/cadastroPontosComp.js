@@ -17,7 +17,6 @@ export default function CadastroPontosCompostagem({ route }) {
     const [numero, setNumero] = useState(type === "update" ? previousData.Numero.toString() : '')
     const [complemento, setComplemento] = useState(type === "update" ? previousData.Complemento : '')
     const [bairro, setBairro] = useState(type === "update" ? previousData.Bairro : '')
-    const [utm, setUTM] = useState(type === "update" ? previousData.UTM : '')
     const [capmax, setCapMax] = useState(type === "update" ? previousData.CapacMaxDia.toString() : '')
     const [cidade, setCidade] = useState(type === "update" ? previousData.Cidade : '')
     const [uf, setUF] = useState(type === "update" ? previousData.UF : '')
@@ -25,13 +24,12 @@ export default function CadastroPontosCompostagem({ route }) {
     const navigation = useNavigation()
 
     const submit = async () => {
-        if(descponto && logradouro && numero && complemento && bairro && cidade && uf && capmax && utm){
+        if(descponto && logradouro && numero && bairro && cidade && uf && capmax){
             const data = {
                 descricao: descponto,
                 logradouro: logradouro,
                 numero: numero,
                 complemento: complemento,
-                utm: utm,
                 bairro: bairro,
                 cidade: cidade,
                 uf: uf,
@@ -100,7 +98,7 @@ export default function CadastroPontosCompostagem({ route }) {
                     keyboardType='numeric'
                 />
 
-                <Text style={styles.titleinput}>Complemento</Text>
+                <Text style={styles.titleinput}>Complemento (opcional)</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setComplemento}
@@ -112,13 +110,6 @@ export default function CadastroPontosCompostagem({ route }) {
                     style={styles.input}
                     onChangeText={setBairro}
                     value={bairro}
-                />
-
-                <Text style={styles.titleinput}>UTM</Text>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={setUTM}
-                    value={utm}
                 />
 
                 <Text style={styles.titleinput}>Cidade</Text>
@@ -140,6 +131,7 @@ export default function CadastroPontosCompostagem({ route }) {
                     style={styles.input}
                     onChangeText={setCapMax}
                     value={capmax}
+                    keyboardType='numeric'
                 />
 
                 <TouchableOpacity style={styles.buttonContent} onPress={() => submit()}>
