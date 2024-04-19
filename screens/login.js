@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Image, TextInput, TouchableHighlight, Alert } from 'react-native';
 import React, { useContext, useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
+import { TextInput as PaperInput } from 'react-native-paper';
 
 import { AuthContext } from '../context/auth';
 import { StatusBar } from 'expo-status-bar';
@@ -11,6 +12,7 @@ export default function Login() {
   const [senha, setSenha] = useState('')
   const { login } = useContext(AuthContext)
   const navigation = useNavigation()
+  const [passwordVisible, setPasswordVisible] = useState(true)
 
   function navegarTelaInicial() {
     navigation.navigate('TelaInicial');
@@ -28,8 +30,12 @@ export default function Login() {
       navegarTelaInicial();
     }
     catch(e){
-      console.log(e)
-      Alert.alert('Erro', 'Erro ao logar, tente novamente.')
+      if(e.response.status === 401){
+        Alert.alert("Erro", 'Login ou senha inválidos. Verifique e corrija os dados digitados e tente novamente.')
+      }
+      else{
+        Alert.alert("Erro", 'Erro interno, tente novamente mais tarde.')
+      }
     }
   }
 
@@ -41,16 +47,28 @@ export default function Login() {
           resizeMode="contain"
       />
       <View style={styles.container2}>
-        <Text style={{ color: "#3C3C3C", fontWeight: "bold", fontSize: 20 }}>
-          Login
-        </Text>
-        <TextInput style={styles.caixadetexto} onChangeText={setUsername}>
-        </TextInput>
-        <Text style={{ color: "#3C3C3C", fontWeight: "bold", fontSize: 20 }}>
-          Senha
-        </Text>
-        <TextInput style={styles.caixadetexto} onChangeText={setSenha} secureTextEntry={true}>
-        </TextInput>
+        <PaperInput
+          label={"Login"}
+          onChangeText={setUsername}
+          style={{marginBottom: 20}}
+        />
+
+        <PaperInput
+          label={"Senha"}
+          onChangeText={setSenha} 
+          secureTextEntry={passwordVisible}
+          style={{marginBottom: 20}}
+          right={
+            <PaperInput.Icon 
+              icon={passwordVisible ? 'eye' : 'eye-off'}
+              size={30}
+              color={"#3C3C3C"}
+              onPress={() => setPasswordVisible(!passwordVisible)}
+              
+            />
+          }
+        />  
+
         <TouchableHighlight
           style={styles.butao}
           onPress={handleSignIn}

@@ -4,11 +4,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './screens/login';
 import TelaInicial from './screens/telainicial';
 import DisponibilidadeVeiculos from './screens/disponibilidadeveiculos';
-import ColetaCliente from './screens/coletacliente';
 import EntregaCompostagem from './screens/entregacompostagem';
 import RotasColeta from './screens/rotascoleta';
-import Coleta from './screens/coleta/coleta';
-import ColetaMap from './screens/coletamap';
 import Loading from "./screens/loading"
 
 import CadastroCliente from './screens/cliente/cadastroCli';
@@ -68,14 +65,6 @@ function App() {
                 headerShown: false
               }}
               name="DisponibilidadeVeiculos" component={DisponibilidadeVeiculos}
-            />
-            <Stack.Screen
-              options={{
-                title: '',
-                headerTransparent: true,
-                headerShown: false
-              }}
-              name="ColetaCliente" component={ColetaCliente}
             />
             <Stack.Screen
               options={{
@@ -148,22 +137,6 @@ function App() {
                 headerShown: false
               }}
               name="RotasColeta" component={RotasColeta}
-            />
-            <Stack.Screen
-              options={{
-                title: '',
-                headerTransparent: true,
-                headerShown: false
-              }}
-              name="Coleta" component={Coleta}
-            />
-            <Stack.Screen
-              options={{
-                title: '',
-                headerTransparent: true,
-                headerShown: false
-              }}
-              name="ColetaMap" component={ColetaMap}
             />
             <Stack.Screen
               options={{

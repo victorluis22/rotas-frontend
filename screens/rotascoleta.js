@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet, TouchableHighlight, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, TouchableHighlight, ScrollView, Alert } from "react-native";
 import MenuRetornar from "../components/menuretornar";
 import { useNavigation } from '@react-navigation/native';
 import { Picker } from "@react-native-picker/picker";
@@ -27,11 +27,16 @@ export default function RotasColeta() {
             routeType
         }
 
-        if (type === "simples"){
-            navigation.navigate('RoutesNoMap', {routeData: routeData })
+        if (vehicle && day && routeType){
+            if (type === "simples"){
+                navigation.navigate('RoutesNoMap', {routeData: routeData })
+            }
+            else{
+                navigation.navigate('RoutesMap', {routeData: routeData })
+            }
         }
         else{
-            navigation.navigate('RoutesMap', {routeData: routeData })
+            Alert.alert("Erro", "Preencha todos os campos do formulário!")
         }
         
     }
@@ -85,7 +90,7 @@ export default function RotasColeta() {
                     <Picker.Item label="Segunda-feira" value="Segunda-feira" />
                     <Picker.Item label="Terça-feira" value="Terça-feira" />
                     <Picker.Item label="Quarta-feira" value="Quarta-feira" />
-                    <Picker.Item label="Quinta-feria" value="Quinta-feira" />
+                    <Picker.Item label="Quinta-feira" value="Quinta-feira" />
                     <Picker.Item label="Sexta-feira" value="Sexta-feira" />
                     <Picker.Item label="Sábado" value="Sábado-feira" />
                     <Picker.Item label="Domingo" value="Domingo-feira" />

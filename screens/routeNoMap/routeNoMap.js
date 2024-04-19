@@ -3,7 +3,7 @@ import CardRoute from "./cardRoute/cardRoute";
 
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
-import { View, StyleSheet, ScrollView, Text, Alert } from "react-native";
+import { View, StyleSheet, ScrollView, Text, Alert, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 export default function RoutesNoMap({ route }) {
@@ -20,8 +20,7 @@ export default function RoutesNoMap({ route }) {
                 setRouteList(chosenDayRoute["Route"])
             }
             catch(err){
-                Alert.alert("Erro", "Erro ao pegar dados da rota.")
-                console.log(err)
+                Alert.alert("Erro", `Não existe rota criada para os casos de cliente ${routeType}, veículo ${routeData.vehicle} e dia da semana ${routeData.day}. De acordo com os parâmetros registrados pelo usuário no formulário.`)
                 navigation.goBack()
             }
         }
@@ -33,7 +32,7 @@ export default function RoutesNoMap({ route }) {
                 setRouteList(chosenDayRoute["Route"])
             }
             catch(err){
-                Alert.alert("Erro", "Erro ao pegar dados da rota.")
+                Alert.alert("Erro", `Não existe rota criada para os casos de cliente ${routeType}, veículo ${routeData.vehicle} e dia da semana ${routeData.day}. De acordo com os parâmetros registrados pelo usuário no formulário.`)
                 navigation.goBack()
             }
         }
