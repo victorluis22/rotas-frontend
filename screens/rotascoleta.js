@@ -72,6 +72,9 @@ export default function RotasColeta() {
                     }>
                     <Picker.Item label="Selecione" value="" enabled={false}/>
                     {
+                        routeType === "PJ" ?
+                            <Picker.Item key={2} label={"Carretinha"} value={"Carretinha"} />
+                        :
                         allVehicles.map((eachVehicle) => {
                             return <Picker.Item key={eachVehicle.CodVeic} label={eachVehicle.Descricao} value={eachVehicle.Descricao} />
                         })

@@ -12,7 +12,7 @@ export default function RoutesNoMap({ route }) {
     const navigation = useNavigation()
 
     const fetchRoute = async (routeType) => {
-        if (routeType === "PF - Semanal / Quinzenal"){
+        if (routeType === "PF - Semanal / Quinzenal" || routeType === "PJ"){
             try{
                 const response = await api.get("/json/buscar?type=all")
                 const chosenVehicleRoute = response.data.route[routeData.vehicle]
@@ -38,9 +38,14 @@ export default function RoutesNoMap({ route }) {
         }
     }
 
+    const GeneratePDF = async () =>  {
+        
+    }
+
     useEffect(() => {
        fetchRoute(routeData.routeType)
     }, [])
+
 
 
     return (
@@ -50,6 +55,11 @@ export default function RoutesNoMap({ route }) {
             <Text style={styles.Title}>Tipo de Rota: {routeData.routeType}</Text>
             <Text style={styles.Title}>Tipo de Veículo: {routeData.vehicle} </Text>
             <Text style={styles.Title}>Dia da Semana: {routeData.day}</Text>
+
+            <TouchableOpacity style={styles.button} onPress={() => GeneratePDF()}>
+                <Text style={styles.buttonText}>Gerar PDF das Rotas</Text>
+            </TouchableOpacity>
+
 
             <ScrollView>
                 {
@@ -75,5 +85,18 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "center",
         marginTop: 5
-    }
+    },
+
+    button:{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        paddingVertical: 10,
+        paddingHorizontal: 10,
+        backgroundColor: "#24a0ed",
+        borderRadius: 7,
+        marginVertical: 6,
+        width: 280,
+        marginLeft: 70
+    },
 });

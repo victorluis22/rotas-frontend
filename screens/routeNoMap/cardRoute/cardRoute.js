@@ -48,11 +48,11 @@ export default function CardRoute({ eachRoute, isLast }) {
             <View style={styles.containertexto}>
                 <View style={{opacity: checked ? 0.3 : 1}}>
                     <Text style={styles.contentTitulo}>Início</Text>
-                    <Text style={styles.contentTextClient}>{eachRoute["From"]["type"]}: {eachRoute["From"]["id"]}</Text>
+                    <Text style={styles.contentTextClient}>{eachRoute["From"]["type"]}: {eachRoute["From"]["name"]}</Text>
                     <Text style={styles.contentText}>Começo: {eachRoute["Departure address"]}</Text>
 
                     <Text style={styles.contentTitulo}>Fim</Text>
-                    <Text style={styles.contentTextClient}>{eachRoute["To"]["type"]}: {eachRoute["To"]["id"]}</Text>
+                    <Text style={styles.contentTextClient}>{eachRoute["To"]["type"]}: {eachRoute["To"]["name"]}</Text>
                     <Text style={styles.contentText}>Próxima parada: {eachRoute["Destination address"]}</Text>
                     { !isLast &&
                       <TextInput 
