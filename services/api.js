@@ -57,4 +57,8 @@ export const getClientQRCode = async (id) => {
     return await api.get(`/clientes/qrcode/${id}`)
 }
 
+export const getXLSXContent = async (empresaId) => {
+    return await api.get(`/clientes/xlsx/${empresaId}`)
+}
+
 

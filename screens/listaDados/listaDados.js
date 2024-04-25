@@ -2,12 +2,14 @@ import { View,
     StyleSheet,
     TextInput,
     ScrollView,
-    Alert 
+    Alert, 
+    TouchableOpacity,
+    Text
 } from "react-native";
     
 import MenuRetornar from "../../components/menuretornar";
 import { remove, get } from "../../services/api";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Icon from "react-native-vector-icons/AntDesign"
 import { useNavigation } from "@react-navigation/native";
 
@@ -24,6 +26,8 @@ import {
     RenderListaHorario,
     RenderListaPontosComp
 } from "./renderListaDados";
+import { exportXLSX } from "../../services/xlsx";
+import { AuthContext } from "../../context/auth";
 
 export const RenderLista = ({data, search, openModal, table }) => {
     switch(table){
@@ -56,6 +60,7 @@ export default function ListaDados({route}){
     const [deleteModalVisible, setDeleteModalVisible] = useState(false);
     const [modalData, setModalData] = useState({})
     const [modalTitle, setModalTitle] = useState("")
+    const { user } = useContext(AuthContext)
 
     const fetchData = async () => {
         try {
@@ -119,6 +124,16 @@ export default function ListaDados({route}){
         }
     }
 
+    const handleXLSXExport = async () => {
+        try{
+            await exportXLSX(user.CodEmpresa)
+        }
+        catch (error) {
+            console.log(error)
+            Alert.alert("Erro", "Erro ao exportar dado, tente novamente depois.")
+        }
+    }
+
     useEffect(() => {
         // Evita renderizar dados antigos quando voltando para trás na navigation stack
         navigation.addListener('focus', () => {
@@ -135,6 +150,15 @@ export default function ListaDados({route}){
                 onChangeText={setSearch}
                 placeholder="Digite o nome neste campo - Pesquisar"
             />
+
+            {
+                table === "clientes" ?
+                    <TouchableOpacity onPress={() => handleXLSXExport()} style={styles.exportButton}>
+                        <Text style={styles.buttonText}>Exportar Clientes</Text>
+                    </TouchableOpacity>
+                :
+                null
+            }
 
             <ScrollView>
                 <RenderLista data={data} search={search} openModal={openEditModal} table={table} />
@@ -171,5 +195,22 @@ const styles = StyleSheet.create({
     button: {
         marginHorizontal: 15,
         marginVertical: 10
+    },
+    exportButton: {
+        backgroundColor: "#7bc043",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        alignSelf: 'center',
+        paddingVertical: 5,
+        borderRadius: 7,
+        marginVertical: 6,
+        elevation: 10,
+        width: "60%",
+        shadowColor: '#3C3C3C'
+    },
+    buttonText:{
+        color: "#fff",
+        fontWeight: "bold"
     }
 });
