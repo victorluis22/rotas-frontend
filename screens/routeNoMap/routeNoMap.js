@@ -2,51 +2,59 @@ import MenuRetornar from "../../components/menuretornar";
 import CardRoute from "./cardRoute/cardRoute";
 
 import { useEffect, useState } from "react";
-import { api } from "../../services/api";
+import { getLatestAllRoute, getLatestWeeklyRoute } from "../../services/api";
 import { View, StyleSheet, ScrollView, Text, Alert, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { exportRouteXLSX } from "../../services/xlsx";
 
 export default function RoutesNoMap({ route }) {
     const routeData = route.params.routeData
     const [routeList, setRouteList] = useState([])
+    const [filename, setFilename] = useState("")
     const navigation = useNavigation()
 
     const fetchRoute = async (routeType) => {
         if (routeType === "PF - Semanal / Quinzenal" || routeType === "PJ"){
             try{
-                const response = await api.get("/json/buscar?type=all")
+                const response = await getLatestAllRoute()
                 const chosenVehicleRoute = response.data.route[routeData.vehicle]
                 const chosenDayRoute = chosenVehicleRoute[routeData.day]
                 setRouteList(chosenDayRoute["Route"])
+                setFilename(response.data.filename)
             }
             catch(err){
-                Alert.alert("Erro", `Não existe rota criada para os casos de cliente ${routeType}, veículo ${routeData.vehicle} e dia da semana ${routeData.day}. De acordo com os parâmetros registrados pelo usuário no formulário.`)
+                Alert.alert("Erro", `Não existe rota criada para os casos de cliente ${routeType}, veículo ${routeData.vehicle} e dia da semana ${routeData.day}.`)
                 navigation.goBack()
             }
         }
         else{
             try{
-                const response = await api.get("/json/buscar?type=weekly")
+                const response = await getLatestWeeklyRoute();
                 const chosenVehicleRoute = response.data.route[routeData.vehicle]
                 const chosenDayRoute = chosenVehicleRoute[routeData.day]
                 setRouteList(chosenDayRoute["Route"])
+                setFilename(response.data.filename)
             }
             catch(err){
-                Alert.alert("Erro", `Não existe rota criada para os casos de cliente ${routeType}, veículo ${routeData.vehicle} e dia da semana ${routeData.day}. De acordo com os parâmetros registrados pelo usuário no formulário.`)
+                Alert.alert("Erro", `Não existe rota criada para os casos de cliente ${routeType}, veículo ${routeData.vehicle} e dia da semana ${routeData.day}.`)
                 navigation.goBack()
             }
         }
     }
 
-    const GeneratePDF = async () =>  {
-        
+    const generateXLSX = async () =>  {
+        try{
+            await exportRouteXLSX(routeList);
+        }
+        catch (err){
+            console.log(err)
+            Alert.alert("Erro", "Erro ao gerar XLSX da rota");
+        }
     }
 
     useEffect(() => {
        fetchRoute(routeData.routeType)
     }, [])
-
-
 
     return (
         <View style={styles.container}>
@@ -55,9 +63,10 @@ export default function RoutesNoMap({ route }) {
             <Text style={styles.Title}>Tipo de Rota: {routeData.routeType}</Text>
             <Text style={styles.Title}>Tipo de Veículo: {routeData.vehicle} </Text>
             <Text style={styles.Title}>Dia da Semana: {routeData.day}</Text>
+            <Text style={styles.Title}>Fonte: {filename}</Text>
 
-            <TouchableOpacity style={styles.button} onPress={() => GeneratePDF()}>
-                <Text style={styles.buttonText}>Gerar PDF das Rotas</Text>
+            <TouchableOpacity style={styles.button} onPress={() => generateXLSX()}>
+                <Text style={styles.buttonText}>Gerar XLSX das Rotas</Text>
             </TouchableOpacity>
 
 
@@ -95,8 +104,13 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         backgroundColor: "#24a0ed",
         borderRadius: 7,
-        marginVertical: 6,
+        marginVertical: 20,
         width: 280,
-        marginLeft: 70
+        alignSelf: 'center'
+    },
+
+    buttonText:{
+        color: "#fff",
+        fontWeight: "bold"
     },
 });

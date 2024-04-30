@@ -26,7 +26,7 @@ import {
     RenderListaHorario,
     RenderListaPontosComp
 } from "./renderListaDados";
-import { exportXLSX } from "../../services/xlsx";
+import { exportClientXLSX } from "../../services/xlsx";
 import { AuthContext } from "../../context/auth";
 
 export const RenderLista = ({data, search, openModal, table }) => {
@@ -126,11 +126,11 @@ export default function ListaDados({route}){
 
     const handleXLSXExport = async () => {
         try{
-            await exportXLSX(user.CodEmpresa)
+            await exportClientXLSX(user.CodEmpresa)
         }
         catch (error) {
             console.log(error)
-            Alert.alert("Erro", "Erro ao exportar dado, tente novamente depois.")
+            Alert.alert("Erro", "Erro ao exportar dados de clientes.")
         }
     }
 

@@ -61,4 +61,12 @@ export const getXLSXContent = async (empresaId) => {
     return await api.get(`/clientes/xlsx/${empresaId}`)
 }
 
+export const getLatestWeeklyRoute = async () => {
+    return await api.get(`/json/buscar?type=weekly`)
+}
+
+export const getLatestAllRoute = async () => {
+    return await api.get(`/json/buscar?type=all`)
+}
+
 

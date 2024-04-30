@@ -1,9 +1,10 @@
-import { View, Text, TouchableOpacity, StyleSheet, TouchableHighlight, ScrollView, Alert } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import MenuRetornar from "../components/menuretornar";
 import { useNavigation } from '@react-navigation/native';
 import { Picker } from "@react-native-picker/picker";
 import { useEffect, useState } from "react";
-import { get } from "../services/api";
+import { get, getLatestAllRoute } from "../services/api";
+import { exportAllRouteXLSX } from "../services/xlsx";
 
 export default function RotasColeta() {
 
@@ -39,6 +40,18 @@ export default function RotasColeta() {
             Alert.alert("Erro", "Preencha todos os campos do formulário!")
         }
         
+    }
+
+    const generateXLSX = async () => {
+        try{
+            const response = await getLatestAllRoute();
+
+            await exportAllRouteXLSX(response.data);
+        }
+        catch (err){
+            console.log(err)
+            Alert.alert("Erro", "Erro ao gerar XLSX das rotas totais")
+        }
     }
 
     useEffect(() => {
@@ -104,9 +117,9 @@ export default function RotasColeta() {
                     <Text style={styles.buttonText}>Gerar Rota Simples</Text>
                 </TouchableOpacity>
 
-                {/* <TouchableOpacity onPress={() => routeGenerate("mapa")} style={styles.buttonContent}>
-                    <Text style={styles.buttonText}>Gerar Rota Com Mapa</Text>
-                </TouchableOpacity> */}
+                <TouchableOpacity onPress={() => generateXLSX()} style={styles.buttonContent}>
+                    <Text style={styles.buttonText}>Gerar XLSX com todas as rotas</Text>
+                </TouchableOpacity>
             </View>
 
 
@@ -137,7 +150,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#3C3C3C",
         borderRadius: 10,
         marginHorizontal: "10%",
-        marginVertical: 40,
+        marginVertical: 20,
     },
     input: {
         backgroundColor: 'white',
