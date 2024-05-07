@@ -19,10 +19,15 @@ export const RenderLista = ({data, search, openModal}) => {
     const searchLowerCase = search.toLowerCase()
     const names = data.filter((eachData) => `${eachData.DiaSemana}: ${eachData.HoraIni} - ${eachData.HoraFim}`.toLowerCase().includes(searchLowerCase));
     
+    const sortedData = names.sort((a,b) => {
+        const diasDaSemana = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
+        return diasDaSemana.indexOf(a.DiaSemana.toLowerCase()) - diasDaSemana.indexOf(b.DiaSemana.toLowerCase());
+    });
+
     return (
         <>
             {
-                names.map((eachName) => {
+                sortedData.map((eachName) => {
                     const key = eachName.CodHD
                     const title = `${eachName.DiaSemana}: ${eachName.HoraIni} - ${eachName.HoraFim}`;
                     const description = "";

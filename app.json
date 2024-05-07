@@ -12,14 +12,6 @@
     },
     "assetBundlePatterns": [
       "**/*"
-    ],
-    "extra": {
-      "eas": {
-        "projectId": "e0477123-6ec7-4d89-b6c1-c8bd3db85e24"
-      }
-    },
-    "android": {
-      "package": "com.vphix.rotas"
-    }
+    ]
   }
 }
