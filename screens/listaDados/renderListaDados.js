@@ -38,7 +38,7 @@ export const RenderListaVeiculo = ({data, search, openModal}) => {
                     const description = `# ${key}`
                     return (
                         <TouchableOpacity style={styles.button} key={key} onPress={() => openModal(eachName, title)}>
-                            <ListaCard title={title} description={description} type="veiculo" codVeic={key}/>
+                            <ListaCard title={title} description={description} type="veiculo" codVeic={key} vehicleName={title}/>
                         </TouchableOpacity>
                     )
                 })
@@ -182,7 +182,7 @@ export const RenderListaPontosComp = ({data, search, openModal}) => {
                     const description = `${eachName.Cidade} - #${key}`;
                     return (
                         <TouchableOpacity style={styles.button} key={key} onPress={() => openModal(eachName, title)}>
-                            <ListaCard title={title} description={description} type="pontosCompostagem" codPonto={key}/>
+                            <ListaCard title={title} description={description} type="pontosCompostagem" codPonto={key} pointName={title}/>
                         </TouchableOpacity>
                     )
                 })

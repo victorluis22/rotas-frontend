@@ -3,6 +3,7 @@ import { View,
     StyleSheet,
     TextInput,
     ScrollView,
+    Text,
     Alert } from "react-native";
     
 import MenuRetornar from "../../components/menuretornar";
@@ -24,7 +25,7 @@ export const RenderLista = ({data, search, openModal}) => {
                 names.map((eachName) => {
                     const key = eachName.CodDV
                     const title = `${eachName.DiaSemana}: ${eachName.HoraIni} - ${eachName.HoraFim}`;
-                    const description = `Veículo: ${eachName.CodVeic}`;
+                    const description = "";
                     return (
                         <TouchableOpacity style={styles.button} key={key} onPress={() => openModal(eachName, title)}>
                             <ListaCard title={title} description={description}/>
@@ -39,6 +40,7 @@ export const RenderLista = ({data, search, openModal}) => {
 export default function ListaHorarioVeiculo({ route }){
     const table = route.params.table
     const codVeic = route.params.codVeic
+    const vehicleName = route.params.vehicleName
 
     const [search, setSearch] = useState("")
     const [data, setData] = useState([])
@@ -94,11 +96,7 @@ export default function ListaHorarioVeiculo({ route }){
         <View style={styles.container}>
             <MenuRetornar options={[{ title: `Horário Veículos`, voltar: 'ListaDados', table: "veiculos" }]} />
 
-            <TextInput style={styles.caixadetexto}
-                value={search}
-                onChangeText={setSearch}
-                placeholder="Digite o nome neste campo - Pesquisar"
-            />
+            <Text style={styles.Veic}>Veículo: {vehicleName}</Text>
 
             <ScrollView>
                 <RenderLista data={data} search={search} openModal={openEditModal} table={table} />
@@ -135,5 +133,11 @@ const styles = StyleSheet.create({
     button: {
         marginHorizontal: 15,
         marginVertical: 10
+    },
+    Veic: {
+        padding: 20,
+        fontSize: 20,
+        alignSelf: "center",
+        fontWeight: "bold"
     }
 });

@@ -3,6 +3,7 @@ import { View,
     StyleSheet,
     TextInput,
     ScrollView,
+    Text,
     Alert } from "react-native";
     
 import MenuRetornar from "../../components/menuretornar";
@@ -14,7 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import EditModal from "../../components/editModal";
 import DeleteModal from "../../components/deleteModal";
 
-export const RenderLista = ({data, search, openModal}) => {
+export const RenderLista = ({data, search, openModal, clientName}) => {
     const searchLowerCase = search.toLowerCase()
     const names = data.filter((eachData) => eachData.DataIni.toLowerCase().includes(searchLowerCase));
     
@@ -27,7 +28,7 @@ export const RenderLista = ({data, search, openModal}) => {
                     const description = `Data Fim: ${eachName.DataFim === null ? "Indefinido": eachName.DataFim.slice(0, 10)} - #${key}`;
                     return (
                         <TouchableOpacity style={styles.button} key={key} onPress={() => openModal(eachName, title)}>
-                            <ListaCard title={title} description={description} type="contrato" codContrato={key}/>
+                            <ListaCard title={title} description={description} type="contrato" codContrato={key} clientName={clientName}/>
                         </TouchableOpacity>
                     )
                 })
@@ -39,6 +40,7 @@ export const RenderLista = ({data, search, openModal}) => {
 export default function ListaContrato({route}){
     const table = route.params.table
     const codCliente = route.params.codCliente
+    const clientName = route.params.clientName
 
     const [search, setSearch] = useState("")
     const [data, setData] = useState([])
@@ -94,14 +96,10 @@ export default function ListaContrato({route}){
         <View style={styles.container}>
             <MenuRetornar options={[{ title: `Contratos`, voltar: 'ListaDados', table: "clientes"}]} />
 
-            <TextInput style={styles.caixadetexto}
-                value={search}
-                onChangeText={setSearch}
-                placeholder="Digite o nome neste campo - Pesquisar"
-            />
+            <Text style={styles.nameClient}>Cliente: {clientName}</Text>
 
             <ScrollView>
-                <RenderLista data={data} search={search} openModal={openEditModal} table={table} />
+                <RenderLista data={data} search={search} openModal={openEditModal} table={table} clientName={clientName}/>
             </ScrollView>
             
             <Icon style={styles.iconeAdd} name="pluscircle" size={60} color={"#3C3C3C"} onPress={() => navigation.navigate("CadastroContrato", {previousData: {}, codCliente: codCliente})} />
@@ -135,5 +133,11 @@ const styles = StyleSheet.create({
     button: {
         marginHorizontal: 15,
         marginVertical: 10
+    },
+    nameClient: {
+        padding: 20,
+        fontSize: 20,
+        alignSelf: "center",
+        fontWeight: "bold"
     }
 });

@@ -39,8 +39,31 @@ export default function CadastroContrato({route}){
 
     const navigation = useNavigation()
 
+    const handleDateChange = (data) => {
+        const inputDate = data;
+        // Verificar se a data está no formato "Ano-Mês-Dia"
+        const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+        if (!dateRegex.test(inputDate)) {
+            return false
+        } else {
+            return true
+        }
+    }
+
     const submit = async () => {
         if(dataini && volumebalde && tipoContrato && tipoVeiculo){
+            if(handleDateChange(dataini) === false){
+                Alert.alert("Erro", "Formato de Data Inicial preenchido de forma inválida.")
+                return
+            }
+            
+            if(datafim != ""){
+                if(handleDateChange(datafim) === false){
+                    Alert.alert("Erro", "Formato de Data Final preenchido de forma inválida.")
+                    return
+                }
+            }
+
             const data = {
                 dataIni: dataini,
                 dataFim: datafim === "" ? null :  datafim,
@@ -87,14 +110,14 @@ export default function CadastroContrato({route}){
             <MenuRetornar options={[{ title: type === "update" ? `Editar Contrato` : "Cadastro de Contrato", voltar: "ListaContrato", table: "contrato" }]} />
             <ScrollView style={styles.content}>
 
-                <Text style={styles.titleinput}>Data Inicial (EX: 2023-12-30)</Text>
+                <Text style={styles.titleinput}>Data Inicial (EX: Ano-Mês-Dia)</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setDataIni}
                     value={dataini}
                 />
 
-                <Text style={styles.titleinput}>Data final (EX: 2023-12-30)</Text>
+                <Text style={styles.titleinput}>Data final (EX: Ano-Mês-Dia)</Text>
                 <TextInput
                     style={styles.input}
                     onChangeText={setDataFim}

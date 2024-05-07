@@ -7,7 +7,7 @@ import * as Sharing from 'expo-sharing';
 import * as FileSystem from 'expo-file-system';
 import { getClientQRCode } from "../services/api";
 
-export default function ListaCard({title, description, type, codCliente, codContrato, codVeic, codPonto}) {
+export default function ListaCard({title, description, type, clientName, vehicleName, pointName, codCliente, codContrato, codVeic, codPonto, }) {
     const navigation = useNavigation()
 
     const exportFile = async () => {
@@ -39,7 +39,7 @@ export default function ListaCard({title, description, type, codCliente, codCont
                         <View style={styles.containertexto}>
                             <Text style={styles.contentTitulo}>{title} {description}</Text>
                             <View style={styles.contentbutton}>
-                                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("ListaContrato", {table: "contrato", codCliente: codCliente})}>
+                                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("ListaContrato", {table: "contrato", codCliente: codCliente, clientName: title})}>
                                     <Text style={styles.buttonText}>Acessar Contratos</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={{ ...styles.button, backgroundColor: "#7bc043"}} onPress={() => exportFile()}>
@@ -57,7 +57,7 @@ export default function ListaCard({title, description, type, codCliente, codCont
                             <Text style={styles.contentTitulo}>{title}</Text>
                             <Text>{description}</Text>
                             <View style={styles.contentbutton}>
-                                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("ListaHorarioContrato", {table: "horarioContratoCliente", codContrato: codContrato})}>
+                                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("ListaHorarioContrato", {table: "horarioContratoCliente", codContrato: codContrato, clientName: clientName})}>
                                     <Text style={styles.buttonText}>Acessar Horários</Text>
                                 </TouchableOpacity>
                             </View>
@@ -72,10 +72,10 @@ export default function ListaCard({title, description, type, codCliente, codCont
                             <Text style={styles.contentTitulo}>{title}</Text>
                             <Text>{description}</Text>
                             <View style={styles.contentbutton}>
-                                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("ListaRespVeiculo", {table: "responsavelVeiculo", codVeic: codVeic})}>
+                                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("ListaRespVeiculo", {table: "responsavelVeiculo", codVeic: codVeic, vehicleName: vehicleName})}>
                                     <Text style={styles.buttonText}>Acessar Responsáveis</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("ListaHorarioVeiculo", {table: "horarioVeiculo", codVeic: codVeic})}>
+                                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("ListaHorarioVeiculo", {table: "horarioVeiculo", codVeic: codVeic, vehicleName: vehicleName})}>
                                     <Text style={styles.buttonText}>Acessar Horários</Text>
                                 </TouchableOpacity>
                             </View>
@@ -90,7 +90,7 @@ export default function ListaCard({title, description, type, codCliente, codCont
                             <Text style={styles.contentTitulo}>{title}</Text>
                             <Text>{description}</Text>
                             <View style={styles.contentbutton}>
-                                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("ListaHorarioPonto", {table: "horarioPonto", codPonto: codPonto})}>
+                                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("ListaHorarioPonto", {table: "horarioPonto", codPonto: codPonto, pointName: pointName})}>
                                     <Text style={styles.buttonText}>Acessar Horários</Text>
                                 </TouchableOpacity>
                             </View>

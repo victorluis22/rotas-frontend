@@ -3,6 +3,7 @@ import { View,
     StyleSheet,
     TextInput,
     ScrollView,
+    Text,
     Alert } from "react-native";
     
 import MenuRetornar from "../../components/menuretornar";
@@ -39,6 +40,7 @@ export const RenderLista = ({data, search, openModal}) => {
 export default function ListaHorarioContrato({route}){
     const table = route.params.table
     const codContrato = route.params.codContrato
+    const clientName = route.params.clientName
 
     const [search, setSearch] = useState("")
     const [data, setData] = useState([])
@@ -94,11 +96,7 @@ export default function ListaHorarioContrato({route}){
         <View style={styles.container}>
             <MenuRetornar options={[{ title: `Horário Contratos`, voltar: 'ListaContrato', table: "contrato" }]} />
 
-            <TextInput style={styles.caixadetexto}
-                value={search}
-                onChangeText={setSearch}
-                placeholder="Digite o nome neste campo - Pesquisar"
-            />
+            <Text style={styles.nameClient}>Nome do Cliente: {clientName}</Text>
 
             <ScrollView>
                 <RenderLista data={data} search={search} openModal={openEditModal} table={table} />
@@ -135,5 +133,11 @@ const styles = StyleSheet.create({
     button: {
         marginHorizontal: 15,
         marginVertical: 10
+    },
+    nameClient: {
+        padding: 20,
+        fontSize: 20,
+        alignSelf: "center",
+        fontWeight: "bold"
     }
 });

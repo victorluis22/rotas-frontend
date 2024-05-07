@@ -27,6 +27,15 @@ export default function CadastroCliente({route}){
 
     const submit = async () => {
         if(nome && logradouro && numero && bairro && cidade && uf && tempoColeta && pjpf){
+            if (pjpf === "PF"){
+                const validCPF = validateCPF(cpfcnpj)
+
+                if (!validCPF){
+                    Alert.alert("Erro", "O CPF preenchido é inválido")
+                    return
+                }
+            }
+
             const validate = await validateAddress()
 
             if(validate === true){
@@ -79,18 +88,63 @@ export default function CadastroCliente({route}){
         }
     }
 
-    const checkCEP = () => {
-        const cep = CEP.replace(/\D/g, '');
+    // const checkCEP = () => {
+    //     const cep = CEP.replace(/\D/g, '');
 
-        fetch(`https://viacep.com.br/ws/${cep}/json/`).then(res => res.json()).then(data => {
-          setLogradouro(data.logradouro)
-          setBairro(data.bairro)
-          setCidade(data.localidade)
-          setUf(data.uf)
-        })
-        .catch(error => {
-            Alert.alert("Erro", "Erro ao validar CEP")
-        });
+    //     fetch(`https://viacep.com.br/ws/${cep}/json/`).then(res => res.json()).then(data => {
+    //       setLogradouro(data.logradouro)
+    //       setBairro(data.bairro)
+    //       setCidade(data.localidade)
+    //       setUf(data.uf)
+    //     })
+    //     .catch(error => {
+    //         Alert.alert("Erro", "Erro ao validar CEP")
+    //     });
+    // }
+
+    const validateCPF = ( cpf ) => {
+        // Remover caracteres especiais e deixar apenas os números
+        cpf = cpf.replace(/[^\d]/g, '');
+
+        // Verificar se o CPF tem 11 dígitos
+        if (cpf.length !== 11) {
+            return false;
+        }
+
+        // Verificar se todos os dígitos são iguais, o que não é permitido
+        const digitosIguais = cpf.split('').every(digito => digito === cpf[0]);
+        if (digitosIguais) {
+            return false;
+        }
+
+        // Calcular o primeiro dígito verificador
+        let soma = 0;
+        for (let i = 0; i < 9; i++) {
+            soma += parseInt(cpf.charAt(i)) * (10 - i);
+        }
+        let resto = 11 - (soma % 11);
+        let primeiroDigito = resto === 10 || resto === 11 ? 0 : resto;
+
+        // Verificar se o primeiro dígito verificador está correto
+        if (primeiroDigito !== parseInt(cpf.charAt(9))) {
+            return false;
+        }
+
+        // Calcular o segundo dígito verificador
+        soma = 0;
+        for (let i = 0; i < 10; i++) {
+            soma += parseInt(cpf.charAt(i)) * (11 - i);
+        }
+        resto = 11 - (soma % 11);
+        let segundoDigito = resto === 10 || resto === 11 ? 0 : resto;
+
+        // Verificar se o segundo dígito verificador está correto
+        if (segundoDigito !== parseInt(cpf.charAt(10))) {
+            return false;
+        }
+
+        // CPF válido
+        return true;
     }
 
     const validateAddress = async () => {
