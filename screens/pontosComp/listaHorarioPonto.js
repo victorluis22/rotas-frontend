@@ -101,7 +101,7 @@ export default function ListaHorarioPonto({route}){
         <View style={styles.container}>
             <MenuRetornar options={[{ title: `Horário Ponto`, voltar: 'ListaDados', table: "pontosCompostagem" }]} />
 
-            <Text style={styles.Point}>Nome do Ponto: {pointName}</Text>
+            <Text style={styles.Point}>Ponto de Compostagem: {pointName}</Text>
 
             <ScrollView>
                 <RenderLista data={data} search={search} openModal={openEditModal} table={table} />

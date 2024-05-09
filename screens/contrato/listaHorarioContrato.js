@@ -101,7 +101,7 @@ export default function ListaHorarioContrato({route}){
         <View style={styles.container}>
             <MenuRetornar options={[{ title: `Horário Contratos`, voltar: 'ListaContrato', table: "contrato" }]} />
 
-            <Text style={styles.nameClient}>Nome do Cliente: {clientName}</Text>
+            <Text style={styles.nameClient}>Cliente: {clientName}</Text>
 
             <ScrollView>
                 <RenderLista data={data} search={search} openModal={openEditModal} table={table} />
