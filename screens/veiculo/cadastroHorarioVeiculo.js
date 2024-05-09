@@ -77,7 +77,13 @@ export default function CadastroHorarioVeiculo({route}){
                     }>
                     <Picker.Item label="Selecione" value="" enabled={false}/>
                     {
-                        horaData.map((item, index) => {
+                        horaData
+                        .slice()
+                        .sort((a,b) => {
+                            const diasDaSemana = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
+                            return diasDaSemana.indexOf(a.DiaSemana.toLowerCase()) - diasDaSemana.indexOf(b.DiaSemana.toLowerCase());
+                        })
+                        .map((item, index) => {
                             return (
                                 <Picker.Item
                                 key={index}
