@@ -16,6 +16,10 @@ export default function TelaInicial() {
     navigation.navigate('Coleta');
   }
 
+  function navegarRelatorios() {
+    navigation.navigate('Relatorios');
+  }
+
   function navegarClientes() {
     navigation.navigate('ListaDados', {table: "clientes"});
   }
@@ -92,6 +96,21 @@ export default function TelaInicial() {
             </TouchableOpacity>
           </View>
 
+          <View style={styles.containerdentro}>
+            <TouchableOpacity style={styles.botao} onPress={()=> navegarRelatorios()}>
+              <ImageBackground
+                source={require('../assets/imagens/report.jpg')}
+                resizeMode='cover'
+                
+                style={styles.imagensbackground}
+              >
+                <Text style={{ paddingVertical: 10, paddingLeft: 10, fontSize: 20 }}>
+                  Relatórios
+                </Text>
+              </ImageBackground>
+            </TouchableOpacity>
+          </View>
+
         </View>
 
         <View style={styles.containerinferior}>
@@ -126,7 +145,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 160,
     borderRadius: 30,
-    overflow: "hidden",
+    overflow: "hidden"
   },
   containerdentro: {
     width: '100%',

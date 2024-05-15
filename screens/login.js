@@ -8,8 +8,8 @@ import { StatusBar } from 'expo-status-bar';
 
 export default function Login() {
 
-  const [username, setUsername] = useState('')
-  const [senha, setSenha] = useState('')
+  const [username, setUsername] = useState('orgkits')
+  const [senha, setSenha] = useState('orgkits7#')
   const { login } = useContext(AuthContext)
   const navigation = useNavigation()
   const [passwordVisible, setPasswordVisible] = useState(true)

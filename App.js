@@ -32,6 +32,8 @@ import ListaRespVeiculo from './screens/veiculo/listaRespVeiculo';
 import RoutesNoMap from './screens/routeNoMap/routeNoMap';
 import RoutesMap from './screens/routeMap/routeMap';
 
+import Relatorios from './screens/relatorio/relatorio';
+
 import { AuthProvider } from './context/auth';
 import { StatusBar } from 'expo-status-bar';
 
@@ -250,6 +252,14 @@ function App() {
               }}
               name="RoutesMap" component={RoutesMap}
             /> */}
+            <Stack.Screen
+              options={{
+                title: '',
+                headerTransparent: true,
+                headerShown: false
+              }}
+              name="Relatorios" component={Relatorios}
+            />
           </Stack.Navigator>
           <StatusBar style='light'/>
         </NavigationContainer>
