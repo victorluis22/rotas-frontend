@@ -1,11 +1,12 @@
 import react, { useState } from "react"
-import { View, Text, TouchableOpacity, StyleSheet, TouchableHighlight, TextInput } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, TouchableHighlight, TextInput, Alert } from "react-native";
 import MenuRetornar from "../../components/menuretornar";
 import { getConsolidatedData } from "../../services/api";
+import { exportConsolidatedReport, exportDetailedReport } from "../../services/xlsx";
 
 export default function Relatorios(){
-    const [dataIni, setDataIni] = useState("2024-01-01");
-    const [dataFim, setDataFim] = useState("2024-12-31");
+    const [dataIni, setDataIni] = useState("");
+    const [dataFim, setDataFim] = useState("");
 
     const handleDateChange = (data) => {
         const inputDate = data;
@@ -18,7 +19,7 @@ export default function Relatorios(){
         }
     }
 
-    const submit = async (type) => {
+    const submitConsolidated = async () => {
         if(dataIni && dataFim){
             if(handleDateChange(dataIni) === false){
                 Alert.alert("Erro", "Formato de Data Inicial preenchido de forma inválida.")
@@ -36,9 +37,42 @@ export default function Relatorios(){
                 dataFim: dataFim
             }
 
-            const response = await getConsolidatedData(data)
+            try{
+                await exportConsolidatedReport(data)
+            }
+            catch(err) {
+                Alert.alert("Erro", "Erro ao exportar relatório consolidado.")
+            }
+        }
+        else{
+            Alert.alert("Erro", "Preencha todos os campos de texto.")
+        }
+    }
 
-            console.log(response)
+    const submitDetailed = async () => {
+        if(dataIni && dataFim){
+            if(handleDateChange(dataIni) === false){
+                Alert.alert("Erro", "Formato de Data Inicial preenchido de forma inválida.")
+                return
+            }
+            
+            if(dataFim != ""){
+                if(handleDateChange(dataFim) === false){
+                    Alert.alert("Erro", "Formato de Data Final preenchido de forma inválida.")
+                    return
+                }
+            }
+            const data = {
+                dataIni: dataIni,
+                dataFim: dataFim
+            }
+
+            try{
+                await exportDetailedReport(data)
+            }
+            catch(err) {
+                Alert.alert("Erro", "Erro ao exportar relatório detalhado.")
+            }
         }
         else{
             Alert.alert("Erro", "Preencha todos os campos de texto.")
@@ -59,11 +93,11 @@ export default function Relatorios(){
             </View>
 
             
-            <TouchableOpacity style={styles.buttonContent} onPress={() => submit()}>
+            <TouchableOpacity style={styles.buttonContent} onPress={() => submitConsolidated()}>
                 <Text style={styles.buttonText}>Gerar Relatório Consolidado em XLSX</Text>
             </TouchableOpacity>
             
-            <TouchableOpacity style={styles.buttonContent}>
+            <TouchableOpacity style={styles.buttonContent} onPress={() => submitDetailed()}>
                 <Text style={styles.buttonText}>Gerar Relatório detalhado em XLSX</Text>
             </TouchableOpacity>
         </View>

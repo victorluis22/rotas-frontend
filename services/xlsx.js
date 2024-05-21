@@ -1,7 +1,7 @@
 import * as FileSystem from "expo-file-system";
 import * as XLSX from "xlsx";
 import * as Sharing from 'expo-sharing';
-import { getXLSXContent } from "./api";
+import { getXLSXContent, postConsolidatedData, postDetailedData } from "./api";
 
 const getClientContent = async (empresaId) => {
     var wb = XLSX.utils.book_new();
@@ -37,12 +37,12 @@ const getContentRouteXLSX = async (routeJSON) => {
     return XLSX.write(wb, { type: 'base64', bookType: 'xlsx' });
 }
 
-const getContentAllRouteXLSX = (data) => {
+const getContentAllRouteXLSX = (routeAllJSON, routeWeeklyJSON) => {
     const workbook = XLSX.utils.book_new();
 
     // Função para criar uma planilha com base nos dados e no tipo de veículo
-    const createSheet = (vehicleType) => {
-        const sheetData = data.route[vehicleType];
+    const createSheet = (json, vehicleType) => {
+        const sheetData = json.route[vehicleType];
         const sheet = XLSX.utils.aoa_to_sheet([
             ['Parada', 'Dia da Semana', 'Cliente Inicial', 'Endereço Inicial', 'Cliente Final','Endereço Final', 'Horário', 'Demanda Acumulada']
         ]);
@@ -61,10 +61,12 @@ const getContentAllRouteXLSX = (data) => {
         return sheet;
     };
 
-    // Adiciona uma nova planilha para cada tipo de veículo
-    Object.keys(data.route).forEach((vehicleType) => {
-        const sheet = createSheet(vehicleType);
-        XLSX.utils.book_append_sheet(workbook, sheet, vehicleType);
+    // Adiciona uma nova planilha para cada tipo de veículo semanal + quinzenal
+    Object.keys(routeAllJSON.route).forEach((vehicleType) => {
+        const sheetAll = createSheet(routeAllJSON, vehicleType);
+        const sheetWeekly = createSheet(routeWeeklyJSON, vehicleType);
+        XLSX.utils.book_append_sheet(workbook, sheetAll, `${vehicleType} SemanalQuinzenal`);
+        XLSX.utils.book_append_sheet(workbook, sheetWeekly, `${vehicleType} Semanal`);
     });
 
     // Salva a planilha
@@ -103,8 +105,8 @@ const createRouteXLSX = async (routeJSON) => {
     });
 };
 
-const createAllRouteXLSX = async (routeJSON) => {
-    const wbout = await getContentAllRouteXLSX(routeJSON);
+const createAllRouteXLSX = async (routeAllJSON, routeWeeklyJSON) => {
+    const wbout = await getContentAllRouteXLSX(routeAllJSON, routeWeeklyJSON);
 
     const uri = FileSystem.documentDirectory + "XLSX/route_all.xlsx";
 
@@ -118,6 +120,7 @@ const createAllRouteXLSX = async (routeJSON) => {
         encoding: FileSystem.EncodingType.Base64,
     });
 };
+
 
 export const exportClientXLSX = async (empresaId) => {
     await createClientXLSX(empresaId);
@@ -137,11 +140,86 @@ export const exportRouteXLSX = async (routeJSON) => {
     );
 }
 
-export const exportAllRouteXLSX = async (routeJSON) => {
-    await createAllRouteXLSX(routeJSON);
+export const exportAllRouteXLSX = async (routeAllJSON, routeWeeklyJSON) => {
+    await createAllRouteXLSX(routeAllJSON, routeWeeklyJSON);
 
     await Sharing.shareAsync(
         FileSystem.documentDirectory + "XLSX/route_all.xlsx", 
+        {dialogTitle: 'Compartilhe ou copie seu arquivo via:'}
+    );
+}
+
+
+const getConsolidatedReport = async(data) => {
+    var wb = XLSX.utils.book_new();
+
+    const response = await postConsolidatedData(data);
+
+    var ws = XLSX.utils.json_to_sheet(response.data);
+
+    XLSX.utils.book_append_sheet(wb, ws, "Relatório Consolidado");
+
+    return XLSX.write(wb, { type: "base64", bookType: "xlsx" });
+}
+
+const createConsolidatedReport = async (data) => {
+    const wbout = await getConsolidatedReport(data);
+
+    const uri = FileSystem.documentDirectory + `XLSX/consolidated_report_${data.dataIni}_${data.dataFim}.xlsx`;
+
+    if (
+        !(await FileSystem.getInfoAsync(FileSystem.documentDirectory + "XLSX")).exists
+    ) {
+        await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + "XLSX");
+    }
+
+    FileSystem.writeAsStringAsync(uri, wbout, {
+        encoding: FileSystem.EncodingType.Base64,
+    });
+}
+
+export const exportConsolidatedReport = async (data) => {
+    await createConsolidatedReport(data);
+
+    await Sharing.shareAsync(
+        FileSystem.documentDirectory + `XLSX/consolidated_report_${data.dataIni}_${data.dataFim}.xlsx`, 
+        {dialogTitle: 'Compartilhe ou copie seu arquivo via:'}
+    );
+}
+
+const getDetailedReport = async (data) => {
+    var wb = XLSX.utils.book_new();
+
+    const response = await postDetailedData(data);
+
+    var ws = XLSX.utils.json_to_sheet(response.data);
+
+    XLSX.utils.book_append_sheet(wb, ws, "Relatório Detalhado");
+
+    return XLSX.write(wb, { type: "base64", bookType: "xlsx" });
+}
+
+const createDetailedReport = async (data) => {
+    const wbout = await getDetailedReport(data);
+
+    const uri = FileSystem.documentDirectory + `XLSX/detailed_report_${data.dataIni}_${data.dataFim}.xlsx`;
+
+    if (
+        !(await FileSystem.getInfoAsync(FileSystem.documentDirectory + "XLSX")).exists
+    ) {
+        await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + "XLSX");
+    }
+
+    FileSystem.writeAsStringAsync(uri, wbout, {
+        encoding: FileSystem.EncodingType.Base64,
+    });
+}
+
+export const exportDetailedReport = async (data) => {
+    await createDetailedReport(data);
+
+    await Sharing.shareAsync(
+        FileSystem.documentDirectory + `XLSX/detailed_report_${data.dataIni}_${data.dataFim}.xlsx`, 
         {dialogTitle: 'Compartilhe ou copie seu arquivo via:'}
     );
 }

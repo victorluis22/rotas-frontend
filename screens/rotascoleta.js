@@ -3,7 +3,7 @@ import MenuRetornar from "../components/menuretornar";
 import { useNavigation } from '@react-navigation/native';
 import { Picker } from "@react-native-picker/picker";
 import { useEffect, useState } from "react";
-import { get, getLatestAllRoute } from "../services/api";
+import { get, getLatestAllRoute, getLatestWeeklyRoute } from "../services/api";
 import { exportAllRouteXLSX } from "../services/xlsx";
 
 export default function RotasColeta() {
@@ -44,9 +44,10 @@ export default function RotasColeta() {
 
     const generateXLSX = async () => {
         try{
-            const response = await getLatestAllRoute();
+            const responseAll = await getLatestAllRoute();
+            const responseWeekly = await getLatestWeeklyRoute();
 
-            await exportAllRouteXLSX(response.data);
+            await exportAllRouteXLSX(responseAll.data, responseWeekly.data);
         }
         catch (err){
             console.log(err)
@@ -63,7 +64,7 @@ export default function RotasColeta() {
             <MenuRetornar options={[{ title: 'Rotas de Coleta', voltar: 'TelaInicial' }]} />
             <View style={styles.content}>
                 
-                <Text style={styles.titleinput}>Selecione o tipo de Contrato</Text>
+                <Text style={styles.titleinput}>Selecione o tipo de contrato</Text>
                 <Picker
                     style={styles.input}
                     selectedValue={routeType}
@@ -95,7 +96,7 @@ export default function RotasColeta() {
                 
                 </Picker>
 
-                <Text style={styles.titleinput}>Selecione o Dia da Semana</Text>
+                <Text style={styles.titleinput}>Selecione o dia da semana</Text>
                 <Picker
                     style={styles.input}
                     selectedValue={day}

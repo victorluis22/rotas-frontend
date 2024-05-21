@@ -69,12 +69,12 @@ export const getLatestAllRoute = async () => {
     return await api.get(`/json/buscar?type=all`)
 }
 
-export const getConsolidatedData = async (data) => {
-    return await api.get(`/coleta/consolidated`, {...data})
+export const postConsolidatedData = async (data) => {
+    return await api.post(`/coleta/consolidated`, {...data})
 }
 
-export const getDetailedData = async () => {
-    return await api.get(`/coleta/detailed`)
+export const postDetailedData = async (data) => {
+    return await api.post(`/coleta/detailed`, {...data})
 }
 
 

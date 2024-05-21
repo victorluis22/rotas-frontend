@@ -53,15 +53,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 10,
         paddingTop: 30,
+        gap: 10,
         
     },
     nome: {
-        alignItems: 'center',
+        // alignItems: 'center',
         justifyContent: 'center',
+        width: "90%",
+        // backgroundColor: "red"
     },
     textonome: {
-        fontSize: 25,
+        fontSize: 20,
         color: '#A7A7A7',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        
     }
 });
