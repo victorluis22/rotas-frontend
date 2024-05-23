@@ -85,10 +85,10 @@ export default function Relatorios(){
             <MenuRetornar options={[{ title: "Consulta Volumes Coletados", voltar: 'TelaInicial' }]}/>
             
             <View style={styles.content}>
-                <Text style={styles.titleinput}>Data Inicial do Périodo - Ex: ano/mês/dia</Text>
+                <Text style={styles.titleinput}>Data Inicial do Périodo - Ex: ano-mês-dia</Text>
                 <TextInput style={styles.input} value={dataIni} onChangeText={setDataIni}/>
 
-                <Text style={styles.titleinput}>Data Final do Périodo - Ex: ano/mês/dia</Text>
+                <Text style={styles.titleinput}>Data Final do Périodo - Ex: ano-mês-dia</Text>
                 <TextInput style={styles.input} value={dataFim} onChangeText={setDataFim}/>
             </View>
 
