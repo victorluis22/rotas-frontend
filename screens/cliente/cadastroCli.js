@@ -61,12 +61,12 @@ export default function CadastroCliente({route}){
                 if (type === "update"){
                     await update("clientes", previousData.CodCliente, data)
                     Alert.alert("Sucesso", "Usuário atualizado com sucesso!")
-                    navigation.navigate("ListaDados", {table: "clientes"})
+                    navigation.navigate("ListaDados", {table: "clientes", clientName: nome})
                 }
                 else{
                     await create("clientes", data)
                     Alert.alert("Sucesso", "Usuário cadastrado com sucesso!")
-                    navigation.navigate("ListaDados", {table: "clientes"})
+                    navigation.navigate("ListaDados", {table: "clientes", clientName: nome})
                 }
             } catch (error) {
                 console.log(error)
@@ -102,9 +102,26 @@ export default function CadastroCliente({route}){
     //     });
     // }
 
+    const validateCPFCNPJ = (cpfcnpj) => {
+        // Remover caracteres especiais e deixar apenas os números
+        cpfcnpj = cpfcnpj.replace(/[^\d]/g, '');
+    
+        // Verificar se o campo está vazio ou se é um CNPJ válido
+        if (cpfcnpj === '') {
+            return true;
+        }
+    
+        // Verificar se é um CPF válido
+        return validateCPF(cpfcnpj);
+    };
+
     const validateCPF = ( cpf ) => {
         // Remover caracteres especiais e deixar apenas os números
         cpf = cpf.replace(/[^\d]/g, '');
+
+        if (!cpf.trim()) {
+            return true; // CPF vazio, considerado válido
+        }
 
         // Verificar se o CPF tem 11 dígitos
         if (cpf.length !== 11) {
