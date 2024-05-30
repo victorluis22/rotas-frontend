@@ -102,9 +102,9 @@ export default function ListaContrato({route}){
                 <RenderLista data={data} search={search} openModal={openEditModal} table={table} clientName={clientName}/>
             </ScrollView>
             
-            <Icon style={styles.iconeAdd} name="pluscircle" size={60} color={"#3C3C3C"} onPress={() => navigation.navigate("CadastroContrato", {previousData: {}, codCliente: codCliente})} />
+            <Icon style={styles.iconeAdd} name="pluscircle" size={60} color={"#3C3C3C"} onPress={() => navigation.navigate("CadastroContrato", {previousData: {}, codCliente: codCliente, clientName: clientName})} />
             
-            <EditModal modalVisible={editModalVisible} setModalVisible={setEditModalVisible} openDeleteModal={openDeleteModal} data={modalData} table={table} title={modalTitle} codCliente={codCliente}/>
+            <EditModal modalVisible={editModalVisible} setModalVisible={setEditModalVisible} openDeleteModal={openDeleteModal} data={modalData} table={table} title={modalTitle} codCliente={codCliente} clientName={clientName}/>
             <DeleteModal modalVisible={deleteModalVisible} setModalVisible={setDeleteModalVisible} data={modalData} deleteFunction={deleteData} table={table}/>
         </View>
     );

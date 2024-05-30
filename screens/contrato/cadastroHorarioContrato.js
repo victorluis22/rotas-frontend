@@ -9,6 +9,7 @@ import { Picker } from '@react-native-picker/picker';
 export default function CadastroHorarioContrato({route}){
     const previousData = route.params.previousData
     const codContrato = route.params.codContrato
+    const clientName = route.params.clientName
     const type = route.params.type
 
     const [hora, setHora] = useState(type === "update" ? previousData.CodHorario : "")
@@ -65,7 +66,7 @@ export default function CadastroHorarioContrato({route}){
     
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.DiaSemana}` : "Cadastro de Horário", voltar: "ListaHorarioContrato", table: "horarioContratoCliente", codContrato:codContrato}]} />
+            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.DiaSemana}` : "Cadastro de Horário", voltar: "ListaHorarioContrato", table: "horarioContratoCliente", codContrato:codContrato, clientName: clientName}]} />
             <ScrollView style={styles.content}>
 
                 <Text style={styles.titleinput}>Horário</Text>

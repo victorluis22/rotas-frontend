@@ -2,24 +2,22 @@ import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from "react-na
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 
-
 export default function MenuRetornar(props) {
+    const navigation = useNavigation();
 
-    const navigation = useNavigation()
-
-    function voltar(value, table) {
-        navigation.navigate(value, {table: table})
+    function voltar(value, table, clientName) {
+        navigation.navigate(value, { table: table, clientName: clientName });
     }
 
     return (
-        <View style={{backgroundColor: '#D9D9D9'}}>
+        <View style={{ backgroundColor: '#D9D9D9' }}>
             <SafeAreaView style={styles.retornar}>
                 <View style={{ paddingLeft: 5, backgroundColor: '#A7A7A7', borderRadius: 20, height: 40, width: 40, justifyContent: 'center', marginLeft: 5 }}>
                     {props.options &&
                         props.options.map((item, index) =>
                             <TouchableOpacity
                                 key={index}
-                                onPress={() => voltar(item.voltar, item.table)}
+                                onPress={() => voltar(item.voltar, item.table, item.clientName)}
                             >
                                 <Icon name="return-up-back" size={30} color="black" />
                             </TouchableOpacity>
@@ -54,18 +52,14 @@ const styles = StyleSheet.create({
         padding: 10,
         paddingTop: 30,
         gap: 10,
-        
     },
     nome: {
-        // alignItems: 'center',
         justifyContent: 'center',
         width: "90%",
-        // backgroundColor: "red"
     },
     textonome: {
         fontSize: 20,
         color: '#A7A7A7',
         fontWeight: 'bold',
-        
     }
 });

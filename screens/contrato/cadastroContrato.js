@@ -10,6 +10,7 @@ import { AuthContext } from "../../context/auth";
 export default function CadastroContrato({route}){
     const previousData = route.params.previousData
     const codCliente = route.params.codCliente
+    const clientName = route.params.clientName
     const { user } = useContext(AuthContext)
     const type = route.params.type
 
@@ -107,7 +108,7 @@ export default function CadastroContrato({route}){
     
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: type === "update" ? `Editar Contrato` : "Cadastro de Contrato", voltar: "ListaContrato", table: "contrato" }]} />
+            <MenuRetornar options={[{ title: type === "update" ? `Editar Contrato` : "Cadastro de Contrato", voltar: "ListaContrato", table: "contrato", clientName: clientName }]} />
             <ScrollView style={styles.content}>
 
                 <Text style={styles.titleinput}>Data Inicial (EX: Ano-Mês-Dia)</Text>
