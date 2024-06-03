@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, TextInput } from "react-native";
 import MenuRetornar from "../../components/menuretornar";
 import React, { useState } from 'react'
-import HorarioInput from '../../components/moment';
+
 import { useNavigation } from "@react-navigation/native";
 import { Alert } from "react-native";
 import { create, update } from "../../services/api";
@@ -27,13 +27,12 @@ export default function CadastroJanelaTempo({ route }) {
                 if (type === "update"){
                     await update("janelaTempo", previousData.CodTurno, data)
                     Alert.alert("Sucesso", "Janela de Tempo atualizada com sucesso!")
-                    navigation.navigate("ListaDados", {table: "janelaTempo"})
                 }
                 else{
                     await create("janelaTempo", data)
                     Alert.alert("Sucesso", "Janela de Tempo cadastrada com sucesso!")
-                    navigation.navigate("ListaDados", {table: "janelaTempo"})
                 }
+                navigation.goBack()
             } catch (error) {
                 console.log(error)
                 const status = error.response ? error.response.status : 500
@@ -56,7 +55,7 @@ export default function CadastroJanelaTempo({ route }) {
 
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.HoraIni} - ${previousData.HoraFim}`: 'Cadastro de Janela de Tempo', voltar: "ListaDados", table: "janelaTempo" }]} />
+            <MenuRetornar title={type === "update" ? `Editar ${previousData.HoraIni} - ${previousData.HoraFim}`: 'Cadastro de Janela de Tempo'} />
                 <ScrollView style={styles.content}>
                     <Text style={styles.titleinput}>Hora Inicial</Text>
                     <TextInput style={styles.input} value={horaInicial} onChangeText={setHoraInicial} placeholder="00:00"/>

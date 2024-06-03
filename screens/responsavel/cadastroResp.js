@@ -26,13 +26,12 @@ export default function CadastroResponsavel({ route }) {
                 if (type === "update"){
                     await update("responsaveis", previousData.CodResp, data)
                     Alert.alert("Sucesso", "Responsável atualizado com sucesso!")
-                    navigation.navigate("ListaDados", {table: "responsaveis"})
                 }
                 else{
                     await create("responsaveis", data)
                     Alert.alert("Sucesso", "Responsável cadastrado com sucesso!")
-                    navigation.navigate("ListaDados", {table: "responsaveis"})
                 }
+                navigation.goBack()
             } catch (error) {
                 console.log(error)
                 const status = error.response ? error.response.status : 500
@@ -55,7 +54,7 @@ export default function CadastroResponsavel({ route }) {
 
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.Nome}`: 'Cadastro de Responsavéis', voltar: "ListaDados", table: "responsaveis" }]} />
+            <MenuRetornar title={type === "update" ? `Editar ${previousData.Nome}`: 'Cadastro de Responsavéis'} />
                 <ScrollView style={styles.content}>
                     <Text style={styles.titleinput}>Nome do responsavel</Text>
                     <TextInput style={styles.input} value={nome} onChangeText={setNome}/>

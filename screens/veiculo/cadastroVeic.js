@@ -50,13 +50,12 @@ export default function CadastroVeiculo({ route }) {
                 if (type === "update"){
                     await update("veiculos", previousData.CodVeic, data)
                     Alert.alert("Sucesso", "Veículo atualizado com sucesso!")
-                    navigation.navigate("ListaDados", {table: "veiculos"})
                 }
                 else{
                     await create("veiculos", data)
                     Alert.alert("Sucesso", "Veículo cadastrado com sucesso!")
-                    navigation.navigate("ListaDados", {table: "veiculos"})
                 }
+                navigation.goBack()
             } catch (error) {
                 console.log(error)
                 const status = error.response ? error.response.status : 500
@@ -79,7 +78,7 @@ export default function CadastroVeiculo({ route }) {
 
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.Descricao}` : "Cadastro de Veículo", voltar: "ListaDados", table: "veiculos" }]} />
+            <MenuRetornar title={type === "update" ? `Editar ${previousData.Descricao}` : "Cadastro de Veículo"} />
             <ScrollView style={styles.content}>
 
                 <Text style={styles.titleinput}>Descrição do Veículo</Text>

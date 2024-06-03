@@ -94,7 +94,7 @@ export default function ListaRespVeiculo({ route }){
 
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: `Responsável Veículos`, voltar: 'ListaDados', table: "veiculos" }]} />
+            <MenuRetornar title={"Responsável Veículos"} />
 
             <Text style={styles.Veic}>Veículo: {vehicleName}</Text>
 

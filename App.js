@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import Login from './screens/login';
 import TelaInicial from './screens/telainicial';
-import DisponibilidadeVeiculos from './screens/disponibilidadeveiculos';
-import EntregaCompostagem from './screens/entregacompostagem';
 import RotasColeta from './screens/rotascoleta';
 import Loading from "./screens/loading"
 
@@ -59,22 +58,6 @@ function App() {
                 headerShown: false
               }}
               name="TelaInicial" component={TelaInicial}
-            />
-            <Stack.Screen
-              options={{
-                title: '',
-                headerTransparent: true,
-                headerShown: false
-              }}
-              name="DisponibilidadeVeiculos" component={DisponibilidadeVeiculos}
-            />
-            <Stack.Screen
-              options={{
-                title: '',
-                headerTransparent: true,
-                headerShown: false
-              }}
-              name="EntregaCompostagem" component={EntregaCompostagem}
             />
             <Stack.Screen
               options={{

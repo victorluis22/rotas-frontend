@@ -10,6 +10,7 @@ import { AuthContext } from "../../context/auth";
 export default function CadastroContrato({route}){
     const previousData = route.params.previousData
     const codCliente = route.params.codCliente
+
     const { user } = useContext(AuthContext)
     const type = route.params.type
 
@@ -78,13 +79,12 @@ export default function CadastroContrato({route}){
                 if (type === "update"){
                     await update("contrato", previousData.NumContrato, data)
                     Alert.alert("Sucesso", "Contrato atualizado com sucesso!")
-                    navigation.navigate("ListaContrato", {table: "contrato", codCliente: codCliente})
                 }
                 else{
                     await create("contrato", data)
                     Alert.alert("Sucesso", "Contrato cadastrado com sucesso!")
-                    navigation.navigate("ListaContrato", {table: "contrato", codCliente: codCliente})
                 }
+                navigation.goBack()
             } catch (error) {
                 console.log(error)
                 const status = error.response ? error.response.status : 500
@@ -107,7 +107,7 @@ export default function CadastroContrato({route}){
     
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: type === "update" ? `Editar Contrato` : "Cadastro de Contrato", voltar: "ListaContrato", table: "contrato" }]} />
+            <MenuRetornar title={type === "update" ? `Editar Contrato` : "Cadastro de Contrato"} />
             <ScrollView style={styles.content}>
 
                 <Text style={styles.titleinput}>Data Inicial (EX: Ano-Mês-Dia)</Text>

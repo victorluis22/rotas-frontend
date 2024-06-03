@@ -94,7 +94,7 @@ export default function ListaContrato({route}){
 
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: `Contratos`, voltar: 'ListaDados', table: "clientes"}]} />
+            <MenuRetornar title={"Contratos"} />
 
             <Text style={styles.nameClient}>Cliente: {clientName}</Text>
 

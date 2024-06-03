@@ -36,13 +36,12 @@ export default function CadastroHorarioVeiculo({route}){
                 if (type === "update"){
                     await update("horarioVeiculo", previousData.CodDV, data)
                     Alert.alert("Sucesso", "Horário atualizado com sucesso!")
-                    navigation.navigate("ListaHorarioVeiculo", {table: "horarioVeiculo", codVeic: codVeic})
                 }
                 else{
                     await create("horarioVeiculo", data)
                     Alert.alert("Sucesso", "Horário cadastrado com sucesso!")
-                    navigation.navigate("ListaHorarioVeiculo", {table: "horarioVeiculo", codVeic: codVeic})
                 }
+                navigation.goBack()
             } catch (error) {
                 console.log(error)
                 const status = error.response ? error.response.status : 500
@@ -65,7 +64,7 @@ export default function CadastroHorarioVeiculo({route}){
     
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.DiaSemana}` : "Cadastro de Horário", voltar: "ListaHorarioVeiculo", table: "horarioVeiculo", codVeic: codVeic}]} />
+            <MenuRetornar title={type === "update" ? `Editar ${previousData.DiaSemana}` : "Cadastro de Horário"} />
             <ScrollView style={styles.content}>
 
                 <Text style={styles.titleinput}>Horário</Text>

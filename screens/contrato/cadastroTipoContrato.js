@@ -26,13 +26,12 @@ export default function CadastroTipoContrato({ route }) {
                 if (type === "update"){
                     await update("tipoContrato", previousData.CodTipoContrato, data)
                     Alert.alert("Sucesso", "Tipo de contrato atualizado com sucesso!")
-                    navigation.navigate("ListaDados", {table: "tipoContrato"})
                 }
                 else{
                     await create("tipoContrato", data)
                     Alert.alert("Sucesso", "Tipo de contrato cadastrado com sucesso!")
-                    navigation.navigate("ListaDados", {table: "tipoContrato"})
                 }
+                navigation.goBack()
             } catch (error) {
                 console.log(error)
                 const status = error.response ? error.response.status : 500
@@ -55,7 +54,7 @@ export default function CadastroTipoContrato({ route }) {
 
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.Periodicidade} R$${previousData.ValorMensal.toString()}`: 'Cadastro de Tipo de Contrato', voltar: "ListaDados", table: "tipoContrato" }]} />
+            <MenuRetornar title={type === "update" ? `Editar ${previousData.Periodicidade} R$${previousData.ValorMensal.toString()}`: 'Cadastro de Tipo de Contrato'} />
                 <ScrollView style={styles.content}>
                     <Text style={styles.titleinput}>Periodicidade</Text>
                     <TextInput style={styles.input} value={periodicidade} onChangeText={setPeriodicidade}/>

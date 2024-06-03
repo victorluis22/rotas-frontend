@@ -27,13 +27,12 @@ export default function CadastroHorario({ route }) {
                 if (type === "update"){
                     await update("horarios", previousData.CodHorario, data)
                     Alert.alert("Sucesso", "Horário atualizado com sucesso!")
-                    navigation.navigate("ListaDados", {table: "horarios"})
                 }
                 else{
                     await create("horarios", data)
                     Alert.alert("Sucesso", "Horário cadastrado com sucesso!")
-                    navigation.navigate("ListaDados", {table: "horarios"})
                 }
+                navigation.goBack()
             } catch (error) {
                 console.log(error)
                 const status = error.response ? error.response.status : 500
@@ -63,7 +62,7 @@ export default function CadastroHorario({ route }) {
 
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.DiaSemana}`: 'Cadastro de Horário', voltar: "ListaDados", table: "horarios" }]} />
+            <MenuRetornar title={type === "update" ? `Editar ${previousData.DiaSemana}`: 'Cadastro de Horário'} />
                 <ScrollView style={styles.content}>
                     <Text style={styles.titleinput}>Dia da Semana</Text>
                     <Picker

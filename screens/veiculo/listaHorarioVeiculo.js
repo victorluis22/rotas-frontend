@@ -99,7 +99,7 @@ export default function ListaHorarioVeiculo({ route }){
 
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: `Horário Veículos`, voltar: 'ListaDados', table: "veiculos" }]} />
+            <MenuRetornar title={"Horário Veículos"} />
 
             <Text style={styles.Veic}>Veículo: {vehicleName}</Text>
 

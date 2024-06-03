@@ -41,13 +41,12 @@ export default function CadastroPontosCompostagem({ route }) {
                 if (type === "update"){
                     await update("pontosCompostagem", previousData.CodPonto, data)
                     Alert.alert("Sucesso", "Ponto de Compostagem atualizado com sucesso!")
-                    navigation.navigate("ListaDados", {table: "pontosCompostagem"})
                 }
                 else{
                     await create("pontosCompostagem", data)
                     Alert.alert("Sucesso", "Ponto de Compostagem cadastrado com sucesso!")
-                    navigation.navigate("ListaDados", {table: "pontosCompostagem"})
                 }
+                navigation.goBack()
             } catch (error) {
                 console.log(error)
                 const status = error.response ? error.response.status : 500
@@ -73,7 +72,7 @@ export default function CadastroPontosCompostagem({ route }) {
 
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.Descricao}` : "Cadastro de Ponto", voltar: "ListaDados", table: "pontosCompostagem" }]} />
+            <MenuRetornar title={type === "update" ? `Editar ${previousData.Descricao}` : "Cadastro de Ponto"} />
             <ScrollView style={styles.content}>
 
                 <Text style={styles.titleinput}>Descrição Ponto</Text>

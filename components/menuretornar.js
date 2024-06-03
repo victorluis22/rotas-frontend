@@ -4,32 +4,24 @@ import { useNavigation } from '@react-navigation/native';
 
 
 export default function MenuRetornar(props) {
-
     const navigation = useNavigation()
 
-    function voltar(value, table) {
-        navigation.navigate(value, {table: table})
+    function voltar() {
+        navigation.goBack()
     }
 
     return (
         <View style={{backgroundColor: '#D9D9D9'}}>
             <SafeAreaView style={styles.retornar}>
                 <View style={{ paddingLeft: 5, backgroundColor: '#A7A7A7', borderRadius: 20, height: 40, width: 40, justifyContent: 'center', marginLeft: 5 }}>
-                    {props.options &&
-                        props.options.map((item, index) =>
-                            <TouchableOpacity
-                                key={index}
-                                onPress={() => voltar(item.voltar, item.table)}
-                            >
-                                <Icon name="return-up-back" size={30} color="black" />
-                            </TouchableOpacity>
-                        )}
+                    <TouchableOpacity
+                        onPress={() => voltar()}
+                    >
+                        <Icon name="return-up-back" size={30} color="black" />
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.nome}>
-                    {props.options &&
-                        props.options.map((item, index) =>
-                            <Text key={index} style={styles.textonome}>{item.title}</Text>
-                        )}
+                    <Text style={styles.textonome}>{props.title}</Text>
                 </View>
                 <View style={{
                     width: '10%',

@@ -143,7 +143,7 @@ export default function ListaDados({route}){
 
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: `${table.charAt(0).toUpperCase() + table.replace(/([a-z])([A-Z])/g, '$1 $2').slice(1)}`, voltar: 'TelaInicial' }]} />
+            <MenuRetornar title={`${table.charAt(0).toUpperCase() + table.replace(/([a-z])([A-Z])/g, '$1 $2').slice(1)}`} />
 
             <TextInput style={styles.caixadetexto}
                 value={search}

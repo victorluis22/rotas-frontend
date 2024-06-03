@@ -24,13 +24,12 @@ export default function CadastroTipoVeiculo({ route }) {
                 if (type === "update"){
                     await update("tipoVeiculo", previousData.CodTipoVeic, data)
                     Alert.alert("Sucesso", "Tipo de veículo atualizado com sucesso!")
-                    navigation.navigate("ListaDados", {table: "tipoVeiculo"})
                 }
                 else{
                     await create("tipoVeiculo", data)
                     Alert.alert("Sucesso", "Tipo de veículo cadastrado com sucesso!")
-                    navigation.navigate("ListaDados", {table: "tipoVeiculo"})
                 }
+                navigation.goBack()
             } catch (error) {
                 console.log(error)
                 const status = error.response ? error.response.status : 500
@@ -53,7 +52,7 @@ export default function CadastroTipoVeiculo({ route }) {
 
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.DescTipo}`: 'Cadastro de Tipo de Veículo', voltar: "ListaDados", table: "tipoVeiculo" }]} />
+            <MenuRetornar title={type === "update" ? `Editar ${previousData.DescTipo}`: 'Cadastro de Tipo de Veículo'} />
                 <ScrollView style={styles.content}>
                     <Text style={styles.titleinput}>Tipo de veículo</Text>
                     <TextInput style={styles.input} value={descTipo} onChangeText={setDescTipo}/>

@@ -82,7 +82,7 @@ export default function Relatorios(){
     return(
         <View style={styles.container}>
 
-            <MenuRetornar options={[{ title: "Consulta Volumes Coletados", voltar: 'TelaInicial' }]}/>
+            <MenuRetornar title={"Consulta Volumes Coletados"} />
             
             <View style={styles.content}>
                 <Text style={styles.titleinput}>Data Inicial do Périodo - Ex: ano-mês-dia</Text>

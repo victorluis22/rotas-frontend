@@ -36,13 +36,12 @@ export default function CadastroHorarioPonto({route}){
                 if (type === "update"){
                     await update("horarioPonto", previousData.CodHD, data)
                     Alert.alert("Sucesso", "Horário atualizado com sucesso!")
-                    navigation.navigate("ListaHorarioPonto", {table: "horarioPonto", codPonto: codPonto})
                 }
                 else{
                     await create("horarioPonto", data)
                     Alert.alert("Sucesso", "Horário cadastrado com sucesso!")
-                    navigation.navigate("ListaHorarioPonto", {table: "horarioPonto", codPonto: codPonto})
                 }
+                navigation.goBack()
             } catch (error) {
                 console.log(error)
                 const status = error.response ? error.response.status : 500
@@ -65,7 +64,7 @@ export default function CadastroHorarioPonto({route}){
     
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.DiaSemana}` : "Cadastro de Horário", voltar: "ListaHorarioPonto", table: "horarioPonto", codPonto: codPonto}]} />
+            <MenuRetornar title={type === "update" ? `Editar ${previousData.DiaSemana}` : "Cadastro de Horário"} />
             <ScrollView style={styles.content}>
 
                 <Text style={styles.titleinput}>Horário</Text>

@@ -99,7 +99,7 @@ export default function ListaHorarioContrato({route}){
 
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: `Horário Contratos`, voltar: 'ListaContrato', table: "contrato" }]} />
+            <MenuRetornar title={"Horário Contratos"} />
 
             <Text style={styles.nameClient}>Cliente: {clientName}</Text>
 

@@ -61,7 +61,7 @@ export default function RotasColeta() {
 
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: 'Rotas de Coleta', voltar: 'TelaInicial' }]} />
+            <MenuRetornar title={"Rotas de Coleta"} />
             <View style={styles.content}>
                 
                 <Text style={styles.titleinput}>Selecione o tipo de contrato</Text>

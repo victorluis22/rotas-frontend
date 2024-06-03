@@ -58,7 +58,7 @@ export default function RoutesNoMap({ route }) {
 
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: 'Rotas de Coleta', voltar: 'RotasColeta' }]} />
+            <MenuRetornar title={"Rotas de Coleta"} />
             
             <Text style={styles.Title}>Tipo de Rota: {routeData.routeType}</Text>
             <Text style={styles.Title}>Tipo de Veículo: {routeData.vehicle} </Text>

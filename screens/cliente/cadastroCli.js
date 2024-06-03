@@ -61,13 +61,12 @@ export default function CadastroCliente({route}){
                 if (type === "update"){
                     await update("clientes", previousData.CodCliente, data)
                     Alert.alert("Sucesso", "Usuário atualizado com sucesso!")
-                    navigation.navigate("ListaDados", {table: "clientes", clientName: nome})
                 }
                 else{
                     await create("clientes", data)
                     Alert.alert("Sucesso", "Usuário cadastrado com sucesso!")
-                    navigation.navigate("ListaDados", {table: "clientes", clientName: nome})
                 }
+                navigation.goBack()
             } catch (error) {
                 console.log(error)
                 const status = error.response ? error.response.status : 500
@@ -183,7 +182,7 @@ export default function CadastroCliente({route}){
     
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.Nome}` : "Cadastro de Clientes", voltar: "ListaDados", table: "clientes" }]} />
+            <MenuRetornar title={ type === "update" ? `Editar ${previousData.Nome}` : "Cadastro de Clientes"} />
             <ScrollView style={styles.content}>
 
                 <Text style={styles.titleinput}>Nome</Text>

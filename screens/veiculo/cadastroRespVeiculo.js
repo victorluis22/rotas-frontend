@@ -36,13 +36,12 @@ export default function CadastroRespVeiculo({route}){
                 if (type === "update"){
                     await update("responsavelVeiculo", previousData.CodRV, data)
                     Alert.alert("Sucesso", "Responsável atualizado com sucesso!")
-                    navigation.navigate("ListaRespVeiculo", {table: "responsavelVeiculo", codVeic: codVeic})
                 }
                 else{
                     await create("responsavelVeiculo", data)
                     Alert.alert("Sucesso", "Responsável cadastrado com sucesso!")
-                    navigation.navigate("ListaRespVeiculo", {table: "responsavelVeiculo", codVeic: codVeic})
                 }
+                navigation.goBack()
             } catch (error) {
                 console.log(error)
                 const status = error.response ? error.response.status : 500
@@ -65,7 +64,7 @@ export default function CadastroRespVeiculo({route}){
     
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.Nome}` : "Cadastro de Responsável de Veículo", voltar: "ListaResponsavelVeiculo", table: "responsavelVeiculo", codVeic: codVeic}]} />
+            <MenuRetornar title={type === "update" ? `Editar ${previousData.Nome}` : "Cadastro de Responsável de Veículo"} />
             <ScrollView style={styles.content}>
 
                 <Text style={styles.titleinput}>Responsável</Text>

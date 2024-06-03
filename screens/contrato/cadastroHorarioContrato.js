@@ -36,13 +36,12 @@ export default function CadastroHorarioContrato({route}){
                 if (type === "update"){
                     await update("horarioContratoCliente", previousData.CodHC, data)
                     Alert.alert("Sucesso", "Horário atualizado com sucesso!")
-                    navigation.navigate("ListaHorarioContrato", {table: "horarioContratoCliente", codContrato: codContrato})
                 }
                 else{
                     await create("horarioContratoCliente", data)
                     Alert.alert("Sucesso", "Horário cadastrado com sucesso!")
-                    navigation.navigate("ListaHorarioContrato", {table: "horarioContratoCliente", codContrato: codContrato})
                 }
+                navigation.goBack()
             } catch (error) {
                 console.log(error)
                 const status = error.response ? error.response.status : 500
@@ -65,7 +64,7 @@ export default function CadastroHorarioContrato({route}){
     
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.DiaSemana}` : "Cadastro de Horário", voltar: "ListaHorarioContrato", table: "horarioContratoCliente", codContrato:codContrato}]} />
+            <MenuRetornar title={type === "update" ? `Editar ${previousData.DiaSemana}` : "Cadastro de Horário"} />
             <ScrollView style={styles.content}>
 
                 <Text style={styles.titleinput}>Horário</Text>
