@@ -14,7 +14,7 @@ export default function CadastroCliente({route}){
 
     const [nome, setNome] = useState(type === "update" ? previousData.Nome : "")
     const [logradouro, setLogradouro] = useState(type === "update" ? previousData.Logradouro : "")
-    const [numero, setNumero] = useState(type === "update" ? previousData.Numero.toString() : "")
+    const [numero, setNumero] = useState(type === "update" ? previousData.Numero ? previousData.Numero.toString() : "" : "")
     const [complemento, setComplemento] = useState(type === "update" ? previousData.Complemento : "")
     const [CEP, setCEP] = useState(type === "update" ? previousData.CEP : "")
     const [bairro, setBairro] = useState(type === "update" ? previousData.Bairro : "")
@@ -26,7 +26,7 @@ export default function CadastroCliente({route}){
     const navigation = useNavigation()
 
     const submit = async () => {
-        if(nome && logradouro && numero && bairro && cidade && uf && tempoColeta && pjpf){
+        if(nome && logradouro && bairro && cidade && uf && tempoColeta && pjpf){
             if (pjpf === "PF"){
                 const validCPF = validateCPF(cpfcnpj)
 
@@ -36,22 +36,22 @@ export default function CadastroCliente({route}){
                 }
             }
 
-            const validate = await validateAddress()
+            const validAddress = await validateAddress()
 
-            if(validate === true){
+            if(!validAddress){
                 Alert.alert("Existe algum campo de endereço preenchido que está inválido!", "Reefetue novamente o endereço, pois as rotas só podem ser geradas para endereços reconhecidos pelo Google Maps.")
                 return 
             }
 
             const data = {
                 nome: nome,
-                logradouro: logradouro,
-                numero: numero,
+                logradouro: validAddress.logradouro,
+                numero: numero ? parseInt(numero) : null,
                 complemento: complemento,
                 cep: CEP,
-                bairro: bairro,
-                cidade: cidade,
-                uf: uf,
+                bairro: validAddress.bairro,
+                cidade: validAddress.cidade,
+                uf: validAddress.uf,
                 tempoColeta: tempoColeta,
                 cpfcnpj: cpfcnpj,
                 pjpf: pjpf
@@ -176,14 +176,39 @@ export default function CadastroCliente({route}){
 
         const res = await axios.post(`https://addressvalidation.googleapis.com/v1:validateAddress?key=${process.env.EXPO_PUBLIC_ADDRESS_VALIDATION_API_KEY}`, {address});
 
-        const finalResponse = res.data.result.verdict;
+        const formatedAddress = res.data.result.address.postalAddress;
+        const addressComponents = res.data.result.address.addressComponents;
 
-        return finalResponse.hasUnconfirmedComponents
+        // Só vai permanecer como true se street_number for CONFIRMED ou UNCONFIRMED_BUT_PLAUSIBLE e se todos os outros componentes forem CONFIRMED
+        var isValid = true;
+        addressComponents.forEach((component) => {
+            if (component.componentType === "street_number"){
+                if (component.confirmationLevel === "UNCONFIRMED_AND_SUSPICIOUS" || component.confirmationLevel === "CONFIRMATION_LEVEL_UNSPECIFIED"){
+                    isValid = false;
+                }
+            }
+            else{
+                if (component.confirmationLevel !== "CONFIRMED"){
+                    isValid = false;
+                }
+            }
+        });
+
+        if (!isValid) {
+            return false
+        }
+        
+        return {
+            logradouro: formatedAddress.addressLines[0].split(",")[0],
+            cidade: formatedAddress.locality,
+            bairro: formatedAddress.sublocality,
+            uf: formatedAddress.administrativeArea
+        }
     }
     
     return (
         <View style={styles.container}>
-            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.Nome}` : "Cadastro de Clientes", voltar: "ListaDados", table: "clientes" }]} />
+            <MenuRetornar title={type === "update" ? `Editar ${previousData.Nome}` : "Cadastro de Clientes"} />
             <ScrollView style={styles.content}>
 
                 <Text style={styles.titleinput}>Nome</Text>
@@ -235,7 +260,7 @@ export default function CadastroCliente({route}){
                     style={styles.input}
                     onChangeText={setNumero}
                     value={numero}
-                    keyboardType='numeric'
+                    keyboardType="numeric"
                 />
 
                 <Text style={styles.titleinput}>Complemento (opcional)</Text>
