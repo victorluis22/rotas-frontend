@@ -61,12 +61,13 @@ export default function CadastroCliente({route}){
                 if (type === "update"){
                     await update("clientes", previousData.CodCliente, data)
                     Alert.alert("Sucesso", "Usuário atualizado com sucesso!")
+                    navigation.navigate("ListaDados", {table: "clientes", clientName: nome})
                 }
                 else{
                     await create("clientes", data)
                     Alert.alert("Sucesso", "Usuário cadastrado com sucesso!")
+                    navigation.navigate("ListaDados", {table: "clientes", clientName: nome})
                 }
-                navigation.goBack()
             } catch (error) {
                 console.log(error)
                 const status = error.response ? error.response.status : 500
@@ -104,17 +105,17 @@ export default function CadastroCliente({route}){
     const validateCPFCNPJ = (cpfcnpj) => {
         // Remover caracteres especiais e deixar apenas os números
         cpfcnpj = cpfcnpj.replace(/[^\d]/g, '');
-    
+
         // Verificar se o campo está vazio ou se é um CNPJ válido
         if (cpfcnpj === '') {
             return true;
         }
-    
+
         // Verificar se é um CPF válido
         return validateCPF(cpfcnpj);
     };
 
-    const validateCPF = ( cpf ) => {
+    const validateCPF = (cpf) => {
         // Remover caracteres especiais e deixar apenas os números
         cpf = cpf.replace(/[^\d]/g, '');
 
@@ -161,7 +162,7 @@ export default function CadastroCliente({route}){
 
         // CPF válido
         return true;
-    }
+    };
 
     const validateAddress = async () => {
         const cep = CEP.replace(/\D/g, '');
@@ -182,7 +183,7 @@ export default function CadastroCliente({route}){
     
     return (
         <View style={styles.container}>
-            <MenuRetornar title={ type === "update" ? `Editar ${previousData.Nome}` : "Cadastro de Clientes"} />
+            <MenuRetornar options={[{ title: type === "update" ? `Editar ${previousData.Nome}` : "Cadastro de Clientes", voltar: "ListaDados", table: "clientes" }]} />
             <ScrollView style={styles.content}>
 
                 <Text style={styles.titleinput}>Nome</Text>
@@ -256,10 +257,12 @@ export default function CadastroCliente({route}){
                 <TextInput
                     style={styles.input}
                     onChangeText={setCpfcnpj}
-                    onBlur={() => setCpfcnpj(validateCPFCNPJ(cpfcnpj))}
                     value={cpfcnpj}
-                    keyboardType='numeric'
-                    maxLength={20}
+                    onBlur={() => {
+                        if (!validateCPFCNPJ(cpfcnpj)) {
+                            Alert.alert("Erro", "CPF ou CNPJ inválido.");
+                        }
+                    }}
                 />
 
                 <Text style={styles.titleinput}>Pessoa Jurídica ou Física</Text>
