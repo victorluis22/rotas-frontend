@@ -105,17 +105,17 @@ export default function CadastroCliente({route}){
     const validateCPFCNPJ = (cpfcnpj) => {
         // Remover caracteres especiais e deixar apenas os números
         cpfcnpj = cpfcnpj.replace(/[^\d]/g, '');
-    
+
         // Verificar se o campo está vazio ou se é um CNPJ válido
         if (cpfcnpj === '') {
             return true;
         }
-    
+
         // Verificar se é um CPF válido
         return validateCPF(cpfcnpj);
     };
 
-    const validateCPF = ( cpf ) => {
+    const validateCPF = (cpf) => {
         // Remover caracteres especiais e deixar apenas os números
         cpf = cpf.replace(/[^\d]/g, '');
 
@@ -162,7 +162,7 @@ export default function CadastroCliente({route}){
 
         // CPF válido
         return true;
-    }
+    };
 
     const validateAddress = async () => {
         const cep = CEP.replace(/\D/g, '');
@@ -257,10 +257,12 @@ export default function CadastroCliente({route}){
                 <TextInput
                     style={styles.input}
                     onChangeText={setCpfcnpj}
-                    onBlur={() => setCpfcnpj(validateCPFCNPJ(cpfcnpj))}
                     value={cpfcnpj}
-                    keyboardType='numeric'
-                    maxLength={20}
+                    onBlur={() => {
+                        if (!validateCPFCNPJ(cpfcnpj)) {
+                            Alert.alert("Erro", "CPF ou CNPJ inválido.");
+                        }
+                    }}
                 />
 
                 <Text style={styles.titleinput}>Pessoa Jurídica ou Física</Text>
